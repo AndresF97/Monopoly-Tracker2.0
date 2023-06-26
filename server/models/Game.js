@@ -1,4 +1,4 @@
-const {Schemas, model} = require("mongoose");
+const {Schema, model} = require("mongoose");
 
 
 const gameSchema = new Schema({
@@ -14,8 +14,12 @@ const gameSchema = new Schema({
         deafult:0,
         min:0,
         max:8
-    }
+    },
     // must set up game assication through here
+    savedPlayers:[{
+        type: Schema.Types.ObjectId,
+        ref:"Player"
+    }]
 })
 
 

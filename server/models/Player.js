@@ -20,8 +20,14 @@ const playerSchema = new Schema({
         type:String,
         require:true,
         default:"Go"
-    }
+    },
     // Associates to PlayerProperties, Must check on that
+    playerPropreties:[
+        {
+            type:Schema.Types.ObjectId,
+            ref:"PlayerPropertyGame"
+        }
+    ]
 })
 
 const Player = model("Player",playerSchema);

@@ -11,8 +11,12 @@ const playerPropertySchema = new Schema({
     Hotel:{
         type:Boolean,
         default:0
-    }
-    // Associates to player properties 
+    },
+    // Associates to player properties
+    properties:[{
+        type:Schema.Types.ObjectId,
+        ref:"Property"
+    }]
 })
 
 const PlayerPropertySchema = model("PlayerPropertySchema",playerPropertySchema);
