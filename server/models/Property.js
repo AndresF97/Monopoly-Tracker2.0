@@ -13,4 +13,4 @@ const propertySchema = new Schema({
 
 const Property = model("Property",propertySchema)
 
-model.exports = Property;
+module.exports = Property;
