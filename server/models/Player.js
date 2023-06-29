@@ -7,6 +7,7 @@ const playerSchema = new Schema({
         require:true,
         min:2
     },
+    // Game Tokens
     token:{
         type:String,
         require:true
