@@ -35,10 +35,11 @@ const typeDefs = gql`
         hex:String!
     }
     type Query{
-
+        allProperties: [Property]
     }
     type Mutation{
-        
+        createGame(name:String, numPlayer:Strign!): Game
+        createPlayer(name:String!, token:String!, money:Int!, position:String!):Player
     }
 
 
