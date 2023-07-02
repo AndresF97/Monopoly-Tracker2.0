@@ -19,7 +19,7 @@ const playerPropertySchema = new Schema({
     }]
 })
 
-const PlayerPropertySchema = model("PlayerPropertySchema",playerPropertySchema);
+const PlayerProperty = model("PlayerPropertySchema",playerPropertySchema);
 
 
-module.exports = PlayerPropertySchema;
+module.exports = PlayerProperty;
