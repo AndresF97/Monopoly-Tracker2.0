@@ -18,6 +18,10 @@ const userSchema = new Schema({
         requier:true
     },
     // Might need to require Game here
+    gameMaster:[{
+        type:Schema.Types.ObjectId,
+        ref: "Game"
+    }]
 },{
     toJSON:{
         virtuals:true
