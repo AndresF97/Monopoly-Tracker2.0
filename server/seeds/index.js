@@ -22,8 +22,6 @@ db.once("open",async()=>{
     const propertySeeder = await Property.insertMany(propertyData);
     console.log('////    ----- PLAYER PROPERTY TABLE -----   ////\n')
     let newPlayers = []
-    
-    console.log("------------- ///////////// ---------------\n")
     // Now we create Player with porperties
     // This works but might need to work in future developemnt that way there are no duplicates in the array
     // NOTE: COULD CREATE A VAR TO MANIPULATE THE DATA TO EREASE AS WE DELETE
@@ -36,12 +34,10 @@ db.once("open",async()=>{
         })
        )
     }
-  
+        
+    console.log("------------- ///////////// ---------------\n")
 
-    // Outdate seeds work normally now must create connection
-    // const gameSeeder = await Game.insertMany(gameData);
-    // console.log(gameSeeder)
-    // console.log('////    ----- GAMER SEEDS TABLE -----   ////\n')
+    console.log('////    ----- GAMER SEEDS AND PLAYER SEEDS CONNECT TABLE -----   ////\n')
     for(var i = 0; i < gameData.length;i++){
         // maybe we create an array of random play
         const randomPlayerId = newPlayers.map((player,i)=>{
@@ -57,25 +53,9 @@ db.once("open",async()=>{
 
 
     }
-    // Here We wil create the association between players and the game the are associted with
-    // Should propably loop through game info and add a set of players
-    // console.log("------------- ///////////// ---------------\n")
-
-    // const playerSeeder = await Player.insertMany(playerData);
-    // console.log('////    ----- PLAYER SEEDS TABLE -----   ////\n')
-
-    // console.log(playerSeeder)
-
-    // console.log("------------- ///////////// ---------------\n")
-
-
-    // const userSeeder =await User.insertMany(userData)
-
-    // console.log('////    ----- USER SEEDS TABLE -----   ////\n')
-
-    // console.log(userSeeder)
-
-    // console.log("------------- ///////////// ---------------\n")
+    console.log('////    ----- USER SEEDS TABLE -----   ////\n')
+    const userSeeder =await User.insertMany(userData)
+    console.log("------------- ///////////// ---------------\n")
 
     }catch(err){
         console.error(err)
