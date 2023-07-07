@@ -1,0 +1,27 @@
+[
+    {
+        "username":"Takamura",
+        "email":"Tak@gmail.com",
+        "password":"password123"
+    },{
+        "username":"Ippo",
+        "email":"Ip@gmail.com",
+        "password":"password123"
+    },{
+        "username":"Kimura",
+        "email":"Ki@gmail.com",
+        "password":"password123"
+    },{
+        "username":"Aoki",
+        "email":"Ao@gmail.com",
+        "password":"password123"
+    },{
+        "username":"Itakagi",
+        "email":"Ita@gmail.com",
+        "password":"password123"
+    },{
+        "username":"Mashiba",
+        "email":"Ma@gmail.com",
+        "password":"password123"
+    }
+]

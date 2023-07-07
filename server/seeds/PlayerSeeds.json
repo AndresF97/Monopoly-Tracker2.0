@@ -1,0 +1,34 @@
+[
+    {
+        "name": "Yali",
+        "token": "Dog"
+    },
+    {
+        "name": "Angel",
+        "token": "Car"
+    },
+    {
+        "name": "William",
+        "token": "Boat"
+    },
+    {
+        "name": "Andres",
+        "token": "Cannon"
+    },
+    {
+        "name": "Michael",
+        "token": "T-Rex"
+    },
+    {
+        "name": "Kevin",
+        "token": "Car"
+    },
+    {
+        "name": "Rick",
+        "token": "Boat"
+    },
+    {
+        "name": "Morty",
+        "token": "Dog"
+    }
+]
