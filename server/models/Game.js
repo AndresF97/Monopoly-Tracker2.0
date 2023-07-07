@@ -15,7 +15,9 @@ const gameSchema = new Schema({
     }]
 })
 // will probably add a virtual to get he player count
-
+gameSchema.virtual("playerCount").get(function(){
+    return this.savedPlayers.length
+})
 
 const Game = model("Game",gameSchema)
 
