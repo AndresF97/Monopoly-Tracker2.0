@@ -8,19 +8,13 @@ const gameSchema = new Schema({
         minLength:1,
         maxLength:7
     },
-    numPlayer:{
-        type:String,
-        require:true,
-        deafult:0,
-        min:0,
-        max:8
-    },
     // must set up game assication through here
     savedPlayers:[{
         type: Schema.Types.ObjectId,
         ref:"Player"
     }]
 })
+// will probably add a virtual to get he player count
 
 
 const Game = model("Game",gameSchema)
