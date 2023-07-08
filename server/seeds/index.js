@@ -57,7 +57,7 @@ db.once("open",async()=>{
     console.log('////    ----- USER SEEDS TABLE -----   ////\n')
     for(var i = 0; i < userData.length;i++){
         const randomGamesId = newGames.map((player,i)=>{
-            if(i < 3){
+            if(i < 1){
                 return newGames[Math.floor(Math.random()*newGames.length)]._id
             }
         }).filter(notUndefined => notUndefined!==undefined)
