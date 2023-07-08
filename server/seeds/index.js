@@ -22,6 +22,7 @@ db.once("open",async()=>{
     const propertySeeder = await Property.insertMany(propertyData);
     console.log('////    ----- PLAYER PROPERTY TABLE -----   ////\n')
     let newPlayers = []
+    let newGames = []
     // Now we create Player with porperties
     // This works but might need to work in future developemnt that way there are no duplicates in the array
     // NOTE: COULD CREATE A VAR TO MANIPULATE THE DATA TO EREASE AS WE DELETE
@@ -46,15 +47,27 @@ db.once("open",async()=>{
             }
         }).filter(notUndefined => notUndefined!==undefined)
         // console.log(randomPlayerId)
-        await Game.create({
+        newGames.push(await Game.create({
             ...gameData,
             savedPlayers:randomPlayerId
         })
-
+        )
 
     }
     console.log('////    ----- USER SEEDS TABLE -----   ////\n')
-    const userSeeder =await User.insertMany(userData)
+    for(var i = 0; i < userData.length;i++){
+        const randomGamesId = newGames.map((player,i)=>{
+            if(i < 3){
+                return newGames[Math.floor(Math.random()*newGames.length)]._id
+            }
+        }).filter(notUndefined => notUndefined!==undefined)
+        await User.create({
+            username:userData[i].username,
+            email:userData[i].email,
+            password:userData[i].password,
+            gameMaster:randomGamesId
+        })
+    }
     console.log("------------- ///////////// ---------------\n")
 
     }catch(err){
