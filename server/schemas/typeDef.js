@@ -28,7 +28,7 @@ const typeDefs = gql`
     type PlayerProperty{
         numHouses:Int!
         Hotel:Boolean!
-        properties[Property]
+        properties:[Property]
     }
     type Property{
         name:String!
@@ -38,7 +38,7 @@ const typeDefs = gql`
         allProperties: [Property]
     }
     type Mutation{
-        createGame(name:String, numPlayer:Strign!): Game
+        createGame(name:String, numPlayer:String!): Game
         createPlayer(name:String!, token:String!, money:Int!, position:String!):Player
     }
 
