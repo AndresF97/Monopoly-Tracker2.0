@@ -18,6 +18,7 @@ const userSchema = new Schema({
         requier:true
     },
     // Might need to require Game here
+    // this comes later when user has sign they create a game
     gameMaster:[{
         type:Schema.Types.ObjectId,
         ref: "Game"
