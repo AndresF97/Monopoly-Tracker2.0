@@ -36,6 +36,10 @@ const typeDefs = gql`
     }
     type Query{
         allProperties: [Property]
+        allGames:[Game]
+        findOneGame: Game
+        FindOnePlayer: Player
+        me: User
     }
     type Mutation{
         createGame(name:String, numPlayer:String!): Game

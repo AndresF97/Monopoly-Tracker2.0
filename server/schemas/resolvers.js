@@ -18,9 +18,6 @@ const resolvers = {
         allGames:async ()=>{
             return Game.find().populate('savedPlayers')
         },
-        oneGame:async(parent,{gameId},context)=>{
-            return Game.findOne({_id:gameId}).populate('savedPlayers')
-        },
         // Need get me for JWT services
         me: async (parent,args,context)=>{
             if(context.user){
@@ -32,7 +29,7 @@ const resolvers = {
         // might create a query to get single player with all the properties
         findOneGame: async(parent, args,context)=>{
             if(context.user){
-                const game = await Player.findById(
+                const game = await Game.findById(
                     {_id:args.gameId}
                 ).populate("savedPlayers")
                 return game
