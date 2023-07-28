@@ -38,12 +38,19 @@ const typeDefs = gql`
         allProperties: [Property]
         allGames:[Game]
         findOneGame: Game
-        FindOnePlayer: Player
+        findOnePlayer: Player
         me: User
     }
     type Mutation{
-        createGame(name:String, numPlayer:String!): Game
+        addUser(username:String!, email:String!, password: String!):Auth
+        login(email:String!,password:String!) : Auth
+        createGame(name:String!, numPlayer:String!): Game
         createPlayer(name:String!, token:String!, money:Int!, position:String!):Player
+        addPropertyToPlayer(playerId:String!, propertyId:String!): Player
+        updatePlayerInfo(playerId:String!, name: String, token: String, money: Int, position: String): Player
+        deleteGame(gameId:String): User
+        removeOnePlayerFromGame(gameId:String!, playerId: String!): User
+        removePropertyFromPlayer(playerId: String!, propertyId:String!):User
     }
 
 

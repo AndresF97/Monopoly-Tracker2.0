@@ -12,13 +12,16 @@ const { sign } = require("jsonwebtoken");
 
 const resolvers = {
     Query:{
+        // Added to typeDefs
         allProperties:async ()=>{
             return Property.find()
         },
+        // Added to typeDefs
         allGames:async ()=>{
             return Game.find().populate('savedPlayers')
         },
         // Need get me for JWT services
+        // Added to typeDef
         me: async (parent,args,context)=>{
             if(context.user){
                 const userData = await User.findOne({_id:context.user._id}).select('-__v password').populate("gameMaster")
@@ -26,6 +29,7 @@ const resolvers = {
             }
             throw AuthenticationError("Not logged In!")
         },
+        // Added to typeDef
         // might create a query to get single player with all the properties
         findOneGame: async(parent, args,context)=>{
             if(context.user){
@@ -42,6 +46,7 @@ const resolvers = {
         // Get all Player related to Game
         // findOnePlayer
         // ---- //
+        // Added to typeDef
         findOnePlayer: async(parent, args,context)=>{
             if(context.user){
                 const player = await Player.findById({_id:args.playerId})
@@ -57,6 +62,7 @@ const resolvers = {
     },
 
     Mutation: {
+        // Added to typeDef
         addUser:async(parent,args)=>{
             // once user has been created they must create a new game
             const user = await User.create(args)
@@ -64,6 +70,7 @@ const resolvers = {
             return {user, token}
 
         },
+        // Added to typeDef
         login:async(parent, {email,password})=>{
             const user = await User.findOne({email});
             if(!user){
@@ -77,9 +84,12 @@ const resolvers = {
             return {token, user}
 
         },
+        // this might be wrong  
+        // Added to typeDef
         createGame:async(parent,{name,numPlayer})=>{
             return Game.create({name,numPlayer})
         },
+        // Added to typeDef
         createPlayer:async(parent,{name,token,money,position,GameId},context)=>{
             // This add a player to a new game
 
@@ -98,6 +108,7 @@ const resolvers = {
             throw new AuthenticationError("You're not logged in!")
         },
         // Find A player and gave the player that specifif property
+        // Added to typeDef
         addPropertyToPlayer: async (parent,{playerId,propertyId},context)=>{
             if(context.user){
                 // create playerPorperty
@@ -121,8 +132,8 @@ const resolvers = {
         // -- //
 
         // Update a Players Porperty, Money, Position
-
-        UpdatePlayerInfo: async (prarent,args,context)=>{
+        // typeDef
+        updatePlayerInfo: async (prarent,args,context)=>{
             if(context.user){
                 const foundPlayer = await Player.findByIdAndUpdate(
                     {_id:args.playerId},
@@ -135,7 +146,9 @@ const resolvers = {
             }
             throw new AuthenticationError("You're not logged in!")
         },
+        // Added to typeDef
         // Delete a Game
+        // need to pull assocition from other related table
         deleteGame: async (parent,{gameId},context)=>{
             if(context.user){
                 const game = await Game.findByIdAndRemove(
@@ -148,6 +161,7 @@ const resolvers = {
             }
             return new AuthenticationError("You're not logged in!")
         },
+        // Added to typeDef
         removeOnePlayerFromGame: async (parent,args,context)=>{
             if(context.user){
                 const removedGame = await Game.findByIdAndUpdate(
@@ -160,20 +174,23 @@ const resolvers = {
                 return ({Messsage:"Player succesfully removed"})
             }
             throw new AuthenticationError("You're not logged in!")
-        }
+        },
 
-
-        // -- //
-
-
-        // Delete a Player from a game
-
-
-
-        // -- //       
-        
+        // Added to typeDef
         // Delete a Player specif property
-
+        removePropertyFromPlayer: async(parent, args, context)=>{
+            if(context.user){
+                const removeProperty = await Player.findByIdAndUpdate(
+                    {_id:args.playerId},
+                    {$pull:{playerPropreties:args.propertyId}}
+                )
+                if(removeProperty){
+                    console.error("No property found with that Id!")
+                }
+                return({Message:"Player property successfully removed"})
+            }
+            throw new AuthenticationError("You're not logged in!")
+        }
 
 
         // -- //
