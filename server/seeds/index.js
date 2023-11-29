@@ -48,7 +48,7 @@ db.once("open",async()=>{
         }).filter(notUndefined => notUndefined!==undefined)
         // console.log(randomPlayerId)
         newGames.push(await Game.create({
-            ...gameData,
+            name:gameData[i].name,
             savedPlayers:randomPlayerId
         })
         )
@@ -69,7 +69,7 @@ db.once("open",async()=>{
         })
     }
     console.log("------------- ///////////// ---------------\n")
-
+    console.log("////    ----- ????PLAYER PROPERTY SEED SEEDS TABLE?? NEED TO MAKE SURE EVERY THING ELSE WORKS -----   ////\n")
     }catch(err){
         console.error(err)
     }

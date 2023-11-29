@@ -13,10 +13,12 @@ const { sign } = require("jsonwebtoken");
 const resolvers = {
     Query:{
         // Added to typeDefs
+        // THIS QUERY WORKS
         allProperties:async ()=>{
             return Property.find()
         },
         // Added to typeDefs
+        // THIS QUERY WORKS
         allGames:async ()=>{
             return Game.find().populate('savedPlayers')
         },
@@ -31,10 +33,11 @@ const resolvers = {
         },
         // Added to typeDef
         // might create a query to get single player with all the properties
-        findOneGame: async(parent, args,context)=>{
+        // THIS QUERY WORKS
+        findOneGame: async(parent, {gameId},context)=>{
             if(context.user){
                 const game = await Game.findById(
-                    {_id:args.gameId}
+                    {_id:gameId}
                 ).populate("savedPlayers")
                 return game
             }

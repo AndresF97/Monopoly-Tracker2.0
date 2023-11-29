@@ -14,8 +14,8 @@ const typeDefs = gql`
     }
 
     type Game {
+        _id:ID!
         name:String!
-        numPlayer:Int!
         savedPlayers:[Player]
     }
     type Player{
@@ -37,7 +37,7 @@ const typeDefs = gql`
     type Query{
         allProperties: [Property]
         allGames:[Game]
-        findOneGame: Game
+        findOneGame(gameId:ID!): Game
         findOnePlayer: Player
         me: User
     }
