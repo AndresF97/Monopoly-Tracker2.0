@@ -29,7 +29,7 @@ const resolvers = {
                 const userData = await User.findOne({_id:context.user._id}).select('-__v password').populate("gameMaster")
                 return userData
             }
-            throw AuthenticationError("Not logged In!")
+            throw new AuthenticationError("Not logged In!")
         },
         // Added to typeDef
         // might create a query to get single player with all the properties
@@ -50,15 +50,17 @@ const resolvers = {
         // findOnePlayer
         // ---- //
         // Added to typeDef
-        findOnePlayer: async(parent, args,context)=>{
-            if(context.user){
-                const player = await Player.findById({_id:args.playerId})
+        findOnePlayer: async(parent, {playerId},context)=>{
+            // if(context.user){
+                console.log(playerId)
+                const player = await Player.findById({_id:playerId})
+                console.log(player)
                 if(!player){
                     console.error("no player found with that id")
                 }
                 return player
-            }
-            throw AuthenticationError("Please Log in")
+            // }
+            // throw new AuthenticationError("Please Log in")
         }
 
 
