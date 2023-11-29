@@ -14,11 +14,12 @@ const typeDefs = gql`
     }
 
     type Game {
+        _id:ID!
         name:String!
-        numPlayer:Int!
         savedPlayers:[Player]
     }
     type Player{
+        _id: ID!
         name: String!
         token:String!
         money:Int!
@@ -37,8 +38,8 @@ const typeDefs = gql`
     type Query{
         allProperties: [Property]
         allGames:[Game]
-        findOneGame: Game
-        findOnePlayer: Player
+        findOneGame(gameId:ID!): Game
+        findOnePlayer(playerId:ID!): Player
         me: User
     }
     type Mutation{
