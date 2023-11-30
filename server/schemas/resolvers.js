@@ -96,6 +96,7 @@ const resolvers = {
 
         // Added to typeDef
         // This works but is no exact it can be better i want to return gameBelongsToUser and not new Game
+        
         createGame:async(parent,args)=>{
             console.log(args)
             const newGame = await Game.create(args)
