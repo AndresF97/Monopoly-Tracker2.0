@@ -50,6 +50,8 @@ const resolvers = {
         // findOnePlayer
         // ---- //
         // Added to typeDef
+        // THIS ONE WORKS 
+        // NOTE: Only players with inque ids
         findOnePlayer: async(parent, {playerId},context)=>{
             // if(context.user){
                 console.log(playerId)
