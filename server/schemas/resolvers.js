@@ -70,6 +70,7 @@ const resolvers = {
 
     Mutation: {
         // Added to typeDef
+        // The add User Mutation works
         addUser:async(parent,args)=>{
             // once user has been created they must create a new game
             const user = await User.create(args)
@@ -78,6 +79,7 @@ const resolvers = {
 
         },
         // Added to typeDef
+        // The login mutation works
         login:async(parent, {email,password})=>{
             const user = await User.findOne({email});
             if(!user){
