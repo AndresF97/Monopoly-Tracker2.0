@@ -103,8 +103,8 @@ const resolvers = {
             console.log(newGame)
             const gameBelongsToUser = await User.findOneAndUpdate(
                 {_id:args.userId},
-                {gameMaster:newGame._id}
-            )
+                {$addToSet:{gameMaster:newGame._id}}
+            ).populate("gameMaster")
             return newGame
         },
         // Added to typeDef
