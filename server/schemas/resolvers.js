@@ -96,7 +96,7 @@ const resolvers = {
 
         // Added to typeDef
         // This works but is no exact it can be better i want to return gameBelongsToUser and not new Game
-        
+
         createGame:async(parent,args)=>{
             console.log(args)
             const newGame = await Game.create(args)
@@ -108,22 +108,23 @@ const resolvers = {
             return newGame
         },
         // Added to typeDef
-        createPlayer:async(parent,{name,token,money,position,GameId},context)=>{
+        createPlayer:async(parent,args,context)=>{
             // This add a player to a new game
 
-             if(context.user){
-                const newPlayer = await Player.create({name,token,money,position})
+            //  if(context.user){
+                console.log(args)
+                const newPlayer = await Player.create(args)
                 if(!newPlayer){
                     console.error('new player could not be added')
                 }
                 const newPlayerToGame = await Game.findByIdAndUpdate(
-                    {_id:GameId},
+                    {_id:args.gameId},
                     {$addToSet:{savedPlayers:newPlayer._id}}
                     
-                )
+                ).populate('savedPlayers')
                 return newPlayerToGame
-            }
-            throw new AuthenticationError("You're not logged in!")
+            // }
+            // throw new AuthenticationError("You're not logged in!")
         },
         // Find A player and gave the player that specifif property
         // Added to typeDef
