@@ -93,10 +93,18 @@ const resolvers = {
             return {token, user}
 
         },
-        // this might be wrong  
+
         // Added to typeDef
-        createGame:async(parent,{name,numPlayer})=>{
-            return Game.create({name,numPlayer})
+        // This works but is no exact it can be better i want to return gameBelongsToUser and not new Game
+        createGame:async(parent,args)=>{
+            console.log(args)
+            const newGame = await Game.create(args)
+            console.log(newGame)
+            const gameBelongsToUser = await User.findOneAndUpdate(
+                {_id:args.userId},
+                {gameMaster:newGame._id}
+            )
+            return newGame
         },
         // Added to typeDef
         createPlayer:async(parent,{name,token,money,position,GameId},context)=>{
