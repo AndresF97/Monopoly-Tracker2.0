@@ -24,14 +24,16 @@ const typeDefs = gql`
         token:String!
         money:Int!
         position:String
-        PlayerProperty:[PlayerProperty]
+        playerPropreties:[PlayerProperty]
     }
     type PlayerProperty{
+        _id:ID!
         numHouses:Int!
         Hotel:Boolean!
         properties:[Property]
     }
     type Property{
+        _id: ID!
         name:String!
         hex:String!
     }

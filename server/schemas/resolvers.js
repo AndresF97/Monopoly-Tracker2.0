@@ -108,6 +108,7 @@ const resolvers = {
             return newGame
         },
         // Added to typeDef
+        // This works
         createPlayer:async(parent,args,context)=>{
             // This add a player to a new game
 
@@ -128,23 +129,33 @@ const resolvers = {
         },
         // Find A player and gave the player that specifif property
         // Added to typeDef
+        // This works
         addPropertyToPlayer: async (parent,{playerId,propertyId},context)=>{
             if(context.user){
+
                 // create playerPorperty
                 const newplayerProperty = await PlayerProperty.create(
-                    {$addToSet:{properties:propertyId}}
+                    {properties:propertyId}
                 )
                 if(!newplayerProperty){
                     console.error('could not create new playerproperty')
                 }
+                console.log(newplayerProperty)
                 // add playerPrperty to Player
                 const PlayerToProperty = await Player.findByIdAndUpdate(
                     {_id:playerId},
-                    {$addToSet:{playerPropreties:newplayerProperty._id}}
-                ).populate('playerPropreties').populate('properties')
+                    {$addToSet:{playerPropreties:newplayerProperty._id}},
+                    {new:true}
+                ).populate({
+                    path:'playerPropreties',
+                    populate:[{
+                        path:'properties'
+                    }]
+                
+                })
                 return PlayerToProperty
             }
-            throw new AuthenticationError("You're not logged in")
+            // throw new AuthenticationError("You're not logged in")
         },
         
 

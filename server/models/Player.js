@@ -26,7 +26,7 @@ const playerSchema = new Schema({
     playerPropreties:[
         {
             type:Schema.Types.ObjectId,
-            ref:"PlayerPropertyGame"
+            ref:"PlayerProperty"
         }
     ]
 })
