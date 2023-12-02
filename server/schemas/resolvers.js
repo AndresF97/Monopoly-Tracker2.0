@@ -155,7 +155,7 @@ const resolvers = {
                 })
                 return PlayerToProperty
             }
-            // throw new AuthenticationError("You're not logged in")
+            throw new AuthenticationError("You're not logged in")
         },
         
 
@@ -163,15 +163,14 @@ const resolvers = {
 
         // Update a Players Porperty, Money, Position
         // typeDef
+        // This works but might give late info, have to click the button twice
         updatePlayerInfo: async (prarent,args,context)=>{
+
             if(context.user){
                 const foundPlayer = await Player.findByIdAndUpdate(
                     {_id:args.playerId},
-                    {name:args.name},
-                    {token:args.token},
-                    {money:args.money},
-                    {position:args.position}
-                ).populate('playerProperties')
+                    {$set:args}
+                ).populate('playerPropreties')
                 return foundPlayer
             }
             throw new AuthenticationError("You're not logged in!")
