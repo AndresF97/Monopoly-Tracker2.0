@@ -24,14 +24,16 @@ const typeDefs = gql`
         token:String!
         money:Int!
         position:String
-        PlayerProperty:[PlayerProperty]
+        playerPropreties:[PlayerProperty]
     }
     type PlayerProperty{
+        _id:ID!
         numHouses:Int!
         Hotel:Boolean!
         properties:[Property]
     }
     type Property{
+        _id: ID!
         name:String!
         hex:String!
     }
@@ -45,12 +47,12 @@ const typeDefs = gql`
     type Mutation{
         addUser(username:String!, email:String!, password: String!):Auth
         login(email:String!,password:String!) : Auth
-        createGame(name:String!, numPlayer:String!): Game
-        createPlayer(name:String!, token:String!, money:Int!, position:String!):Player
+        createGame(name:String!, numPlayer:String!,userId:ID!): Game
+        createPlayer(name:String!, token:String!, money:Int!, position:String!,gameId:ID!):Game
         addPropertyToPlayer(playerId:String!, propertyId:String!): Player
         updatePlayerInfo(playerId:String!, name: String, token: String, money: Int, position: String): Player
         deleteGame(gameId:String): User
-        removeOnePlayerFromGame(gameId:String!, playerId: String!): User
+        removeOnePlayerFromGame(gameId:String!, playerId: ID!): User
         removePropertyFromPlayer(playerId: String!, propertyId:String!):User
     }
 

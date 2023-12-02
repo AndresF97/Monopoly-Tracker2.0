@@ -70,6 +70,7 @@ const resolvers = {
 
     Mutation: {
         // Added to typeDef
+        // The add User Mutation works
         addUser:async(parent,args)=>{
             // once user has been created they must create a new game
             const user = await User.create(args)
@@ -78,6 +79,7 @@ const resolvers = {
 
         },
         // Added to typeDef
+        // The login mutation works
         login:async(parent, {email,password})=>{
             const user = await User.findOne({email});
             if(!user){
@@ -91,48 +93,69 @@ const resolvers = {
             return {token, user}
 
         },
-        // this might be wrong  
+
         // Added to typeDef
-        createGame:async(parent,{name,numPlayer})=>{
-            return Game.create({name,numPlayer})
+        // This works but is no exact it can be better i want to return gameBelongsToUser and not new Game
+
+        createGame:async(parent,args)=>{
+            console.log(args)
+            const newGame = await Game.create(args)
+            console.log(newGame)
+            const gameBelongsToUser = await User.findOneAndUpdate(
+                {_id:args.userId},
+                {$addToSet:{gameMaster:newGame._id}}
+            ).populate("gameMaster")
+            return newGame
         },
         // Added to typeDef
-        createPlayer:async(parent,{name,token,money,position,GameId},context)=>{
+        // This works
+        createPlayer:async(parent,args,context)=>{
             // This add a player to a new game
 
-             if(context.user){
-                const newPlayer = await Player.create({name,token,money,position})
+            //  if(context.user){
+                console.log(args)
+                const newPlayer = await Player.create(args)
                 if(!newPlayer){
                     console.error('new player could not be added')
                 }
                 const newPlayerToGame = await Game.findByIdAndUpdate(
-                    {_id:GameId},
+                    {_id:args.gameId},
                     {$addToSet:{savedPlayers:newPlayer._id}}
                     
-                )
+                ).populate('savedPlayers')
                 return newPlayerToGame
-            }
-            throw new AuthenticationError("You're not logged in!")
+            // }
+            // throw new AuthenticationError("You're not logged in!")
         },
         // Find A player and gave the player that specifif property
         // Added to typeDef
+        // This works
         addPropertyToPlayer: async (parent,{playerId,propertyId},context)=>{
             if(context.user){
+
                 // create playerPorperty
                 const newplayerProperty = await PlayerProperty.create(
-                    {$addToSet:{properties:propertyId}}
+                    {properties:propertyId}
                 )
                 if(!newplayerProperty){
                     console.error('could not create new playerproperty')
                 }
+                console.log(newplayerProperty)
                 // add playerPrperty to Player
                 const PlayerToProperty = await Player.findByIdAndUpdate(
                     {_id:playerId},
-                    {$addToSet:{playerPropreties:newplayerProperty._id}}
-                ).populate('playerPropreties').populate('properties')
+                    {$addToSet:{playerPropreties:newplayerProperty._id}},
+                    {new:true}
+                ).populate({
+                    path:'playerPropreties',
+                    populate:[{
+                        path:'properties'
+                    }]
+                
+                })
                 return PlayerToProperty
             }
-            throw new AuthenticationError("You're not logged in")
+            // throw new AuthenticationError("You're not logged in")
         },
         
 
