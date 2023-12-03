@@ -177,18 +177,23 @@ const resolvers = {
         },
         // Added to typeDef
         // Delete a Game
-        // need to pull assocition from other related table
+        // this function works
         deleteGame: async (parent,{gameId},context)=>{
-            if(context.user){
+            // if(context.user){
                 const game = await Game.findByIdAndRemove(
                     {_id:gameId}
                     )
                 if(!game){
                     console.error("Game not found")
                 }
-                return ({Message:"Game was deleted"})
-            }
-            return new AuthenticationError("You're not logged in!")
+                const userData = await User.findOneAndUpdate(
+                    {gameMaster:gameId},
+                    {$pull:{gameMaster:gameId}},
+                    {new:true}
+                ).populate('gameMaster')
+                return userData
+            // }
+            // return new AuthenticationError("You're not logged in!")
         },
         // Added to typeDef
         removeOnePlayerFromGame: async (parent,args,context)=>{
