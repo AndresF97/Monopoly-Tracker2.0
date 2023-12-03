@@ -26,7 +26,8 @@ const resolvers = {
         // Added to typeDef
         me: async (parent,args,context)=>{
             if(context.user){
-                const userData = await User.findOne({_id:context.user._id}).select('-__v password').populate("gameMaster")
+                const userData = await User.findOne({_id:context.user._id}).select('username email').populate("gameMaster")
+                console.log(userData)
                 return userData
             }
             throw new AuthenticationError("Not logged In!")
@@ -43,9 +44,6 @@ const resolvers = {
             }
             throw new AuthenticationError("You're not logged in")
         },
-
-        // ---- //
-
         // Get all Player related to Game
         // findOnePlayer
         // ---- //
@@ -53,7 +51,7 @@ const resolvers = {
         // THIS ONE WORKS 
         // NOTE: Only players with inque ids
         findOnePlayer: async(parent, {playerId},context)=>{
-            // if(context.user){
+            if(context.user){
                 console.log(playerId)
                 const player = await Player.findById({_id:playerId})
                 console.log(player)
@@ -61,8 +59,8 @@ const resolvers = {
                     console.error("no player found with that id")
                 }
                 return player
-            // }
-            // throw new AuthenticationError("Please Log in")
+            }
+            throw new AuthenticationError("Please Log in")
         }
 
 
