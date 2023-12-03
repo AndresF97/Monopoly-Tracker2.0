@@ -51,9 +51,9 @@ const typeDefs = gql`
         createPlayer(name:String!, token:String!, money:Int!, position:String!,gameId:ID!):Game
         addPropertyToPlayer(playerId:String!, propertyId:String!): Player
         updatePlayerInfo(playerId:String!, name: String, token: String, money: Int, position: String): Player
-        deleteGame(gameId:String): User
-        removeOnePlayerFromGame(gameId:String!, playerId: ID!): User
-        removePropertyFromPlayer(playerId: String!, propertyId:String!):User
+        deleteGame(gameId:ID!): User
+        removeOnePlayerFromGame(gameId:ID!, playerId: ID!): Game
+        removePropertyFromPlayer(playerId: ID!, propertyId:ID!):Player
     }
 
 
