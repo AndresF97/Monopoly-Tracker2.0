@@ -179,7 +179,7 @@ const resolvers = {
         // Delete a Game
         // this function works
         deleteGame: async (parent,{gameId},context)=>{
-            // if(context.user){
+            if(context.user){
                 const game = await Game.findByIdAndRemove(
                     {_id:gameId}
                     )
@@ -192,36 +192,44 @@ const resolvers = {
                     {new:true}
                 ).populate('gameMaster')
                 return userData
-            // }
-            // return new AuthenticationError("You're not logged in!")
+            }
+            return new AuthenticationError("You're not logged in!")
         },
         // Added to typeDef
-        removeOnePlayerFromGame: async (parent,args,context)=>{
+        // This Wors
+        removeOnePlayerFromGame: async (parent,{playerId, gameId},context)=>{
             if(context.user){
-                const removedGame = await Game.findByIdAndUpdate(
-                    {_id:args.gameId},
-                    {$pull:{savedPlayers:args.playedId}}
+                const removePlayer = await Player.findByIdAndRemove(
+                    {_id:playerId},
                 )
-                if(!removedGame){
+                if(!removePlayer){
+                    console.error("NO player with that Id!")
+                }
+                const removedPlayerFromGame = await Game.findByIdAndUpdate(
+                    {_id:gameId},
+                    {$pull:{savedPlayers:playerId}}
+                ).populate('savedPlayers')
+                if(!removedPlayerFromGame){
                     console.error("No game found with this Id")
                 }
-                return ({Messsage:"Player succesfully removed"})
+                return removedPlayerFromGame
             }
             throw new AuthenticationError("You're not logged in!")
         },
 
         // Added to typeDef
         // Delete a Player specif property
-        removePropertyFromPlayer: async(parent, args, context)=>{
+        // This Works
+        removePropertyFromPlayer: async(parent, {playerId, propertyId}, context)=>{
             if(context.user){
-                const removeProperty = await Player.findByIdAndUpdate(
-                    {_id:args.playerId},
-                    {$pull:{playerPropreties:args.propertyId}}
-                )
-                if(removeProperty){
+                const removePropertyFromPlayer = await Player.findByIdAndUpdate(
+                    {_id:playerId},
+                    {$pull:{playerPropreties:propertyId}}
+                ).populate('playerPropreties')
+                if(!removePropertyFromPlayer){
                     console.error("No property found with that Id!")
                 }
-                return({Message:"Player property successfully removed"})
+                return removePropertyFromPlayer
             }
             throw new AuthenticationError("You're not logged in!")
         }
