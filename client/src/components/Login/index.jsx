@@ -1,6 +1,7 @@
 const Login = () =>{
     return (
         <>
+        <h2>Login</h2>
             <form>
                 <label>username</label>
                 <input type="text"></input>
@@ -13,3 +14,5 @@ const Login = () =>{
         </>
     )
 }
+
+export default Login;
