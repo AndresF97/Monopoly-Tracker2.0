@@ -112,7 +112,6 @@ mutation RemoveOnePlayerFromGame($gameId: ID!, $playerId: ID!) {
       }
     }
   }
-  }
 `;
 
 export const REMOVE_PROPERTY_FROM_PLAYER = gql`
