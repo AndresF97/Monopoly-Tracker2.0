@@ -8,16 +8,16 @@ const Login = () =>{
     const [login, {error}] = useMutation(LOGIN)
     const handleInputChange = (event) =>{
         const {name, value} = event.target;
-        console.log(value)
         userFormState({...userForm, [name]:value});
     }
     const handleFormSubmit = async(event)=>{
         event.preventDefault()
+        console.log(userForm)
     }
     return (
         <>
         <h2>Login</h2>
-            <form>
+            <form onSubmit={handleFormSubmit}>
                 <label>username</label>
                 <input 
                 type="text"
@@ -36,7 +36,7 @@ const Login = () =>{
                 placeholder="password"
                 ></input>
                 <div>
-                    <button>Login</button>
+                    <button type="submit">Login</button>
                 </div>
             </form>
         </>
