@@ -1,18 +1,15 @@
-import Login from "../components/Login"
-import Signup from "../components/SignUp"
+import UserForms from "../components/UserFormSwitcher"
 import { useState } from "react"
 
 const HomePage = ()=>{
     const [createGame, createGameState] = useState(false)
-    const LogNSignSwicthBtn = () =>{}
-
     return (
         <>
         <h1>Home Page!</h1>
         { createGame ? (
             <>
-            <Login/>
-            <Signup/>
+            <UserForms/>
+            <button onClick={()=> createGameState(false)}>Go Back!</button>
             </>
         ):(
             <button onClick={()=> createGameState(true)}>Create Game!</button>
