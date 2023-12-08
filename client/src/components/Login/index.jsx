@@ -7,7 +7,7 @@ const Login = () =>{
     const [userForm, userFormState] = useState({email:'',password:''})
     const [login, {error}] = useMutation(LOGIN)
     const handleInputChange = (event) =>{
-        const {name, value} = event;
+        const {name, value} = event.target;
         console.log(value)
         userFormState({...userForm, [name]:value});
     }
@@ -26,6 +26,7 @@ const Login = () =>{
                 onChange={handleInputChange}
                 value={userForm.email}
                 ></input>
+                <br></br>
                 <label>password</label>
                 <input 
                 type="password"
