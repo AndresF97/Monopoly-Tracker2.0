@@ -17,8 +17,6 @@ const HomePage = ()=>{
         )
 
         }
-
-        {/* create swicth case to make sure login or sign up are render depending what the user want to do */}
         </>
     )
 }
