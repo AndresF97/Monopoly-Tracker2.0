@@ -8,10 +8,14 @@ const Signup = () => {
         const {name, value} = event.target;
         userFormState({...userForm, [name]:value})
     }
+    const handleFormSubmit = async(event)=>{
+        event.preventDefault()
+        console.log(userForm)
+    }
     return (
         <>
         <h2>Sign Up</h2>
-            <form>
+            <form onSubmit={handleFormSubmit}>
                 <label>email</label>
                 <input 
                 type="text"
@@ -39,7 +43,7 @@ const Signup = () => {
                 onChange={handleInputChange}
                 ></input>
                 <div>
-                    <button>Sing up</button>
+                    <button type="submit">Sing up</button>
                 </div>
             </form>
         </>
