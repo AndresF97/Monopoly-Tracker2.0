@@ -14,6 +14,15 @@ const Login = () =>{
     const handleFormSubmit = async(event)=>{
         event.preventDefault()
         console.log(userForm)
+        try{
+            const {data} = await login({
+                variables:{...userForm}
+            })
+            console.log(data)
+            Auth.logIn(data.login.token)
+        }catch(error){
+            console.error(error)
+        }
     }
     return (
         <>
