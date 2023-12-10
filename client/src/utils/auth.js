@@ -22,11 +22,11 @@ class AuthService {
         return localStorage.getItem('id_token')
     }
     logIn(idToken){
-        localStorage.setItem('id_item', idToken);
+        localStorage.setItem('id_token', idToken);
         window.location.assign('/')
     }
     logOut(){
-        localStorage.removeItem('id_item');
+        localStorage.removeItem('id_token');
         window.location.assign('/')
     }
 };
