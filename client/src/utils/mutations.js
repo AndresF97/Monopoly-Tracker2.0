@@ -28,8 +28,8 @@ mutation Login($email: String!, $password: String!) {
 `;
 
 export const CREATE_GAME = gql`
-mutation CreateGame($name: String!, $numPlayer: String!, $userId: ID!) {
-    createGame(name: $name, numPlayer: $numPlayer, userId: $userId) {
+mutation CreateGame($name: String!) {
+    createGame(name: $name) {
       _id
       name
     }

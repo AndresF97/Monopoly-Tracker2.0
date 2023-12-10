@@ -4,6 +4,7 @@ import { useMutation } from "@apollo/client"
 
 const GameForm = () =>{
     const [name, nameState] = useState('')
+    const [createGame, createGameSet] = useMutation(CREATE_GAME)
     const handleInputChange = (event) =>{
         const {value} = event.target;
         nameState(value)
@@ -12,7 +13,14 @@ const GameForm = () =>{
         event.preventDefault();
         try{
             console.log(name)
+            const {data} = await createGame({
+                variables:{
+                    name: name
+                }
+            })
+            console.log(data)
         }catch(err){
+            // Must create alert for issues
             console.error(err)
         }
     }
