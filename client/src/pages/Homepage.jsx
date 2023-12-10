@@ -1,6 +1,8 @@
 import UserForms from "../components/UserFormSwitcher"
+import GameForm from "../components/GameForm"
 import { useState } from "react"
 import Auth from "../utils/auth"
+
 
 const HomePage = () => {
     console.log(Auth.loggedIn())
@@ -11,6 +13,7 @@ const HomePage = () => {
             {Auth.loggedIn() ? (
                 <>
                     <h1>You're logged in!</h1>
+                    <GameForm/>
                 </>
             ) : (
                 <>
