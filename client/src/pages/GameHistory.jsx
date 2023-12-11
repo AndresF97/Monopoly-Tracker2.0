@@ -41,7 +41,7 @@ const GameHistory = () => {
             <section>
              {/* create swicth case to check for if user wants to change part of the page to a diffrent component.
              past props of the game id and the state for the page to that commponent */}
-            <PlayerForm/>
+            <PlayerForm swicthPage={swicthPage} swicthPageState={swicthPageState} currentGameId={currentGameId}/>
             </section>
         )}
 
