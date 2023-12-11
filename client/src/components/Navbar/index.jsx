@@ -9,6 +9,7 @@ const Navbar = () =>{
                     {Auth.loggedIn() ? (
                         <>
                         <li><Link to="/History">History</Link></li>
+                        {/* Log out functionality */}
                         </>
                     ):(
                         <>
