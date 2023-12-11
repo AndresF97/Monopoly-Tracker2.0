@@ -31,7 +31,8 @@ function App() {
       <Navbar/>
     <Routes>
       <Route path="/" element={<Homepage/>}/>
-      <Route path="History" element={<GameHistory/>}/>
+      <Route path="/History" element={<GameHistory/>}/>
+      {/* must work on rendering all games for a specific user */}
     </Routes>
     <Footer/>
     </>

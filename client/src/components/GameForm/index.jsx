@@ -19,6 +19,9 @@ const GameForm = () =>{
                 }
             })
             console.log(data)
+            if(data){
+                window.location.assign('/History')
+            }
         }catch(err){
             // Must create alert for issues
             console.error(err)
