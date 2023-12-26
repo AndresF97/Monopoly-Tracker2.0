@@ -1,9 +1,7 @@
-const PlayerForm =  ({swicthPage, swicthPageState, currentGameId})=>{
-    console.log(swicthPage)
-    console.log(swicthPageState)
+const PlayerForm =  ({currentGameId})=>{
     console.log(currentGameId)
     return (
-        <h1>Player Form</h1>
+        <h3>Player Form</h3 >
 
     )
 }
