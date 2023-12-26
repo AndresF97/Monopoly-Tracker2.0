@@ -1,5 +1,5 @@
 import { ME } from "../utils/queries"
-import { useState } from "react"
+import { useState, Fragment } from "react"
 import { useQuery } from "@apollo/client"
 import PlayerForm from "../components/PlayerForm"
 const GameHistory = () => {
@@ -10,16 +10,18 @@ const GameHistory = () => {
     const gameList = data?.me?.gameMaster || []
     const [currentGameId, setcurrentGameIdState] = useState('')
     const [currentGameName, setCurrentGameName] = useState('')
-    let [createPlayeForm,setCreatePlayerForm] = useState([]) 
+    let [createPlayeForm,setCreatePlayerForm] = useState([])
 
-    const swicthToPlayerForm = (event)=>{
-        // console.log(createPlayeForm[0])
-        // if(createPlayeForm.length > 5){
-        //     alert("Thats to many player forms")
-        //     return
-        // }createPlayeForm.push(<PlayerForm key={currentGameId} currentGameId={currentGameId}/>)
-        // setCreatePlayerForm(createPlayeForm)
-    }
+
+    const onAddBtnClick = event => {
+        console.log('hello')
+        if(createPlayeForm.length > 4){
+            alert("Thats to many player forms")
+            return
+        }
+        setCreatePlayerForm(createPlayeForm.concat(<PlayerForm key={Math.floor(Math.random()* 100)}></PlayerForm>));
+    };
+
     const stateCurrentGameInfo = (event)=>{
         let gameName = event.target.textContent
         let gameId = event.target.getAttribute('data-id')
@@ -54,7 +56,11 @@ const GameHistory = () => {
         ):(
             <section>
                 <h4>Game your updating: {currentGameName}</h4>
-                <button onClick={()=> {swicthToPlayerForm()}}>
+
+                   <div>
+                        {createPlayeForm}
+                    </div>
+                <button onClick={onAddBtnClick}>
                     Add Player
                 </button>
             </section>
