@@ -8,7 +8,7 @@ const GameHistory = () => {
         fetchPolicy: "no-cache"
     })
     const gameList = data?.me?.gameMaster || []
-    const [currentGameId, currentGameIdState] = useState('')
+    const [currentGameId, setcurrentGameIdState] = useState('')
     const [currentGameName, setCurrentGameName] = useState('')
     let [createPlayeForm,setCreatePlayerForm] = useState([]) 
 
@@ -23,6 +23,8 @@ const GameHistory = () => {
     const stateCurrentGameInfo = (event)=>{
         let gameName = event.target.textContent
         let gameId = event.target.getAttribute('data-id')
+        setCurrentGameName(gameName)
+        setcurrentGameIdState(gameId)
     }
     return (
         <>
@@ -51,7 +53,7 @@ const GameHistory = () => {
             </section>
         ):(
             <section>
-                <h4>Game your updating:{currentGameName}</h4>
+                <h4>Game your updating: {currentGameName}</h4>
                 <button onClick={()=> {swicthToPlayerForm()}}>
                     Add Player
                 </button>
