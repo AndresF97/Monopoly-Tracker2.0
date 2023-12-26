@@ -1,39 +1,72 @@
 import { ME } from "../utils/queries"
-import { useState } from "react"
+import { useState, Fragment } from "react"
 import { useQuery } from "@apollo/client"
+import PlayerForm from "../components/PlayerForm"
 const GameHistory = () => {
 
     const { loading, data } = useQuery(ME, {
         fetchPolicy: "no-cache"
     })
     const gameList = data?.me?.gameMaster || []
-    const [swicthPage, swicthPageState]  = useState(false)
-    const [currentGameId, currentGameIdState] = useState('')
-    const swicthToPlayerForm = ()=>{
+    const [currentGameId, setcurrentGameIdState] = useState('')
+    const [currentGameName, setCurrentGameName] = useState('')
+    let [createPlayeForm,setCreatePlayerForm] = useState([])
+
+
+    const onAddBtnClick = event => {
         console.log('hello')
+        if(createPlayeForm.length > 4){
+            alert("Thats to many player forms")
+            return
+        }
+        setCreatePlayerForm(createPlayeForm.concat(<PlayerForm key={Math.floor(Math.random()* 100)}></PlayerForm>));
+    };
+
+    const stateCurrentGameInfo = (event)=>{
+        let gameName = event.target.textContent
+        let gameId = event.target.getAttribute('data-id')
+        setCurrentGameName(gameName)
+        setcurrentGameIdState(gameId)
     }
     return (
         <>
-            <h1>Game History</h1>
-            {loading ? (
-                <h1>loading</h1>
-            ) : (
-                <section>
-                    <ul>
-                    {gameList?.map((game) => {
-                        // add link to create a new page for adding/updating player
-                        return (
-                            <li key={game._id} data-id={game._id} onClick={swicthToPlayerForm}>
-                                <h2 >{game.name}</h2>
-                            </li>
-                        )
+        {(currentGameName === '') ? (
+            <section>
+                     <h1>Game History</h1>
+                     <>
+                         {loading ? (
+                             <h1>loading</h1>
+                         ) : (
+                             <section>
+                                 <ul>
+                                 {gameList?.map((game) => {
+                                     // add link to create a new page for adding/updating player
+                                     return (
+                                         <li key={game._id} onClick={(event)=>{stateCurrentGameInfo(event)}}>
+                                             <h2 data-id={game._id}>{game.name}</h2>
+                                         </li>
+                                     )
+             
+                                 })}
+                                 </ul>
+                             </section>
+                         )}
+                         </>
+            </section>
+        ):(
+            <section>
+                <h4>Game your updating: {currentGameName}</h4>
 
-                    })}
-                    </ul>
-                </section>
-            )}
-            {/* create swicth case to check for if user wants to change part of the page to a diffrent component.
-             past props of the game id and the state for the page to that commponent */}
+                   <div>
+                        {createPlayeForm}
+                    </div>
+                <button onClick={onAddBtnClick}>
+                    Add Player
+                </button>
+            </section>
+        )}
+
+   
 
         </>
     )
