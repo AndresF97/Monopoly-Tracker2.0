@@ -14,12 +14,11 @@ const GameHistory = () => {
 
 
     const onAddBtnClick = event => {
-        console.log('hello')
         if(createPlayeForm.length > 4){
             alert("Thats to many player forms")
             return
         }
-        setCreatePlayerForm(createPlayeForm.concat(<PlayerForm key={Math.floor(Math.random()* 100)}></PlayerForm>));
+        setCreatePlayerForm(createPlayeForm.concat(<PlayerForm key={Math.floor(Math.random()* 100)} currentGameId={currentGameId}></PlayerForm>));
     };
 
     const stateCurrentGameInfo = (event)=>{
