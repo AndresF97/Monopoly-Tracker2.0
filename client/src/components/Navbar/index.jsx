@@ -10,6 +10,7 @@ const Navbar = () =>{
                         <>
                         <li><Link to="/History">History</Link></li>
                         {/* Log out functionality */}
+                        <li onClick={Auth.logOut}><a>Log out</a></li>
                         </>
                     ):(
                         <>
