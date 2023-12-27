@@ -1,19 +1,27 @@
 import { useState } from "react";
+import { useMutation } from "@apollo/client";
+import {CREATE_PLAYER} from "../../utils/mutations"
 
 const PlayerForm =  ({currentGameId})=>{
-    const [playerForm, setPlayerForm] = useState({name:'',token:"",money:'',position:'',gameId:currentGameId})
-    const playerSubmitForm = (event)=>{
+    const [playerForm, setPlayerForm] = useState({name:'',token:"",money:0,position:'',gameId:currentGameId})
+    const [createPlayer, {error}] = useMutation(CREATE_PLAYER)
+    const playerSubmitForm = async (event)=>{
         event.preventDefault()
-        console.log(playerForm.name)
-        console.log(playerForm.token)
-        console.log(playerForm.money)
-        console.log(playerForm.position)
+        try{
+            playerForm.money = parseInt(playerForm.money)
+            const {data} = await createPlayer({
+                variables:{...playerForm}
+            })
+            console.log(data)
+        }catch(err){
+            console.error(err)
+        }
+
     }
     const handleInputChange= (event)=>{
         const {name, value } = event.target
         setPlayerForm({...playerForm, [name]:value})
     }
-    console.log(currentGameId)
     return (
         <section>
             <h3>Player Form</h3 >
@@ -28,6 +36,7 @@ const PlayerForm =  ({currentGameId})=>{
                 ></input>
                 <br></br>
                 <label>Token of Player:</label>
+                <br></br>
                 <input 
                 type="text"
                 name="token"
@@ -36,6 +45,7 @@ const PlayerForm =  ({currentGameId})=>{
                 ></input>
                 <br></br>
                 <label>Money:</label>
+                <br></br>
                 <input 
                 type="text"
                 name="money"
@@ -44,6 +54,7 @@ const PlayerForm =  ({currentGameId})=>{
                 ></input>
                 <br></br>
                 <label>Position:</label>
+                <br></br>
                 {/* might need to change this to a dropdown menu */}
                 <input 
                 type="text"
@@ -51,6 +62,7 @@ const PlayerForm =  ({currentGameId})=>{
                 value={playerForm.position}
                 onChange={handleInputChange}
                 ></input>
+                <br></br>
                 <button type="submit" >Submit</button>
             </form>
         </section>
