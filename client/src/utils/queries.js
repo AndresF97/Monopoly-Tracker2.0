@@ -67,6 +67,13 @@ query Me {
       gameMaster {
         name
         _id
+        savedPlayers{
+          name
+          token
+          money
+          position
+        }
+
       }
     }
   }

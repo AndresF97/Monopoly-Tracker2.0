@@ -26,7 +26,15 @@ const resolvers = {
         // Added to typeDef
         me: async (parent, args, context) => {
             if (context.user) {
-                const userData = await User.findOne({ _id: context.user._id }).select('username email').populate("gameMaster")
+                const userData = await User.findOne({ _id: context.user._id }).select('username email')
+                .populate({
+                    path:"gameMaster", 
+                    populate: [{
+                        path: 'savedPlayers'
+                    }]
+
+                })
+                
                 return userData
             }
             throw new AuthenticationError("Not logged In!")
