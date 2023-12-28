@@ -16,7 +16,6 @@ const GameHistory = () => {
     let [playersLength, setPlayersLenth] = useState(0)
 
     const onAddBtnClick = event => {
-        // have to add a counter check for player form
         playersLength = playersLength + 1
         setPlayersLenth(playersLength)
         console.log(playersLength)
@@ -97,6 +96,13 @@ const GameHistory = () => {
                 <button onClick={onAddBtnClick}>
                     Add Player
                 </button>
+                {(createPlayeForm.length > 0 ) ?(
+                    // add  functionality to remove a form
+                    <button>Remove Form</button>
+                ):(
+                    <></>
+                )}
+            
                 <button onClick={()=>{window.location.reload()}}>
                     Go Back
                 </button>
