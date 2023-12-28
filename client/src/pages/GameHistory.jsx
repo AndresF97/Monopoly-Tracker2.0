@@ -65,10 +65,17 @@ const GameHistory = () => {
                 <div>
                     <h5>List of saved Players:</h5>
                     <ul>
-                        {console.log(selectedGame[0].savedPlayers)}
+                        
                     {selectedGame[0].savedPlayers?.map((player)=>{
                         return (
-                            <li>Name:{player.name}</li>
+                            <li>
+                                <div>
+                                    <p>Name: {player.name}</p>
+                                    <p>Token: {player.token}</p>
+                                    <p>Money: {player.money}</p>
+                                    <p>Position: {player.position}</p>
+                                </div>
+                            </li>
                         )
                     })}
                     </ul>
@@ -80,6 +87,7 @@ const GameHistory = () => {
                 <button onClick={onAddBtnClick}>
                     Add Player
                 </button>
+                
             </section>
         )}
 
