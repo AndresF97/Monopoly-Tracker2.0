@@ -17,7 +17,10 @@ const GameHistory = () => {
 
     const onAddBtnClick = event => {
         // have to add a counter check for player form
-        if(createPlayeForm.length > 4){
+        playersLength = playersLength + 1
+        setPlayersLenth(playersLength)
+        console.log(playersLength)
+        if(createPlayeForm.length > 5 || playersLength > 5){
             alert("Thats to many player forms")
             return
         }
