@@ -27,6 +27,10 @@ const GameHistory = () => {
         let gameId = event.target.getAttribute('data-id')
         setCurrentGameName(gameName)
         setcurrentGameIdState(gameId)
+        console.log(data?.me?.gameMaster)
+        const allGames = data?.me?.gameMaster
+        const selectedGame = allGames.filter((game)=> game.name === gameName)
+        console.log(selectedGame)
     }
     return (
         <>
@@ -56,6 +60,9 @@ const GameHistory = () => {
         ):(
             <section>
                 <h4>Game your updating: {currentGameName}</h4>
+                <div>
+                    <h5>List of saved Players:</h5>
+                </div>
 
                    <div>
                         {createPlayeForm}
