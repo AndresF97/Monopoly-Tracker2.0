@@ -13,9 +13,13 @@ const GameHistory = () => {
     const [currentGameName, setCurrentGameName] = useState('')
     let [createPlayeForm,setCreatePlayerForm] = useState([])
     let [selectedGame,setSelectedGame]= useState([]);
+    let [playersLength, setPlayersLenth] = useState(0)
 
     const onAddBtnClick = event => {
-        if(createPlayeForm.length > 4){
+        playersLength = playersLength + 1
+        setPlayersLenth(playersLength)
+        console.log(playersLength)
+        if(createPlayeForm.length > 5 || playersLength > 5){
             alert("Thats to many player forms")
             return
         }
@@ -31,6 +35,9 @@ const GameHistory = () => {
         let filterGame = allGames.filter((game)=> game.name === gameName)
         selectedGame = selectedGame.concat(filterGame)
         setSelectedGame(selectedGame)
+        playersLength = selectedGame[0].savedPlayers.length
+        setPlayersLenth(playersLength)
+        console.log(playersLength)
         // console.log(selectedGame)
         
     }
@@ -50,6 +57,8 @@ const GameHistory = () => {
                                      return (
                                          <li key={game._id} onClick={(event)=>{stateCurrentGameInfo(event)}}>
                                              <h2 data-id={game._id}>{game.name}</h2>
+                                             {/* have to add functionality to delete a a game */}
+                                             <button>Delete</button>
                                          </li>
                                      )
              
@@ -68,7 +77,7 @@ const GameHistory = () => {
                         
                     {selectedGame[0].savedPlayers?.map((player)=>{
                         return (
-                            <li>
+                            <li key={player._id}>
                                 <div>
                                     <p>Name: {player.name}</p>
                                     <p>Token: {player.token}</p>
@@ -87,6 +96,13 @@ const GameHistory = () => {
                 <button onClick={onAddBtnClick}>
                     Add Player
                 </button>
+                {(createPlayeForm.length > 0 ) ?(
+                    // add  functionality to remove a form
+                    <button>Remove Form</button>
+                ):(
+                    <></>
+                )}
+            
                 <button onClick={()=>{window.location.reload()}}>
                     Go Back
                 </button>

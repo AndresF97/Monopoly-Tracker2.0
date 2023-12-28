@@ -68,6 +68,7 @@ query Me {
         name
         _id
         savedPlayers{
+          _id
           name
           token
           money
