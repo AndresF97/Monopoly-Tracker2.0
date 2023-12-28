@@ -7,6 +7,7 @@ const GameHistory = () => {
     const { loading, data } = useQuery(ME, {
         fetchPolicy: "no-cache"
     })
+    console.log(data?.me)
     const gameList = data?.me?.gameMaster || []
     const [currentGameId, setcurrentGameIdState] = useState('')
     const [currentGameName, setCurrentGameName] = useState('')
