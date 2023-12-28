@@ -7,12 +7,12 @@ const GameHistory = () => {
     const { loading, data } = useQuery(ME, {
         fetchPolicy: "no-cache"
     })
-    console.log(data?.me)
+    // console.log(data?.me)
     const gameList = data?.me?.gameMaster || []
     const [currentGameId, setcurrentGameIdState] = useState('')
     const [currentGameName, setCurrentGameName] = useState('')
     let [createPlayeForm,setCreatePlayerForm] = useState([])
-
+    let [selectedGame,setSelectedGame]= useState([]);
 
     const onAddBtnClick = event => {
         if(createPlayeForm.length > 4){
@@ -27,10 +27,12 @@ const GameHistory = () => {
         let gameId = event.target.getAttribute('data-id')
         setCurrentGameName(gameName)
         setcurrentGameIdState(gameId)
-        console.log(data?.me?.gameMaster)
         const allGames = data?.me?.gameMaster
-        const selectedGame = allGames.filter((game)=> game.name === gameName)
-        console.log(selectedGame)
+        let filterGame = allGames.filter((game)=> game.name === gameName)
+        selectedGame = selectedGame.concat(filterGame)
+        setSelectedGame(selectedGame)
+        // console.log(selectedGame)
+        
     }
     return (
         <>
@@ -62,6 +64,14 @@ const GameHistory = () => {
                 <h4>Game your updating: {currentGameName}</h4>
                 <div>
                     <h5>List of saved Players:</h5>
+                    <ul>
+                        {console.log(selectedGame[0].savedPlayers)}
+                    {selectedGame[0].savedPlayers?.map((player)=>{
+                        return (
+                            <li>Name:{player.name}</li>
+                        )
+                    })}
+                    </ul>
                 </div>
 
                    <div>
