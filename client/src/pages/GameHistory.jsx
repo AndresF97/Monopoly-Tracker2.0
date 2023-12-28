@@ -87,7 +87,9 @@ const GameHistory = () => {
                 <button onClick={onAddBtnClick}>
                     Add Player
                 </button>
-                
+                <button onClick={()=>{window.location.reload()}}>
+                    Go Back
+                </button>
             </section>
         )}
 
