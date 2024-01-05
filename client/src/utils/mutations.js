@@ -84,6 +84,7 @@ export const UPDATE_PLAYER_INFO = gql`
     }
   }
   `;
+// Done
 export const DELETE_GAME = gql`
 mutation DeleteGame($gameId: ID!) {
     deleteGame(gameId: $gameId) {

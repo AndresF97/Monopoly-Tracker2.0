@@ -1,5 +1,5 @@
 import { ME } from "../utils/queries"
-import { DELETE_GAME} from "../utils/mutations"
+import { DELETE_GAME, REMOVE_ONE_PLAYER_FROM_GAME} from "../utils/mutations"
 import { useState } from "react"
 import { useQuery, useMutation } from "@apollo/client"
 import PlayerForm from "../components/PlayerForm"
@@ -9,6 +9,7 @@ const GameHistory = () => {
         fetchPolicy: "no-cache"
     })
     const [deleteGame,{error}] = useMutation(DELETE_GAME)
+    const [removeOnePlayerFromGame, {err}] = useMutation(REMOVE_ONE_PLAYER_FROM_GAME)
     // console.log(data?.me)
     const gameList = data?.me?.gameMaster || []
     const [currentGameId, setcurrentGameIdState] = useState('')
@@ -58,6 +59,18 @@ const GameHistory = () => {
         }
 
     }
+    const deletePlayer = async (event)=>{
+        let playerId = event.target.getAttribute('data-playerid')
+        let gameId = currentGameId
+        try{
+            const {data} = await removeOnePlayerFromGame({
+                variables:{gameId,playerId}
+            })
+            window.location.reload()
+        }catch(err){
+            console.error(err)
+        }
+    }
     return (
         <>
         {(currentGameName === '') ? (
@@ -96,12 +109,13 @@ const GameHistory = () => {
                         return (
                             <li key={player._id}>
                                 <div>
+                                    {/* CHANGE THIS INTO FORM */}
                                     <p>Name: {player.name}</p>
                                     <p>Token: {player.token}</p>
                                     <p>Money: {player.money}</p>
                                     <p>Position: {player.position}</p>
                                     <button>Update</button>
-                                    <button>Delete</button>
+                                    <button data-playerid={player._id} onClick={(event)=> deletePlayer(event)}>Delete</button>
                                 </div>
                             </li>
                         )
