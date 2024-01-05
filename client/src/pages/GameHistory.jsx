@@ -1,5 +1,5 @@
 import { ME } from "../utils/queries"
-import { useState, Fragment } from "react"
+import { useState } from "react"
 import { useQuery } from "@apollo/client"
 import PlayerForm from "../components/PlayerForm"
 const GameHistory = () => {
@@ -41,6 +41,11 @@ const GameHistory = () => {
         // console.log(selectedGame)
         
     }
+    const deleteGame = (event) =>{
+        event.stopPropagation()
+        console.log(event.target.getAttribute('data-id'))
+
+    }
     return (
         <>
         {(currentGameName === '') ? (
@@ -58,7 +63,7 @@ const GameHistory = () => {
                                          <li key={game._id} onClick={(event)=>{stateCurrentGameInfo(event)}}>
                                              <h2 data-id={game._id}>{game.name}</h2>
                                              {/* have to add functionality to delete a a game */}
-                                             <button>Delete</button>
+                                             <button data-id={game._id} onClick={(event)=>{deleteGame(event)}}>Delete</button>
                                          </li>
                                      )
              
@@ -83,6 +88,8 @@ const GameHistory = () => {
                                     <p>Token: {player.token}</p>
                                     <p>Money: {player.money}</p>
                                     <p>Position: {player.position}</p>
+                                    <button>Update</button>
+                                    <button>Delete</button>
                                 </div>
                             </li>
                         )
