@@ -1,12 +1,14 @@
 import { ME } from "../utils/queries"
+import { DELETE_GAME} from "../utils/mutations"
 import { useState } from "react"
-import { useQuery } from "@apollo/client"
+import { useQuery, useMutation } from "@apollo/client"
 import PlayerForm from "../components/PlayerForm"
 const GameHistory = () => {
 
     const { loading, data } = useQuery(ME, {
         fetchPolicy: "no-cache"
     })
+    const [deleteGame,{error}] = useMutation(DELETE_GAME)
     // console.log(data?.me)
     const gameList = data?.me?.gameMaster || []
     const [currentGameId, setcurrentGameIdState] = useState('')
@@ -41,9 +43,19 @@ const GameHistory = () => {
         // console.log(selectedGame)
         
     }
-    const deleteGame = (event) =>{
+    const deleteGameFunc = async (event) =>{
         event.stopPropagation()
         console.log(event.target.getAttribute('data-id'))
+        let gameId = event.target.getAttribute('data-id')
+        try{
+            const {data} = await deleteGame({
+                variables:{gameId}
+            })
+            window.location.reload()
+
+        }catch(error){
+            console.error(error)
+        }
 
     }
     return (
@@ -63,7 +75,7 @@ const GameHistory = () => {
                                          <li key={game._id} onClick={(event)=>{stateCurrentGameInfo(event)}}>
                                              <h2 data-id={game._id}>{game.name}</h2>
                                              {/* have to add functionality to delete a a game */}
-                                             <button data-id={game._id} onClick={(event)=>{deleteGame(event)}}>Delete</button>
+                                             <button data-id={game._id} onClick={(event)=>{deleteGameFunc(event)}}>Delete</button>
                                          </li>
                                      )
              

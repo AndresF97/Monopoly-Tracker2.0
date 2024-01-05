@@ -90,10 +90,7 @@ mutation DeleteGame($gameId: ID!) {
       _id
       email
       username
-      Game {
-        _id
-        name
-      }
+  
     }
   }
 `;
