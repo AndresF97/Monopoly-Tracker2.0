@@ -1,12 +1,14 @@
 import { ME } from "../utils/queries"
-import { useState, Fragment } from "react"
-import { useQuery } from "@apollo/client"
+import { DELETE_GAME} from "../utils/mutations"
+import { useState } from "react"
+import { useQuery, useMutation } from "@apollo/client"
 import PlayerForm from "../components/PlayerForm"
 const GameHistory = () => {
 
     const { loading, data } = useQuery(ME, {
         fetchPolicy: "no-cache"
     })
+    const [deleteGame,{error}] = useMutation(DELETE_GAME)
     // console.log(data?.me)
     const gameList = data?.me?.gameMaster || []
     const [currentGameId, setcurrentGameIdState] = useState('')
@@ -41,6 +43,21 @@ const GameHistory = () => {
         // console.log(selectedGame)
         
     }
+    const deleteGameFunc = async (event) =>{
+        event.stopPropagation()
+        console.log(event.target.getAttribute('data-id'))
+        let gameId = event.target.getAttribute('data-id')
+        try{
+            const {data} = await deleteGame({
+                variables:{gameId}
+            })
+            window.location.reload()
+
+        }catch(error){
+            console.error(error)
+        }
+
+    }
     return (
         <>
         {(currentGameName === '') ? (
@@ -58,7 +75,7 @@ const GameHistory = () => {
                                          <li key={game._id} onClick={(event)=>{stateCurrentGameInfo(event)}}>
                                              <h2 data-id={game._id}>{game.name}</h2>
                                              {/* have to add functionality to delete a a game */}
-                                             <button>Delete</button>
+                                             <button data-id={game._id} onClick={(event)=>{deleteGameFunc(event)}}>Delete</button>
                                          </li>
                                      )
              
@@ -83,6 +100,8 @@ const GameHistory = () => {
                                     <p>Token: {player.token}</p>
                                     <p>Money: {player.money}</p>
                                     <p>Position: {player.position}</p>
+                                    <button>Update</button>
+                                    <button>Delete</button>
                                 </div>
                             </li>
                         )
