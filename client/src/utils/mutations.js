@@ -95,7 +95,7 @@ mutation DeleteGame($gameId: ID!) {
     }
   }
 `;
-
+// Done
 export const REMOVE_ONE_PLAYER_FROM_GAME = gql`
 mutation RemoveOnePlayerFromGame($gameId: ID!, $playerId: ID!) {
     removeOnePlayerFromGame(gameId: $gameId, playerId: $playerId) {

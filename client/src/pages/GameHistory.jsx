@@ -4,7 +4,10 @@ import { useState } from "react"
 import { useQuery, useMutation } from "@apollo/client"
 import PlayerForm from "../components/PlayerForm"
 const GameHistory = () => {
-
+    // TODO:
+    // {/* CHANGE PLAYER INFO INTO FORM */}
+    // ADD FUNCTIONALITY TO REMOVE A PLAYER - UPDATE THE ARRAY THAT HOLDS PALYERS FORMS
+    // DISPLAY PROPERTIES AND CREATE TWO SEPERATE ARRAYS TO HOLD AVILABLE PROPERTIES AND NONE AVILABLE PLAYER PROPERTIES
     const { loading, data } = useQuery(ME, {
         fetchPolicy: "no-cache"
     })
