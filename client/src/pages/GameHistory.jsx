@@ -5,7 +5,6 @@ import { useQuery, useMutation } from "@apollo/client"
 import PlayerForm from "../components/PlayerForm"
 const GameHistory = () => {
     // TODO:
-    // {/* CHANGE PLAYER INFO INTO FORM */}
     // ADD FUNCTIONALITY TO REMOVE A PLAYER - UPDATE THE ARRAY THAT HOLDS PALYERS FORMS
     // DISPLAY PROPERTIES AND CREATE TWO SEPERATE ARRAYS TO HOLD AVILABLE PROPERTIES AND NONE AVILABLE PLAYER PROPERTIES
     const { loading, data } = useQuery(ME, {
@@ -24,7 +23,7 @@ const GameHistory = () => {
     const onAddBtnClick = event => {
         playersLength = playersLength + 1
         setPlayersLenth(playersLength)
-        console.log(playersLength)
+        console.log(createPlayeForm)
         if(createPlayeForm.length > 5 || playersLength > 5){
             alert("Thats to many player forms")
             return
@@ -59,6 +58,16 @@ const GameHistory = () => {
 
         }catch(error){
             console.error(error)
+        }
+
+    }
+    const removePlayerForm = () =>{
+        if(createPlayeForm.length > 0){
+            setCreatePlayerForm(createPlayeForm.splice(-1))
+        }
+        else if(createPlayeForm === 0){
+            createPlayeForm = []
+            setCreatePlayerForm(createPlayeForm)
         }
 
     }
@@ -112,7 +121,6 @@ const GameHistory = () => {
                         return (
                             <li key={player._id}>
                                 <form>
-                                    {/* CHANGE THIS INTO FORM */}
                                     <p>Name: {player.name}</p>
                                     <p>Token: {player.token}</p>
                                     <label>Money</label>
@@ -146,7 +154,7 @@ const GameHistory = () => {
                 </button>
                 {(createPlayeForm.length > 0 ) ?(
                     // add  functionality to remove a form
-                    <button>Remove Form</button>
+                    <button onClick={removePlayerForm}>Remove Form</button>
                 ):(
                     <></>
                 )}
