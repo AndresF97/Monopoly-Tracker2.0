@@ -5,8 +5,9 @@ import { useQuery, useMutation } from "@apollo/client"
 import PlayerForm from "../components/PlayerForm"
 const GameHistory = () => {
     // TODO:
-    // ADD FUNCTIONALITY TO REMOVE A PLAYER - UPDATE THE ARRAY THAT HOLDS PALYERS FORMS
     // DISPLAY PROPERTIES AND CREATE TWO SEPERATE ARRAYS TO HOLD AVILABLE PROPERTIES AND NONE AVILABLE PLAYER PROPERTIES
+    // ADD TOKEN IMAGE ASSETS TO THE USER
+    // WORK ON PLAYERFORM COMPENET TO RENDER TOKEN OPTION THE USER IS USING 
     const { loading, data } = useQuery(ME, {
         fetchPolicy: "no-cache"
     })
