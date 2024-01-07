@@ -111,15 +111,27 @@ const GameHistory = () => {
                     {selectedGame[0].savedPlayers?.map((player)=>{
                         return (
                             <li key={player._id}>
-                                <div>
+                                <form>
                                     {/* CHANGE THIS INTO FORM */}
                                     <p>Name: {player.name}</p>
                                     <p>Token: {player.token}</p>
-                                    <p>Money: {player.money}</p>
-                                    <p>Position: {player.position}</p>
+                                    <label>Money</label>
+                                    <br></br>
+                                    <input
+                                    type="text"
+                                    placeholder={player.money}
+                                    ></input>
+                                    <br></br>
+                                    <label>Position</label>
+                                    <br></br>
+                                    <input
+                                    type="text"
+                                    placeholder={player.position}
+                                    ></input>
+                                    <br></br>
                                     <button>Update</button>
                                     <button data-playerid={player._id} onClick={(event)=> deletePlayer(event)}>Delete</button>
-                                </div>
+                                </form>
                             </li>
                         )
                     })}
