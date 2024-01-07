@@ -4,7 +4,10 @@ import { useState } from "react"
 import { useQuery, useMutation } from "@apollo/client"
 import PlayerForm from "../components/PlayerForm"
 const GameHistory = () => {
-
+    // TODO:
+    // DISPLAY PROPERTIES AND CREATE TWO SEPERATE ARRAYS TO HOLD AVILABLE PROPERTIES AND NONE AVILABLE PLAYER PROPERTIES
+    // ADD TOKEN IMAGE ASSETS TO THE USER
+    // WORK ON PLAYERFORM COMPENET TO RENDER TOKEN OPTION THE USER IS USING 
     const { loading, data } = useQuery(ME, {
         fetchPolicy: "no-cache"
     })
@@ -21,7 +24,7 @@ const GameHistory = () => {
     const onAddBtnClick = event => {
         playersLength = playersLength + 1
         setPlayersLenth(playersLength)
-        console.log(playersLength)
+        console.log(createPlayeForm)
         if(createPlayeForm.length > 5 || playersLength > 5){
             alert("Thats to many player forms")
             return
@@ -56,6 +59,18 @@ const GameHistory = () => {
 
         }catch(error){
             console.error(error)
+        }
+
+    }
+    const removePlayerForm = () =>{
+        // if(createPlayeForm.length){
+            playersLength = playersLength - 1
+            setPlayersLenth(playersLength)
+            setCreatePlayerForm(createPlayeForm.splice(-1))
+        // }
+        if(createPlayeForm < 1){
+            
+            setCreatePlayerForm(createPlayeForm = [] )
         }
 
     }
@@ -108,15 +123,26 @@ const GameHistory = () => {
                     {selectedGame[0].savedPlayers?.map((player)=>{
                         return (
                             <li key={player._id}>
-                                <div>
-                                    {/* CHANGE THIS INTO FORM */}
+                                <form>
                                     <p>Name: {player.name}</p>
                                     <p>Token: {player.token}</p>
-                                    <p>Money: {player.money}</p>
-                                    <p>Position: {player.position}</p>
+                                    <label>Money</label>
+                                    <br></br>
+                                    <input
+                                    type="text"
+                                    placeholder={player.money}
+                                    ></input>
+                                    <br></br>
+                                    <label>Position</label>
+                                    <br></br>
+                                    <input
+                                    type="text"
+                                    placeholder={player.position}
+                                    ></input>
+                                    <br></br>
                                     <button>Update</button>
                                     <button data-playerid={player._id} onClick={(event)=> deletePlayer(event)}>Delete</button>
-                                </div>
+                                </form>
                             </li>
                         )
                     })}
@@ -131,7 +157,7 @@ const GameHistory = () => {
                 </button>
                 {(createPlayeForm.length > 0 ) ?(
                     // add  functionality to remove a form
-                    <button>Remove Form</button>
+                    <button onClick={removePlayerForm}>Remove Form</button>
                 ):(
                     <></>
                 )}
