@@ -62,12 +62,14 @@ const GameHistory = () => {
 
     }
     const removePlayerForm = () =>{
-        if(createPlayeForm.length > 0){
+        // if(createPlayeForm.length){
+            playersLength = playersLength - 1
+            setPlayersLenth(playersLength)
             setCreatePlayerForm(createPlayeForm.splice(-1))
-        }
-        else if(createPlayeForm === 0){
-            createPlayeForm = []
-            setCreatePlayerForm(createPlayeForm)
+        // }
+        if(createPlayeForm < 1){
+            
+            setCreatePlayerForm(createPlayeForm = [] )
         }
 
     }
