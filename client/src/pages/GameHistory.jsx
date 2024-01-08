@@ -1,4 +1,4 @@
-import { ME } from "../utils/queries"
+import { ME, ALL_PROPERTIES } from "../utils/queries"
 import { DELETE_GAME, REMOVE_ONE_PLAYER_FROM_GAME} from "../utils/mutations"
 import { useState } from "react"
 import { useQuery, useMutation } from "@apollo/client"
@@ -11,10 +11,16 @@ const GameHistory = () => {
     const { loading, data } = useQuery(ME, {
         fetchPolicy: "no-cache"
     })
+    const data2 = useQuery(ALL_PROPERTIES, {
+        fetchPolicy: "no-cache"
+    })
+    
     const [deleteGame,{error}] = useMutation(DELETE_GAME)
     const [removeOnePlayerFromGame, {err}] = useMutation(REMOVE_ONE_PLAYER_FROM_GAME)
     // console.log(data?.me)
-    const gameList = data?.me?.gameMaster || []
+    const gameList = data?.me?.gameMaster || [];
+    const currentProperties = data2?.data?.allProperties || []
+    console.log(currentProperties)
     const [currentGameId, setcurrentGameIdState] = useState('')
     const [currentGameName, setCurrentGameName] = useState('')
     let [createPlayeForm,setCreatePlayerForm] = useState([])
@@ -139,6 +145,19 @@ const GameHistory = () => {
                                     type="text"
                                     placeholder={player.position}
                                     ></input>
+                                    <br></br>
+                                    <select name="cars" id="cars">
+                                    {currentProperties?.map((propertie)=>{
+                                        return (
+                                            <option 
+                                            key={Math.floor(Math.random()* 100) + propertie.name}
+                                            data-color={propertie.hex} 
+                                            value={propertie.name}>
+                                            {propertie.name}
+                                            </option>
+                                        )
+                                    })}
+                                    </select>
                                     <br></br>
                                     <button>Update</button>
                                     <button data-playerid={player._id} onClick={(event)=> deletePlayer(event)}>Delete</button>

@@ -28,10 +28,6 @@ query AllGames {
 
 `;
 
-// export const ME = gql`
-
-// `;
-
 export const FIND_ONE_GAME = gql`
 query FindOneGame($gameId: ID!) {
     findOneGame(gameId: $gameId) {
@@ -57,6 +53,7 @@ query FindOnePlayer($playerId: ID!) {
     }
   }
 `;
+// Done
 
 export const ME = gql`
 query Me {
