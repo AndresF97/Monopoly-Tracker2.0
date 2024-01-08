@@ -14,11 +14,13 @@ const GameHistory = () => {
     const data2 = useQuery(ALL_PROPERTIES, {
         fetchPolicy: "no-cache"
     })
-    console.log(data2.data)
+    
     const [deleteGame,{error}] = useMutation(DELETE_GAME)
     const [removeOnePlayerFromGame, {err}] = useMutation(REMOVE_ONE_PLAYER_FROM_GAME)
     // console.log(data?.me)
-    const gameList = data?.me?.gameMaster || []
+    const gameList = data?.me?.gameMaster || [];
+    const currentProperties = data2?.data?.allProperties || []
+    console.log(currentProperties)
     const [currentGameId, setcurrentGameIdState] = useState('')
     const [currentGameName, setCurrentGameName] = useState('')
     let [createPlayeForm,setCreatePlayerForm] = useState([])
