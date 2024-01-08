@@ -146,6 +146,19 @@ const GameHistory = () => {
                                     placeholder={player.position}
                                     ></input>
                                     <br></br>
+                                    <select name="cars" id="cars">
+                                    {currentProperties?.map((propertie)=>{
+                                        return (
+                                            <option 
+                                            key={Math.floor(Math.random()* 100) + propertie.name}
+                                            data-color={propertie.hex} 
+                                            value={propertie.name}>
+                                            {propertie.name}
+                                            </option>
+                                        )
+                                    })}
+                                    </select>
+                                    <br></br>
                                     <button>Update</button>
                                     <button data-playerid={player._id} onClick={(event)=> deletePlayer(event)}>Delete</button>
                                 </form>
