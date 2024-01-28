@@ -1,5 +1,5 @@
 import { ME, ALL_PROPERTIES } from "../utils/queries"
-import { DELETE_GAME, REMOVE_ONE_PLAYER_FROM_GAME} from "../utils/mutations"
+import { DELETE_GAME, REMOVE_ONE_PLAYER_FROM_GAME, UPDATE_PLAYER_INFO} from "../utils/mutations"
 import { useState } from "react"
 import { useQuery, useMutation } from "@apollo/client"
 import PlayerForm from "../components/PlayerForm"
@@ -20,7 +20,8 @@ const GameHistory = () => {
     })
     
     const [deleteGame,{error}] = useMutation(DELETE_GAME)
-    const [removeOnePlayerFromGame, {err}] = useMutation(REMOVE_ONE_PLAYER_FROM_GAME)
+    const [removeOnePlayerFromGame, {erro}] = useMutation(REMOVE_ONE_PLAYER_FROM_GAME)
+    const [upddatePlayerInfo, {err}] = useMutation(UPDATE_PLAYER_INFO)
     // console.log(data?.me)
     const gameList = data?.me?.gameMaster || [];
     const currentProperties = data2?.data?.allProperties || []
@@ -30,6 +31,11 @@ const GameHistory = () => {
     let [createPlayeForm,setCreatePlayerForm] = useState([])
     let [selectedGame,setSelectedGame]= useState([]);
     let [playersLength, setPlayersLenth] = useState(0)
+
+    const updatePlayerFunc = (event)=>{
+        event.preventDefault()
+        console.log(event.target)
+    }
 
     const onAddBtnClick = event => {
         playersLength = playersLength + 1
@@ -163,7 +169,7 @@ const GameHistory = () => {
                                     })}
                                     </select>
                                     <br></br>
-                                    <button>Update</button>
+                                    <button data-playerid={player._id} onClick={(event) => {updatePlayerFunc(event)}}>Update</button>
                                     <button data-playerid={player._id} onClick={(event)=> deletePlayer(event)}>Delete</button>
                                 </form>
                             </li>

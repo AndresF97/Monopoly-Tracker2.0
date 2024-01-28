@@ -39,12 +39,7 @@ const PlayerForm =  ({currentGameId, tokenList})=>{
                 <br></br>
                 <label>Token of Player:</label>
                 <br></br>
-                {/* <input 
-                type="text"
-                name="token"
-                value={playerForm.token}
-                onChange={handleInputChange}
-                ></input> */}
+
                 <select>
                 {tokenList?.map((token, index)=>{
                     return (
