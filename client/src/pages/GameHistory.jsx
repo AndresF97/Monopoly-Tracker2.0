@@ -25,7 +25,7 @@ const GameHistory = () => {
     // console.log(data?.me)
     const gameList = data?.me?.gameMaster || [];
     const currentProperties = data2?.data?.allProperties || []
-    console.log(currentProperties)
+    // console.log(currentProperties)
     const [currentGameId, setcurrentGameIdState] = useState('')
     const [currentGameName, setCurrentGameName] = useState('')
     let [createPlayeForm,setCreatePlayerForm] = useState([])
@@ -34,7 +34,10 @@ const GameHistory = () => {
 
     const updatePlayerFunc = (event)=>{
         event.preventDefault()
-        console.log(event.target)
+        console.log(event.target.parentNode.querySelector('.playerMoney').value)
+        // CREATE A VARIABLE TO STORE UPDATED MONEY 
+
+        // CREATE A VARIABLE TO STORE UPDATED POSITION
     }
 
     const onAddBtnClick = event => {
@@ -59,7 +62,7 @@ const GameHistory = () => {
         setSelectedGame(selectedGame)
         playersLength = selectedGame[0].savedPlayers.length
         setPlayersLenth(playersLength)
-        console.log(playersLength)
+        // console.log(playersLength)
         // console.log(selectedGame)
         
     }
@@ -147,6 +150,7 @@ const GameHistory = () => {
                                     <input
                                     type="text"
                                     placeholder={player.money}
+                                    className="playerMoney"
                                     ></input>
                                     <br></br>
                                     <label>Position</label>
@@ -155,6 +159,10 @@ const GameHistory = () => {
                                     type="text"
                                     placeholder={player.position}
                                     ></input>
+                                    <br></br>
+                                    {/* MIGHT NEED TO CHANGE THIS TO RENDER IN A DIFFERENT AREA SUCH AS */}
+                                    {/* SUCH AS HAVING THE ADD PRPETY FUNCTIONALITY SOMEWHERE ELSE */}
+                                    <label>New Property for user </label>
                                     <br></br>
                                     <select>
                                     {currentProperties?.map((propertie)=>{
