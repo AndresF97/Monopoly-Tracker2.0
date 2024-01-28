@@ -1,6 +1,6 @@
 import {gql} from "@apollo/client"
 
-
+// DONE
 export const ALL_PROPERTIES = gql`
 query AllProperties {
     allProperties {

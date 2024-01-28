@@ -3,9 +3,13 @@ import { DELETE_GAME, REMOVE_ONE_PLAYER_FROM_GAME} from "../utils/mutations"
 import { useState } from "react"
 import { useQuery, useMutation } from "@apollo/client"
 import PlayerForm from "../components/PlayerForm"
+import TokenList from "../assets/tokenList.json"
+
 const GameHistory = () => {
     // TODO:
     // DISPLAY PROPERTIES AND CREATE TWO SEPERATE ARRAYS TO HOLD AVILABLE PROPERTIES AND NONE AVILABLE PLAYER PROPERTIES
+    // TO GET THE ARRAYS TO ACTUALLY WORK WE MUST COMPARE THE AVILABLE PROPERTIES
+    // ARRAY OF INFORMATION SHOULD AND TH EAVILABLE TOKENS AS WELL SHOULD BE AVIALABLE
     // ADD TOKEN IMAGE ASSETS TO THE USER
     // WORK ON PLAYERFORM COMPENET TO RENDER TOKEN OPTION THE USER IS USING 
     const { loading, data } = useQuery(ME, {
@@ -35,7 +39,7 @@ const GameHistory = () => {
             alert("Thats to many player forms")
             return
         }
-        setCreatePlayerForm(createPlayeForm.concat(<PlayerForm key={Math.floor(Math.random()* 100)} currentGameId={currentGameId}></PlayerForm>));
+        setCreatePlayerForm(createPlayeForm.concat(<PlayerForm tokenList={TokenList} key={Math.floor(Math.random()* 100)} currentGameId={currentGameId}></PlayerForm>));
     };
 
     const stateCurrentGameInfo = (event)=>{
@@ -146,7 +150,7 @@ const GameHistory = () => {
                                     placeholder={player.position}
                                     ></input>
                                     <br></br>
-                                    <select name="cars" id="cars">
+                                    <select>
                                     {currentProperties?.map((propertie)=>{
                                         return (
                                             <option 
