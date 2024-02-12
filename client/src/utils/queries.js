@@ -70,6 +70,12 @@ query Me {
           token
           money
           position
+          playerPropreties{
+            properties{
+              name
+              hex
+            }
+          }
         }
 
       }

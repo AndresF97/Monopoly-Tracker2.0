@@ -1,6 +1,6 @@
 import { ME, ALL_PROPERTIES } from "../utils/queries"
 import { DELETE_GAME, REMOVE_ONE_PLAYER_FROM_GAME, UPDATE_PLAYER_INFO} from "../utils/mutations"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useQuery, useMutation } from "@apollo/client"
 import PlayerForm from "../components/PlayerForm"
 import TokenList from "../assets/tokenList.json"
@@ -12,6 +12,7 @@ const GameHistory = () => {
     // ARRAY OF INFORMATION SHOULD AND TH EAVILABLE TOKENS AS WELL SHOULD BE AVIALABLE
     // ADD TOKEN IMAGE ASSETS TO THE USER
     // WORK ON PLAYERFORM COMPENET TO RENDER TOKEN OPTION THE USER IS USING 
+    // CREATE A FORM TO ADD PROPERTIES INSTEAD OF BEEN PART OF THE UPADTEFORM
     const { loading, data } = useQuery(ME, {
         fetchPolicy: "no-cache"
     })
@@ -30,6 +31,7 @@ const GameHistory = () => {
     const [currentGameName, setCurrentGameName] = useState('')
     let [createPlayeForm,setCreatePlayerForm] = useState([])
     let [selectedGame,setSelectedGame]= useState([]);
+    let [takenProperties, setTakenPropeties] = useState([])
     let [playersLength, setPlayersLenth] = useState(0)
 
     const updatePlayerFunc = (event)=>{
@@ -105,6 +107,12 @@ const GameHistory = () => {
             console.error(err)
         }
     }
+    useEffect(()=>{
+        if(selectedGame[0]?.savedPlayers){
+
+        console.log(selectedGame[0]?.savedPlayers)
+        }
+    })
     return (
         <>
         {(currentGameName === '') ? (
