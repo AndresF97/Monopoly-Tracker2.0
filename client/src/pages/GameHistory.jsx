@@ -108,9 +108,15 @@ const GameHistory = () => {
         }
     }
     useEffect(()=>{
-        if(selectedGame[0]?.savedPlayers){
-
-        console.log(selectedGame[0]?.savedPlayers)
+        if(selectedGame[0]?.savedPlayers && currentProperties){
+        let allPlayerProperties = selectedGame[0]?.savedPlayers.map((player)=>{
+            return(
+                player.playerPropreties
+            )
+        })
+        console.log(allPlayerProperties)
+        // console.log(selectedGame[0]?.savedPlayers)
+        // console.log(currentProperties)
         }
     })
     return (
