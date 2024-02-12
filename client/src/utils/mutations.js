@@ -72,6 +72,7 @@ mutation AddPropertyToPlayer($playerId: String!, $propertyId: String!) {
   
     }
   }`;
+  // INPROGRESS
 
 export const UPDATE_PLAYER_INFO = gql`
   mutation UpdatePlayerInfo($name: String, $playerId: String!, $token: String, $money: Int, $position: String) {

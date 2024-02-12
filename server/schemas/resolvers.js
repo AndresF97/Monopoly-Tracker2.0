@@ -30,9 +30,16 @@ const resolvers = {
                 .populate({
                     path:"gameMaster", 
                     populate: [{
-                        path: 'savedPlayers'
+                        path: 'savedPlayers',
+                        populate:[{
+                            path: "playerPropreties",
+                            populate:[{
+                                path:"properties"
+                            }]
+                        }]
+                        
                     }]
-
+       
                 })
                 
                 return userData

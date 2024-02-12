@@ -1,6 +1,6 @@
 import {gql} from "@apollo/client"
 
-
+// DONE
 export const ALL_PROPERTIES = gql`
 query AllProperties {
     allProperties {
@@ -70,6 +70,12 @@ query Me {
           token
           money
           position
+          playerPropreties{
+            properties{
+              name
+              hex
+            }
+          }
         }
 
       }

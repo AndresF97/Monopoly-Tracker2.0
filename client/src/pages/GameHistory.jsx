@@ -1,31 +1,45 @@
 import { ME, ALL_PROPERTIES } from "../utils/queries"
-import { DELETE_GAME, REMOVE_ONE_PLAYER_FROM_GAME} from "../utils/mutations"
-import { useState } from "react"
+import { DELETE_GAME, REMOVE_ONE_PLAYER_FROM_GAME, UPDATE_PLAYER_INFO} from "../utils/mutations"
+import { useState, useEffect } from "react"
 import { useQuery, useMutation } from "@apollo/client"
 import PlayerForm from "../components/PlayerForm"
+import TokenList from "../assets/tokenList.json"
+
 const GameHistory = () => {
     // TODO:
     // DISPLAY PROPERTIES AND CREATE TWO SEPERATE ARRAYS TO HOLD AVILABLE PROPERTIES AND NONE AVILABLE PLAYER PROPERTIES
+    // TO GET THE ARRAYS TO ACTUALLY WORK WE MUST COMPARE THE AVILABLE PROPERTIES
+    // ARRAY OF INFORMATION SHOULD AND TH EAVILABLE TOKENS AS WELL SHOULD BE AVIALABLE
     // ADD TOKEN IMAGE ASSETS TO THE USER
     // WORK ON PLAYERFORM COMPENET TO RENDER TOKEN OPTION THE USER IS USING 
+    // CREATE A FORM TO ADD PROPERTIES INSTEAD OF BEEN PART OF THE UPADTEFORM
     const { loading, data } = useQuery(ME, {
         fetchPolicy: "no-cache"
     })
     const data2 = useQuery(ALL_PROPERTIES, {
         fetchPolicy: "no-cache"
     })
-    
     const [deleteGame,{error}] = useMutation(DELETE_GAME)
-    const [removeOnePlayerFromGame, {err}] = useMutation(REMOVE_ONE_PLAYER_FROM_GAME)
+    const [removeOnePlayerFromGame, {erro}] = useMutation(REMOVE_ONE_PLAYER_FROM_GAME)
+    const [upddatePlayerInfo, {err}] = useMutation(UPDATE_PLAYER_INFO)
     // console.log(data?.me)
     const gameList = data?.me?.gameMaster || [];
     const currentProperties = data2?.data?.allProperties || []
-    console.log(currentProperties)
+    // console.log(currentProperties)
     const [currentGameId, setcurrentGameIdState] = useState('')
     const [currentGameName, setCurrentGameName] = useState('')
     let [createPlayeForm,setCreatePlayerForm] = useState([])
     let [selectedGame,setSelectedGame]= useState([]);
+    let [takenProperties, setTakenPropeties] = useState()
     let [playersLength, setPlayersLenth] = useState(0)
+
+    const updatePlayerFunc = (event)=>{
+        event.preventDefault()
+        console.log(event.target.parentNode.querySelector('.playerMoney').value)
+        // CREATE A VARIABLE TO STORE UPDATED MONEY 
+
+        // CREATE A VARIABLE TO STORE UPDATED POSITION
+    }
 
     const onAddBtnClick = event => {
         playersLength = playersLength + 1
@@ -35,7 +49,7 @@ const GameHistory = () => {
             alert("Thats to many player forms")
             return
         }
-        setCreatePlayerForm(createPlayeForm.concat(<PlayerForm key={Math.floor(Math.random()* 100)} currentGameId={currentGameId}></PlayerForm>));
+        setCreatePlayerForm(createPlayeForm.concat(<PlayerForm tokenList={TokenList} key={Math.floor(Math.random()* 100)} currentGameId={currentGameId}></PlayerForm>));
     };
 
     const stateCurrentGameInfo = (event)=>{
@@ -49,7 +63,7 @@ const GameHistory = () => {
         setSelectedGame(selectedGame)
         playersLength = selectedGame[0].savedPlayers.length
         setPlayersLenth(playersLength)
-        console.log(playersLength)
+        // console.log(playersLength)
         // console.log(selectedGame)
         
     }
@@ -92,6 +106,36 @@ const GameHistory = () => {
             console.error(err)
         }
     }
+    const getAvailableProperties =  (game, currentProperties )=>{
+        if(game && currentProperties){
+        let playerProperties = game.map((player)=>{
+            // console.log(player.playerPropreties)
+            return(
+                player.playerPropreties
+            )
+        })
+        let playerPropertiesThin =[]
+        playerProperties.map((properties)=>{
+            return playerPropertiesThin = playerPropertiesThin.concat(properties)
+        })
+        // console.log(playerPropertiesThin)
+        let takenPropertiesFromPlayer = []
+        for(var i  = 0; i < playerPropertiesThin.length;i++){
+            // console.log(playerPropertiesThin[i].properties[0].name)
+            takenPropertiesFromPlayer.push(playerPropertiesThin[i].properties[0].name)
+        }
+        console.log(takenPropertiesFromPlayer)
+        // console.log(selectedGame[0]?.savedPlayers)
+        console.log(currentProperties)
+        let newTakenProperties =  currentProperties?.filter(item => !takenPropertiesFromPlayer.includes(item.name))
+        setTakenPropeties(newTakenProperties)
+        console.log(takenProperties)
+        }
+        console.log("hello")
+    }
+    useEffect( ()=>{
+        getAvailableProperties(selectedGame[0]?.savedPlayers, currentProperties)
+    },[currentProperties, selectedGame])
     return (
         <>
         {(currentGameName === '') ? (
@@ -137,6 +181,7 @@ const GameHistory = () => {
                                     <input
                                     type="text"
                                     placeholder={player.money}
+                                    className="playerMoney"
                                     ></input>
                                     <br></br>
                                     <label>Position</label>
@@ -146,8 +191,12 @@ const GameHistory = () => {
                                     placeholder={player.position}
                                     ></input>
                                     <br></br>
-                                    <select name="cars" id="cars">
-                                    {currentProperties?.map((propertie)=>{
+                                    {/* MIGHT NEED TO CHANGE THIS TO RENDER IN A DIFFERENT AREA SUCH AS */}
+                                    {/* SUCH AS HAVING THE ADD PRPETY FUNCTIONALITY SOMEWHERE ELSE */}
+                                    <label>New Property for user </label>
+                                    <br></br>
+                                    <select>
+                                    {takenProperties?.map((propertie)=>{
                                         return (
                                             <option 
                                             key={Math.floor(Math.random()* 100) + propertie.name}
@@ -159,7 +208,7 @@ const GameHistory = () => {
                                     })}
                                     </select>
                                     <br></br>
-                                    <button>Update</button>
+                                    <button data-playerid={player._id} onClick={(event) => {updatePlayerFunc(event)}}>Update</button>
                                     <button data-playerid={player._id} onClick={(event)=> deletePlayer(event)}>Delete</button>
                                 </form>
                             </li>

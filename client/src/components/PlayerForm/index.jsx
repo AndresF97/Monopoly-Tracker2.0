@@ -2,7 +2,9 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import {CREATE_PLAYER} from "../../utils/mutations"
 
-const PlayerForm =  ({currentGameId})=>{
+
+const PlayerForm =  ({currentGameId, tokenList})=>{
+    console.log(tokenList)
     const [playerForm, setPlayerForm] = useState({name:'',token:"",money:0,position:'',gameId:currentGameId})
     const [createPlayer, {error}] = useMutation(CREATE_PLAYER)
     const playerSubmitForm = async (event)=>{
@@ -37,12 +39,18 @@ const PlayerForm =  ({currentGameId})=>{
                 <br></br>
                 <label>Token of Player:</label>
                 <br></br>
-                <input 
-                type="text"
-                name="token"
-                value={playerForm.token}
-                onChange={handleInputChange}
-                ></input>
+
+                <select>
+                {tokenList?.map((token, index)=>{
+                    return (
+                        // <h1>{token.tokenName}</h1>
+                            <option
+                            key={index}>
+                                {token.tokenName}
+                            </option>
+                    )
+                })}
+                </select>
                 <br></br>
                 <label>Money:</label>
                 <br></br>
