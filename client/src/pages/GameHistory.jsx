@@ -19,7 +19,7 @@ const GameHistory = () => {
     const data2 = useQuery(ALL_PROPERTIES, {
         fetchPolicy: "no-cache"
     })
-    
+    const [renderProperties, setRenderPorperties] = useState(true)
     const [deleteGame,{error}] = useMutation(DELETE_GAME)
     const [removeOnePlayerFromGame, {erro}] = useMutation(REMOVE_ONE_PLAYER_FROM_GAME)
     const [upddatePlayerInfo, {err}] = useMutation(UPDATE_PLAYER_INFO)
@@ -31,7 +31,7 @@ const GameHistory = () => {
     const [currentGameName, setCurrentGameName] = useState('')
     let [createPlayeForm,setCreatePlayerForm] = useState([])
     let [selectedGame,setSelectedGame]= useState([]);
-    let [takenProperties, setTakenPropeties] = useState([])
+    let [takenProperties, setTakenPropeties] = useState()
     let [playersLength, setPlayersLenth] = useState(0)
 
     const updatePlayerFunc = (event)=>{
@@ -107,18 +107,68 @@ const GameHistory = () => {
             console.error(err)
         }
     }
-    useEffect(()=>{
-        if(selectedGame[0]?.savedPlayers && currentProperties){
-        let allPlayerProperties = selectedGame[0]?.savedPlayers.map((player)=>{
+    const getAvailableProperties =  (game, currentProperties )=>{
+        if(game && currentProperties){
+        let playerProperties = game.map((player)=>{
+            // console.log(player.playerPropreties)
             return(
                 player.playerPropreties
             )
         })
-        console.log(allPlayerProperties)
-        // console.log(selectedGame[0]?.savedPlayers)
-        // console.log(currentProperties)
+        let playerPropertiesThin =[]
+        playerProperties.map((properties)=>{
+            return playerPropertiesThin = playerPropertiesThin.concat(properties)
+        })
+        // console.log(playerPropertiesThin)
+        let takenPropertiesFromPlayer = []
+        for(var i  = 0; i < playerPropertiesThin.length;i++){
+            // console.log(playerPropertiesThin[i].properties[0].name)
+            takenPropertiesFromPlayer.push(playerPropertiesThin[i].properties[0].name)
         }
-    })
+        console.log(takenPropertiesFromPlayer)
+        // console.log(selectedGame[0]?.savedPlayers)
+        console.log(currentProperties)
+        let newTakenProperties =  currentProperties?.filter(item => !takenPropertiesFromPlayer.includes(item.name))
+        setRenderPorperties(false)
+        setTakenPropeties(newTakenProperties)
+        console.log(takenProperties)
+        // return takenProperties
+        }
+        console.log("hello")
+    }
+    useEffect( ()=>{
+    //     const getAvailableProperties = async ()=>{
+    //     if(selectedGame[0]?.savedPlayers && currentProperties){
+    //     let playerProperties = selectedGame[0]?.savedPlayers.map((player)=>{
+    //         // console.log(player.playerPropreties)
+    //         return(
+    //             player.playerPropreties
+    //         )
+    //     })
+    //     let playerPropertiesThin =[]
+    //     playerProperties.map((properties)=>{
+    //         return playerPropertiesThin = playerPropertiesThin.concat(properties)
+    //     })
+    //     // console.log(playerPropertiesThin)
+    //     let takenPropertiesFromPlayer = []
+    //     for(var i  = 0; i < playerPropertiesThin.length;i++){
+    //         // console.log(playerPropertiesThin[i].properties[0].name)
+    //         takenPropertiesFromPlayer.push(playerPropertiesThin[i].properties[0].name)
+    //     }
+    //     console.log(takenPropertiesFromPlayer)
+    //     // console.log(selectedGame[0]?.savedPlayers)
+    //     console.log(currentProperties)
+    //     let newTakenProperties =  currentProperties?.filter(item => !takenPropertiesFromPlayer.includes(item.name))
+    //     setRenderPorperties(true)
+    //     setTakenPropeties(newTakenProperties)
+    //     console.log(takenProperties)
+    //     // return takenProperties
+    //     }
+    // }
+    // setTimeout(() => {
+        getAvailableProperties(selectedGame[0]?.savedPlayers, currentProperties)
+    //   }, "3000");
+    },[currentProperties, selectedGame])
     return (
         <>
         {(currentGameName === '') ? (
@@ -179,7 +229,7 @@ const GameHistory = () => {
                                     <label>New Property for user </label>
                                     <br></br>
                                     <select>
-                                    {currentProperties?.map((propertie)=>{
+                                    {takenProperties?.map((propertie)=>{
                                         return (
                                             <option 
                                             key={Math.floor(Math.random()* 100) + propertie.name}
