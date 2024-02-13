@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { useQuery, useMutation } from "@apollo/client"
 import PlayerForm from "../components/PlayerForm"
 import TokenList from "../assets/tokenList.json"
+import { Token } from "graphql"
 
 const GameHistory = () => {
     // TODO:
@@ -131,10 +132,15 @@ const GameHistory = () => {
         console.log(takenProperties)
         }
     }
+    function getAvaliableTokens(currenPlayer, allTokens){
+        console.log(currenPlayer)
+        console.log(allTokens)
+
+    }
     useEffect( ()=>{
         getAvailableProperties(selectedGame[0]?.savedPlayers, currentProperties)
-    },[currentProperties, selectedGame])
-    console.log(selectedGame[0].savedPlayers)
+        getAvaliableTokens(selectedGame[0]?.savedPlayers,TokenList)
+    },[currentProperties, selectedGame,TokenList])
     return (
         <>
         {(currentGameName === '') ? (
@@ -196,7 +202,7 @@ const GameHistory = () => {
                                     <ul>
                                         {player.playerPropreties?.map((item)=>{
                                             return (
-                                                <li>{item.properties[0].name}</li>
+                                                <li key={Math.floor(Math.random()* 100) + item.properties[0].name}>{item.properties[0].name}</li>
                                             )
                                         })}
                                     </ul>
