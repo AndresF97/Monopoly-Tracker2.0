@@ -32,6 +32,7 @@ const GameHistory = () => {
     let [selectedGame,setSelectedGame]= useState([]);
     let [takenProperties, setTakenPropeties] = useState()
     let [playersLength, setPlayersLenth] = useState(0)
+    let [avialableTokens, setAvialableTokens] = useState([])
 
     const updatePlayerFunc = (event)=>{
         event.preventDefault()
@@ -124,18 +125,27 @@ const GameHistory = () => {
             // console.log(playerPropertiesThin[i].properties[0].name)
             takenPropertiesFromPlayer.push(playerPropertiesThin[i].properties[0].name)
         }
-        console.log(takenPropertiesFromPlayer)
+        // console.log(takenPropertiesFromPlayer)
         // console.log(selectedGame[0]?.savedPlayers)
-        console.log(currentProperties)
+        // console.log(currentProperties)
         let newTakenProperties =  currentProperties?.filter(item => !takenPropertiesFromPlayer.includes(item.name))
         setTakenPropeties(newTakenProperties)
-        console.log(takenProperties)
+        // console.log(takenProperties)
         }
     }
     function getAvaliableTokens(currenPlayer, allTokens){
-        console.log(currenPlayer)
-        console.log(allTokens)
-
+        if(currenPlayer && allTokens){
+            console.log(currenPlayer)
+            console.log(allTokens)
+            // LOOK INTO THIS LATER
+            let filteredToken = allTokens.filter(function(jsonToken){
+                return !currenPlayer.find(function(playerToken){
+                    return jsonToken.tokenName == playerToken.token
+                })
+            });
+            console.log(filteredToken)
+            setAvialableTokens(filteredToken)
+        }
     }
     useEffect( ()=>{
         getAvailableProperties(selectedGame[0]?.savedPlayers, currentProperties)
