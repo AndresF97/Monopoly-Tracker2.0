@@ -7,6 +7,7 @@ import TokenList from "../assets/tokenList.json"
 
 const GameHistory = () => {
     // TODO:
+    // DISPLAY PLAYERS PROPERTIES
     // ARRAY OF INFORMATION SHOULD AND TH EAVILABLE TOKENS AS WELL SHOULD BE AVIALABLE
     // ADD TOKEN IMAGE ASSETS TO THE USER
     // WORK ON PLAYERFORM COMPENET TO RENDER TOKEN OPTION THE USER IS USING 
@@ -129,11 +130,11 @@ const GameHistory = () => {
         setTakenPropeties(newTakenProperties)
         console.log(takenProperties)
         }
-        console.log("hello")
     }
     useEffect( ()=>{
         getAvailableProperties(selectedGame[0]?.savedPlayers, currentProperties)
     },[currentProperties, selectedGame])
+    console.log(selectedGame[0].savedPlayers)
     return (
         <>
         {(currentGameName === '') ? (
@@ -191,6 +192,14 @@ const GameHistory = () => {
                                     <br></br>
                                     {/* MIGHT NEED TO CHANGE THIS TO RENDER IN A DIFFERENT AREA SUCH AS */}
                                     {/* SUCH AS HAVING THE ADD PRPETY FUNCTIONALITY SOMEWHERE ELSE */}
+                                    <label>Player property</label>
+                                    <ul>
+                                        {player.playerPropreties?.map((item)=>{
+                                            return (
+                                                <li>{item.properties[0].name}</li>
+                                            )
+                                        })}
+                                    </ul>
                                     <label>New Property for user </label>
                                     <br></br>
                                     <select>
@@ -208,6 +217,8 @@ const GameHistory = () => {
                                     <br></br>
                                     <button data-playerid={player._id} onClick={(event) => {updatePlayerFunc(event)}}>Update</button>
                                     <button data-playerid={player._id} onClick={(event)=> deletePlayer(event)}>Delete</button>
+                                    {/* THE IDEA IS TO CREATE CARDS THAT STACK ON EACH OTHER NORMAL CARD HAS USER INFO, BUT THE BACK CARD HAS A PLAYER PROPERTIES AND AWAY TO ADD PORPERTIES */}
+                                    <button>Add property</button>
                                 </form>
                             </li>
                         )
@@ -227,7 +238,6 @@ const GameHistory = () => {
                 ):(
                     <></>
                 )}
-            
                 <button onClick={()=>{window.location.reload()}}>
                     Go Back
                 </button>
