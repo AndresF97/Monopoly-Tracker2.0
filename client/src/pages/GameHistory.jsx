@@ -50,7 +50,7 @@ const GameHistory = () => {
             alert("Thats to many player forms")
             return
         }
-        setCreatePlayerForm(createPlayeForm.concat(<PlayerForm tokenList={TokenList} key={Math.floor(Math.random()* 100)} currentGameId={currentGameId}></PlayerForm>));
+        setCreatePlayerForm(createPlayeForm.concat(<PlayerForm tokenList={avialableTokens} key={Math.floor(Math.random()* 100)} currentGameId={currentGameId}></PlayerForm>));
     };
 
     const stateCurrentGameInfo = (event)=>{
