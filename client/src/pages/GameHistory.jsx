@@ -4,9 +4,11 @@ import { useState, useEffect } from "react"
 import { useQuery, useMutation } from "@apollo/client"
 import PlayerForm from "../components/PlayerForm"
 import TokenList from "../assets/tokenList.json"
+import { Token } from "graphql"
 
 const GameHistory = () => {
     // TODO:
+    // DISPLAY PLAYERS PROPERTIES
     // ARRAY OF INFORMATION SHOULD AND TH EAVILABLE TOKENS AS WELL SHOULD BE AVIALABLE
     // ADD TOKEN IMAGE ASSETS TO THE USER
     // WORK ON PLAYERFORM COMPENET TO RENDER TOKEN OPTION THE USER IS USING 
@@ -30,6 +32,7 @@ const GameHistory = () => {
     let [selectedGame,setSelectedGame]= useState([]);
     let [takenProperties, setTakenPropeties] = useState()
     let [playersLength, setPlayersLenth] = useState(0)
+    let [avialableTokens, setAvialableTokens] = useState([])
 
     const updatePlayerFunc = (event)=>{
         event.preventDefault()
@@ -47,7 +50,7 @@ const GameHistory = () => {
             alert("Thats to many player forms")
             return
         }
-        setCreatePlayerForm(createPlayeForm.concat(<PlayerForm tokenList={TokenList} key={Math.floor(Math.random()* 100)} currentGameId={currentGameId}></PlayerForm>));
+        setCreatePlayerForm(createPlayeForm.concat(<PlayerForm tokenList={avialableTokens} key={Math.floor(Math.random()* 100)} currentGameId={currentGameId}></PlayerForm>));
     };
 
     const stateCurrentGameInfo = (event)=>{
@@ -122,18 +125,32 @@ const GameHistory = () => {
             // console.log(playerPropertiesThin[i].properties[0].name)
             takenPropertiesFromPlayer.push(playerPropertiesThin[i].properties[0].name)
         }
-        console.log(takenPropertiesFromPlayer)
+        // console.log(takenPropertiesFromPlayer)
         // console.log(selectedGame[0]?.savedPlayers)
-        console.log(currentProperties)
+        // console.log(currentProperties)
         let newTakenProperties =  currentProperties?.filter(item => !takenPropertiesFromPlayer.includes(item.name))
         setTakenPropeties(newTakenProperties)
-        console.log(takenProperties)
+        // console.log(takenProperties)
         }
-        console.log("hello")
+    }
+    function getAvaliableTokens(currenPlayer, allTokens){
+        if(currenPlayer && allTokens){
+            console.log(currenPlayer)
+            console.log(allTokens)
+            // LOOK INTO THIS LATER
+            let filteredToken = allTokens.filter(function(jsonToken){
+                return !currenPlayer.find(function(playerToken){
+                    return jsonToken.tokenName == playerToken.token
+                })
+            });
+            console.log(filteredToken)
+            setAvialableTokens(filteredToken)
+        }
     }
     useEffect( ()=>{
         getAvailableProperties(selectedGame[0]?.savedPlayers, currentProperties)
-    },[currentProperties, selectedGame])
+        getAvaliableTokens(selectedGame[0]?.savedPlayers,TokenList)
+    },[currentProperties, selectedGame,TokenList])
     return (
         <>
         {(currentGameName === '') ? (
@@ -191,6 +208,14 @@ const GameHistory = () => {
                                     <br></br>
                                     {/* MIGHT NEED TO CHANGE THIS TO RENDER IN A DIFFERENT AREA SUCH AS */}
                                     {/* SUCH AS HAVING THE ADD PRPETY FUNCTIONALITY SOMEWHERE ELSE */}
+                                    <label>Player property</label>
+                                    <ul>
+                                        {player.playerPropreties?.map((item)=>{
+                                            return (
+                                                <li key={Math.floor(Math.random()* 100) + item.properties[0].name}>{item.properties[0].name}</li>
+                                            )
+                                        })}
+                                    </ul>
                                     <label>New Property for user </label>
                                     <br></br>
                                     <select>
@@ -208,6 +233,8 @@ const GameHistory = () => {
                                     <br></br>
                                     <button data-playerid={player._id} onClick={(event) => {updatePlayerFunc(event)}}>Update</button>
                                     <button data-playerid={player._id} onClick={(event)=> deletePlayer(event)}>Delete</button>
+                                    {/* THE IDEA IS TO CREATE CARDS THAT STACK ON EACH OTHER NORMAL CARD HAS USER INFO, BUT THE BACK CARD HAS A PLAYER PROPERTIES AND AWAY TO ADD PORPERTIES */}
+                                    <button>Add property</button>
                                 </form>
                             </li>
                         )
@@ -227,7 +254,6 @@ const GameHistory = () => {
                 ):(
                     <></>
                 )}
-            
                 <button onClick={()=>{window.location.reload()}}>
                     Go Back
                 </button>
