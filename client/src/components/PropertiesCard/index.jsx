@@ -28,13 +28,17 @@ const PropertiesCard = ({ playerProperties, takenProperties }) => {
                             )
                         })}
                     </select>
+                    <br></br>
+            <button onClick={(event) => { event.preventDefault(); setShowProperties(false) }}>Hide propreties</button>
                 </>
             ) : (
                 <>
+                  <br></br>
+            <button onClick={(event) => { event.preventDefault(); setShowProperties(true) }}>Show propreties</button>
                 </>
             )}
-            <br></br>
-            <button onClick={(event) => { event.preventDefault(); setShowProperties(true) }}>Show propreties</button>
+            {/* <br></br>
+            <button onClick={(event) => { event.preventDefault(); setShowProperties(true) }}>Show propreties</button> */}
         </section>
     )
 }
