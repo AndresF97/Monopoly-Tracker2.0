@@ -4,14 +4,12 @@ import { useState, useEffect } from "react"
 import { useQuery, useMutation } from "@apollo/client"
 import PlayerForm from "../components/PlayerForm"
 import TokenList from "../assets/tokenList.json"
+import PropertiesCard from "../components/PropertiesCard"
 import { Token } from "graphql"
 
 const GameHistory = () => {
     // TODO:
-    // DISPLAY PLAYERS PROPERTIES
-    // ARRAY OF INFORMATION SHOULD AND TH EAVILABLE TOKENS AS WELL SHOULD BE AVIALABLE
-    // ADD TOKEN IMAGE ASSETS TO THE USER
-    // WORK ON PLAYERFORM COMPENET TO RENDER TOKEN OPTION THE USER IS USING 
+    // CREATE A CARD TO DISPLAY PROPERTIES AND ADD PROPERTIES 
     // CREATE A FORM TO ADD PROPERTIES INSTEAD OF BEEN PART OF THE UPADTEFORM
     const { loading, data } = useQuery(ME, {
         fetchPolicy: "no-cache"
@@ -22,10 +20,8 @@ const GameHistory = () => {
     const [deleteGame,{error}] = useMutation(DELETE_GAME)
     const [removeOnePlayerFromGame, {erro}] = useMutation(REMOVE_ONE_PLAYER_FROM_GAME)
     const [upddatePlayerInfo, {err}] = useMutation(UPDATE_PLAYER_INFO)
-    // console.log(data?.me)
     const gameList = data?.me?.gameMaster || [];
     const currentProperties = data2?.data?.allProperties || []
-    // console.log(currentProperties)
     const [currentGameId, setcurrentGameIdState] = useState('')
     const [currentGameName, setCurrentGameName] = useState('')
     let [createPlayeForm,setCreatePlayerForm] = useState([])
@@ -63,10 +59,7 @@ const GameHistory = () => {
         selectedGame = selectedGame.concat(filterGame)
         setSelectedGame(selectedGame)
         playersLength = selectedGame[0].savedPlayers.length
-        setPlayersLenth(playersLength)
-        // console.log(playersLength)
-        // console.log(selectedGame)
-        
+        setPlayersLenth(playersLength)        
     }
     const deleteGameFunc = async (event) =>{
         event.stopPropagation()
@@ -110,7 +103,6 @@ const GameHistory = () => {
     const getAvailableProperties =  (game, currentProperties )=>{
         if(game && currentProperties){
         let playerProperties = game.map((player)=>{
-            // console.log(player.playerPropreties)
             return(
                 player.playerPropreties
             )
@@ -119,18 +111,12 @@ const GameHistory = () => {
         playerProperties.map((properties)=>{
             return playerPropertiesThin = playerPropertiesThin.concat(properties)
         })
-        // console.log(playerPropertiesThin)
         let takenPropertiesFromPlayer = []
         for(var i  = 0; i < playerPropertiesThin.length;i++){
-            // console.log(playerPropertiesThin[i].properties[0].name)
             takenPropertiesFromPlayer.push(playerPropertiesThin[i].properties[0].name)
         }
-        // console.log(takenPropertiesFromPlayer)
-        // console.log(selectedGame[0]?.savedPlayers)
-        // console.log(currentProperties)
         let newTakenProperties =  currentProperties?.filter(item => !takenPropertiesFromPlayer.includes(item.name))
         setTakenPropeties(newTakenProperties)
-        // console.log(takenProperties)
         }
     }
     function getAvaliableTokens(currenPlayer, allTokens){
@@ -206,35 +192,10 @@ const GameHistory = () => {
                                     placeholder={player.position}
                                     ></input>
                                     <br></br>
-                                    {/* MIGHT NEED TO CHANGE THIS TO RENDER IN A DIFFERENT AREA SUCH AS */}
-                                    {/* SUCH AS HAVING THE ADD PRPETY FUNCTIONALITY SOMEWHERE ELSE */}
-                                    <label>Player property</label>
-                                    <ul>
-                                        {player.playerPropreties?.map((item)=>{
-                                            return (
-                                                <li key={Math.floor(Math.random()* 100) + item.properties[0].name}>{item.properties[0].name}</li>
-                                            )
-                                        })}
-                                    </ul>
-                                    <label>New Property for user </label>
-                                    <br></br>
-                                    <select>
-                                    {takenProperties?.map((propertie)=>{
-                                        return (
-                                            <option 
-                                            key={Math.floor(Math.random()* 100) + propertie.name}
-                                            data-color={propertie.hex} 
-                                            value={propertie.name}>
-                                            {propertie.name}
-                                            </option>
-                                        )
-                                    })}
-                                    </select>
+                                         <PropertiesCard playerProperties={player.playerPropreties} takenProperties={takenProperties}/>
                                     <br></br>
                                     <button data-playerid={player._id} onClick={(event) => {updatePlayerFunc(event)}}>Update</button>
                                     <button data-playerid={player._id} onClick={(event)=> deletePlayer(event)}>Delete</button>
-                                    {/* THE IDEA IS TO CREATE CARDS THAT STACK ON EACH OTHER NORMAL CARD HAS USER INFO, BUT THE BACK CARD HAS A PLAYER PROPERTIES AND AWAY TO ADD PORPERTIES */}
-                                    <button>Add property</button>
                                 </form>
                             </li>
                         )
@@ -249,7 +210,6 @@ const GameHistory = () => {
                     Add Player
                 </button>
                 {(createPlayeForm.length > 0 ) ?(
-                    // add  functionality to remove a form
                     <button onClick={removePlayerForm}>Remove Form</button>
                 ):(
                     <></>
