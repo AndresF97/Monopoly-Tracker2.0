@@ -5,12 +5,14 @@ import { useQuery, useMutation } from "@apollo/client"
 import PlayerForm from "../components/PlayerForm"
 import TokenList from "../assets/tokenList.json"
 import PropertiesCard from "../components/PropertiesCard"
-import { Token } from "graphql"
 
 const GameHistory = () => {
     // TODO:
-    // CREATE A CARD TO DISPLAY PROPERTIES AND ADD PROPERTIES 
-    // CREATE A FORM TO ADD PROPERTIES INSTEAD OF BEEN PART OF THE UPADTEFORM
+    // TEST OUT UPDATE QUERY
+    // MAKE SURE QUERY WORK WITH PROPERTIE
+    // NOTE:
+    // MIGHT NEED TO CHANGE PROPERTIES TO UPDATE EACHONE
+    // CREATE AWAY TO DELET EACH PROPERTY FROM USER
     const { loading, data } = useQuery(ME, {
         fetchPolicy: "no-cache"
     })
