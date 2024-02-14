@@ -20,10 +20,8 @@ const GameHistory = () => {
     const [deleteGame,{error}] = useMutation(DELETE_GAME)
     const [removeOnePlayerFromGame, {erro}] = useMutation(REMOVE_ONE_PLAYER_FROM_GAME)
     const [upddatePlayerInfo, {err}] = useMutation(UPDATE_PLAYER_INFO)
-    // console.log(data?.me)
     const gameList = data?.me?.gameMaster || [];
     const currentProperties = data2?.data?.allProperties || []
-    // console.log(currentProperties)
     const [currentGameId, setcurrentGameIdState] = useState('')
     const [currentGameName, setCurrentGameName] = useState('')
     let [createPlayeForm,setCreatePlayerForm] = useState([])
@@ -61,10 +59,7 @@ const GameHistory = () => {
         selectedGame = selectedGame.concat(filterGame)
         setSelectedGame(selectedGame)
         playersLength = selectedGame[0].savedPlayers.length
-        setPlayersLenth(playersLength)
-        // console.log(playersLength)
-        // console.log(selectedGame)
-        
+        setPlayersLenth(playersLength)        
     }
     const deleteGameFunc = async (event) =>{
         event.stopPropagation()
@@ -108,7 +103,6 @@ const GameHistory = () => {
     const getAvailableProperties =  (game, currentProperties )=>{
         if(game && currentProperties){
         let playerProperties = game.map((player)=>{
-            // console.log(player.playerPropreties)
             return(
                 player.playerPropreties
             )
@@ -117,18 +111,12 @@ const GameHistory = () => {
         playerProperties.map((properties)=>{
             return playerPropertiesThin = playerPropertiesThin.concat(properties)
         })
-        // console.log(playerPropertiesThin)
         let takenPropertiesFromPlayer = []
         for(var i  = 0; i < playerPropertiesThin.length;i++){
-            // console.log(playerPropertiesThin[i].properties[0].name)
             takenPropertiesFromPlayer.push(playerPropertiesThin[i].properties[0].name)
         }
-        // console.log(takenPropertiesFromPlayer)
-        // console.log(selectedGame[0]?.savedPlayers)
-        // console.log(currentProperties)
         let newTakenProperties =  currentProperties?.filter(item => !takenPropertiesFromPlayer.includes(item.name))
         setTakenPropeties(newTakenProperties)
-        // console.log(takenProperties)
         }
     }
     function getAvaliableTokens(currenPlayer, allTokens){
@@ -222,7 +210,6 @@ const GameHistory = () => {
                     Add Player
                 </button>
                 {(createPlayeForm.length > 0 ) ?(
-                    // add  functionality to remove a form
                     <button onClick={removePlayerForm}>Remove Form</button>
                 ):(
                     <></>
