@@ -4,14 +4,12 @@ import { useState, useEffect } from "react"
 import { useQuery, useMutation } from "@apollo/client"
 import PlayerForm from "../components/PlayerForm"
 import TokenList from "../assets/tokenList.json"
+import PropertiesCard from "../components/PropertiesCard"
 import { Token } from "graphql"
 
 const GameHistory = () => {
     // TODO:
-    // DISPLAY PLAYERS PROPERTIES
-    // ARRAY OF INFORMATION SHOULD AND TH EAVILABLE TOKENS AS WELL SHOULD BE AVIALABLE
-    // ADD TOKEN IMAGE ASSETS TO THE USER
-    // WORK ON PLAYERFORM COMPENET TO RENDER TOKEN OPTION THE USER IS USING 
+    // CREATE A CARD TO DISPLAY PROPERTIES AND ADD PROPERTIES 
     // CREATE A FORM TO ADD PROPERTIES INSTEAD OF BEEN PART OF THE UPADTEFORM
     const { loading, data } = useQuery(ME, {
         fetchPolicy: "no-cache"
@@ -206,35 +204,12 @@ const GameHistory = () => {
                                     placeholder={player.position}
                                     ></input>
                                     <br></br>
-                                    {/* MIGHT NEED TO CHANGE THIS TO RENDER IN A DIFFERENT AREA SUCH AS */}
-                                    {/* SUCH AS HAVING THE ADD PRPETY FUNCTIONALITY SOMEWHERE ELSE */}
-                                    <label>Player property</label>
-                                    <ul>
-                                        {player.playerPropreties?.map((item)=>{
-                                            return (
-                                                <li key={Math.floor(Math.random()* 100) + item.properties[0].name}>{item.properties[0].name}</li>
-                                            )
-                                        })}
-                                    </ul>
-                                    <label>New Property for user </label>
-                                    <br></br>
-                                    <select>
-                                    {takenProperties?.map((propertie)=>{
-                                        return (
-                                            <option 
-                                            key={Math.floor(Math.random()* 100) + propertie.name}
-                                            data-color={propertie.hex} 
-                                            value={propertie.name}>
-                                            {propertie.name}
-                                            </option>
-                                        )
-                                    })}
-                                    </select>
+                                    <PropertiesCard playerProperties={player.playerPropreties} takenProperties={takenProperties}/>
                                     <br></br>
                                     <button data-playerid={player._id} onClick={(event) => {updatePlayerFunc(event)}}>Update</button>
                                     <button data-playerid={player._id} onClick={(event)=> deletePlayer(event)}>Delete</button>
                                     {/* THE IDEA IS TO CREATE CARDS THAT STACK ON EACH OTHER NORMAL CARD HAS USER INFO, BUT THE BACK CARD HAS A PLAYER PROPERTIES AND AWAY TO ADD PORPERTIES */}
-                                    <button>Add property</button>
+                                    <button>Show propreties</button>
                                 </form>
                             </li>
                         )
