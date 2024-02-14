@@ -204,12 +204,10 @@ const GameHistory = () => {
                                     placeholder={player.position}
                                     ></input>
                                     <br></br>
-                                    <PropertiesCard playerProperties={player.playerPropreties} takenProperties={takenProperties}/>
+                                         <PropertiesCard playerProperties={player.playerPropreties} takenProperties={takenProperties}/>
                                     <br></br>
                                     <button data-playerid={player._id} onClick={(event) => {updatePlayerFunc(event)}}>Update</button>
                                     <button data-playerid={player._id} onClick={(event)=> deletePlayer(event)}>Delete</button>
-                                    {/* THE IDEA IS TO CREATE CARDS THAT STACK ON EACH OTHER NORMAL CARD HAS USER INFO, BUT THE BACK CARD HAS A PLAYER PROPERTIES AND AWAY TO ADD PORPERTIES */}
-                                    <button>Show propreties</button>
                                 </form>
                             </li>
                         )
