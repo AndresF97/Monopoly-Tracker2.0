@@ -4,13 +4,16 @@ import { useState, useEffect } from "react"
 import { useQuery, useMutation } from "@apollo/client"
 import PlayerForm from "../components/PlayerForm"
 import TokenList from "../assets/tokenList.json"
-import PropertiesCard from "../components/PropertiesCard"
-import { Token } from "graphql"
+// import PropertiesCard from "../components/PropertiesCard"
+import PlayerCard from "../components/PlayerCard"
 
 const GameHistory = () => {
     // TODO:
-    // CREATE A CARD TO DISPLAY PROPERTIES AND ADD PROPERTIES 
-    // CREATE A FORM TO ADD PROPERTIES INSTEAD OF BEEN PART OF THE UPADTEFORM
+    // TEST OUT UPDATE QUERY
+    // MAKE SURE QUERY WORK WITH PROPERTIE
+    // NOTE:
+    // MIGHT NEED TO CHANGE PROPERTIES TO UPDATE EACHONE
+    // CREATE AWAY TO DELET EACH PROPERTY FROM USER
     const { loading, data } = useQuery(ME, {
         fetchPolicy: "no-cache"
     })
@@ -18,8 +21,8 @@ const GameHistory = () => {
         fetchPolicy: "no-cache"
     })
     const [deleteGame,{error}] = useMutation(DELETE_GAME)
-    const [removeOnePlayerFromGame, {erro}] = useMutation(REMOVE_ONE_PLAYER_FROM_GAME)
-    const [upddatePlayerInfo, {err}] = useMutation(UPDATE_PLAYER_INFO)
+    // const [removeOnePlayerFromGame, {erro}] = useMutation(REMOVE_ONE_PLAYER_FROM_GAME)
+    // const [upddatePlayerInfo, {err}] = useMutation(UPDATE_PLAYER_INFO)
     const gameList = data?.me?.gameMaster || [];
     const currentProperties = data2?.data?.allProperties || []
     const [currentGameId, setcurrentGameIdState] = useState('')
@@ -29,14 +32,6 @@ const GameHistory = () => {
     let [takenProperties, setTakenPropeties] = useState()
     let [playersLength, setPlayersLenth] = useState(0)
     let [avialableTokens, setAvialableTokens] = useState([])
-
-    const updatePlayerFunc = (event)=>{
-        event.preventDefault()
-        console.log(event.target.parentNode.querySelector('.playerMoney').value)
-        // CREATE A VARIABLE TO STORE UPDATED MONEY 
-
-        // CREATE A VARIABLE TO STORE UPDATED POSITION
-    }
 
     const onAddBtnClick = event => {
         playersLength = playersLength + 1
@@ -88,18 +83,6 @@ const GameHistory = () => {
         }
 
     }
-    const deletePlayer = async (event)=>{
-        let playerId = event.target.getAttribute('data-playerid')
-        let gameId = currentGameId
-        try{
-            const {data} = await removeOnePlayerFromGame({
-                variables:{gameId,playerId}
-            })
-            window.location.reload()
-        }catch(err){
-            console.error(err)
-        }
-    }
     const getAvailableProperties =  (game, currentProperties )=>{
         if(game && currentProperties){
         let playerProperties = game.map((player)=>{
@@ -121,15 +104,12 @@ const GameHistory = () => {
     }
     function getAvaliableTokens(currenPlayer, allTokens){
         if(currenPlayer && allTokens){
-            console.log(currenPlayer)
-            console.log(allTokens)
             // LOOK INTO THIS LATER
             let filteredToken = allTokens.filter(function(jsonToken){
                 return !currenPlayer.find(function(playerToken){
                     return jsonToken.tokenName == playerToken.token
                 })
             });
-            console.log(filteredToken)
             setAvialableTokens(filteredToken)
         }
     }
@@ -174,29 +154,7 @@ const GameHistory = () => {
                     {selectedGame[0].savedPlayers?.map((player)=>{
                         return (
                             <li key={player._id}>
-                                <form>
-                                    <p>Name: {player.name}</p>
-                                    <p>Token: {player.token}</p>
-                                    <label>Money</label>
-                                    <br></br>
-                                    <input
-                                    type="text"
-                                    placeholder={player.money}
-                                    className="playerMoney"
-                                    ></input>
-                                    <br></br>
-                                    <label>Position</label>
-                                    <br></br>
-                                    <input
-                                    type="text"
-                                    placeholder={player.position}
-                                    ></input>
-                                    <br></br>
-                                         <PropertiesCard playerProperties={player.playerPropreties} takenProperties={takenProperties}/>
-                                    <br></br>
-                                    <button data-playerid={player._id} onClick={(event) => {updatePlayerFunc(event)}}>Update</button>
-                                    <button data-playerid={player._id} onClick={(event)=> deletePlayer(event)}>Delete</button>
-                                </form>
+                                <PlayerCard player={player} currentGameId={currentGameId} takenProperties={takenProperties}/>
                             </li>
                         )
                     })}
