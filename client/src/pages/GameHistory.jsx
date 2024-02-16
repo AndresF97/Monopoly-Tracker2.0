@@ -1,19 +1,17 @@
 import { ME, ALL_PROPERTIES } from "../utils/queries"
-import { DELETE_GAME, REMOVE_ONE_PLAYER_FROM_GAME, UPDATE_PLAYER_INFO} from "../utils/mutations"
+import { DELETE_GAME} from "../utils/mutations"
 import { useState, useEffect } from "react"
 import { useQuery, useMutation } from "@apollo/client"
 import PlayerForm from "../components/PlayerForm"
 import TokenList from "../assets/tokenList.json"
-// import PropertiesCard from "../components/PropertiesCard"
 import PlayerCard from "../components/PlayerCard"
 
 const GameHistory = () => {
     // TODO:
-    // TEST OUT UPDATE QUERY
-    // MAKE SURE QUERY WORK WITH PROPERTIE
     // NOTE:
     // MIGHT NEED TO CHANGE PROPERTIES TO UPDATE EACHONE
-    // CREATE AWAY TO DELET EACH PROPERTY FROM USER
+    // MAKE SURE QUERY WORK WITH PROPERTIES
+    // CREATE AWAY TO DELETE/ADD EACH PROPERTY FROM USER MUTATION
     const { loading, data } = useQuery(ME, {
         fetchPolicy: "no-cache"
     })
@@ -21,8 +19,6 @@ const GameHistory = () => {
         fetchPolicy: "no-cache"
     })
     const [deleteGame,{error}] = useMutation(DELETE_GAME)
-    // const [removeOnePlayerFromGame, {erro}] = useMutation(REMOVE_ONE_PLAYER_FROM_GAME)
-    // const [upddatePlayerInfo, {err}] = useMutation(UPDATE_PLAYER_INFO)
     const gameList = data?.me?.gameMaster || [];
     const currentProperties = data2?.data?.allProperties || []
     const [currentGameId, setcurrentGameIdState] = useState('')
