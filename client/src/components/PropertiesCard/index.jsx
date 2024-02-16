@@ -5,7 +5,6 @@ const PropertiesCard = ({ playerProperties, takenProperties }) => {
         <section>
             {showProperties ? (
                 <>
-                    <h1>Boom Cards go here</h1>
                     <label>Player property</label>
                     <ul>
                         {playerProperties?.map((item) => {
