@@ -4,8 +4,7 @@ import {CREATE_PLAYER} from "../../utils/mutations"
 
 
 const PlayerForm =  ({currentGameId, tokenList})=>{
-    console.log(tokenList)
-    const [playerForm, setPlayerForm] = useState({name:'',token:"",money:0,position:'',gameId:currentGameId})
+    const [playerForm, setPlayerForm] = useState({name:'',token:tokenList[0].tokenName,money:0,position:'',gameId:currentGameId})
     const [createPlayer, {error}] = useMutation(CREATE_PLAYER)
     const playerSubmitForm = async (event)=>{
         event.preventDefault()
@@ -40,12 +39,19 @@ const PlayerForm =  ({currentGameId, tokenList})=>{
                 <label>Token of Player:</label>
                 <br></br>
 
-                <select>
+                <select 
+                onChange={handleInputChange}
+                name="token"
+                value={playerForm.token}
+                
+                >
                 {tokenList?.map((token, index)=>{
                     return (
                         // <h1>{token.tokenName}</h1>
                             <option
-                            key={index}>
+                            key={index}
+                            value={token.tokenName}
+                            >
                                 {token.tokenName}
                             </option>
                     )
