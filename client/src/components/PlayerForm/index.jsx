@@ -14,6 +14,7 @@ const PlayerForm =  ({currentGameId, tokenList})=>{
                 variables:{...playerForm}
             })
             console.log(data)
+            window.location.reload()
         }catch(err){
             console.error(err)
         }

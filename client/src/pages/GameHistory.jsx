@@ -22,7 +22,7 @@ const GameHistory = () => {
     })
     const [deleteGame,{error}] = useMutation(DELETE_GAME)
     // const [removeOnePlayerFromGame, {erro}] = useMutation(REMOVE_ONE_PLAYER_FROM_GAME)
-    const [upddatePlayerInfo, {err}] = useMutation(UPDATE_PLAYER_INFO)
+    // const [upddatePlayerInfo, {err}] = useMutation(UPDATE_PLAYER_INFO)
     const gameList = data?.me?.gameMaster || [];
     const currentProperties = data2?.data?.allProperties || []
     const [currentGameId, setcurrentGameIdState] = useState('')

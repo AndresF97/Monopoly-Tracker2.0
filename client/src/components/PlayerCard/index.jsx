@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import PropertiesCard from '../PropertiesCard'
 import { useMutation } from '@apollo/client'
-import { REMOVE_ONE_PLAYER_FROM_GAME } from "../../utils/mutations"
+import { REMOVE_ONE_PLAYER_FROM_GAME, UPDATE_PLAYER_INFO } from "../../utils/mutations"
 
 const PlayerCard = ({ player, currentGameId, takenProperties }) => {
     // create current Player State to use in the update
     const [currentPlayer, setCurrentPlayer] = useState({_id: player._id,name: player.name,token:player.token,money:player.money,position:player.position})
     const [removeOnePlayerFromGame, { error }] = useMutation(REMOVE_ONE_PLAYER_FROM_GAME)
+    const [updatePlayerInfo, {err}] = useMutation(UPDATE_PLAYER_INFO)
     const [showPlayerUpdateForm, setShowPlayerUpdateForm] = useState(false)
     const deletePlayer = async (event) => {
         let playerId = currentPlayer._id
@@ -20,14 +21,20 @@ const PlayerCard = ({ player, currentGameId, takenProperties }) => {
             console.error(err)
         }
     }
-    const updatePlayerFunc = (event) => {
+    const updatePlayerFunc = async (event) => {
         event.preventDefault()
-        // console.log(event.target.parentNode.querySelector('.playerMoney').value)
-        console.log(currentPlayer)
-        currentPlayer.money = parseInt(currentPlayer.money)
-        // CREATE A VARIABLE TO STORE UPDATED MONEY 
+        try{
+            console.log(currentPlayer)
+            currentPlayer.money = parseInt(currentPlayer.money)
+            const {data} = await updatePlayerInfo({
+                variables:{...currentPlayer,playerId:currentPlayer._id}
+            })
+            console.log(data)
+            window.location.reload()
 
-        // CREATE A VARIABLE TO STORE UPDATED POSITION
+        }catch(err){
+            console.error(err)
+        }
     }
     const handleInputChange= (event)=>{
         const {name, value } = event.target
