@@ -5,10 +5,11 @@ import { REMOVE_ONE_PLAYER_FROM_GAME } from "../../utils/mutations"
 
 const PlayerCard = ({ player, currentGameId, takenProperties }) => {
     // create current Player State to use in the update
+    const [currentPlayer, setCurrentPlayer] = useState({_id: player._id,name: player.name,token:player.token,money:player.money,position:player.position})
     const [removeOnePlayerFromGame, { error }] = useMutation(REMOVE_ONE_PLAYER_FROM_GAME)
     const [showPlayerUpdateForm, setShowPlayerUpdateForm] = useState(false)
     const deletePlayer = async (event) => {
-        let playerId = event.target.getAttribute('data-playerid')
+        let playerId = currentPlayer._id
         let gameId = currentGameId
         try {
             const { data } = await removeOnePlayerFromGame({
@@ -21,17 +22,22 @@ const PlayerCard = ({ player, currentGameId, takenProperties }) => {
     }
     const updatePlayerFunc = (event) => {
         event.preventDefault()
-        console.log(event.target.parentNode.querySelector('.playerMoney').value)
+        // console.log(event.target.parentNode.querySelector('.playerMoney').value)
+        console.log(currentPlayer)
+        currentPlayer.money = parseInt(currentPlayer.money)
         // CREATE A VARIABLE TO STORE UPDATED MONEY 
 
         // CREATE A VARIABLE TO STORE UPDATED POSITION
     }
-
+    const handleInputChange= (event)=>{
+        const {name, value } = event.target
+        setCurrentPlayer({...currentPlayer, [name]:value})
+    }
     return (
         <>
             <form>
-                <p>Name: {player.name}</p>
-                <p>Token: {player.token}</p>
+                <p>Name: {currentPlayer.name}</p>
+                <p>Token: {currentPlayer.token}</p>
 
                 {showPlayerUpdateForm ? (
                     <>
@@ -39,23 +45,28 @@ const PlayerCard = ({ player, currentGameId, takenProperties }) => {
                         <br></br>
                         <input
                             type="text"
-                            placeholder={player.money}
-                            className="playerMoney"
+                            placeholder={currentPlayer.money}
+                            name='money'
+                            value={currentPlayer.money}
+                            onChange={handleInputChange}
                         ></input>
                         <br></br>
                         <label>Position</label>
                         <br></br>
                         <input
                             type="text"
-                            placeholder={player.position}
+                            placeholder={currentPlayer.position}
+                            name='position'
+                            value={currentPlayer.position}
+                            onChange={handleInputChange}
                         ></input>
                         <br></br>
                     </>
 
                 ) : (
                     <>
-                        <p>Money:{player.money}</p>
-                        <p>Position:{player.position}</p>
+                        <p>Money:{currentPlayer.money}</p>
+                        <p>Position:{currentPlayer.position}</p>
                     </>
                 )}
 
@@ -63,14 +74,14 @@ const PlayerCard = ({ player, currentGameId, takenProperties }) => {
                 <br></br>
                 {showPlayerUpdateForm ? (
                     <>
-                        <button data-playerid={player._id} onClick={(event) => { updatePlayerFunc(event) }}>Update</button>
+                        <button onClick={(event) => { updatePlayerFunc(event) }}>Update</button>
                         <button onClick={(event)=>{ event.preventDefault(); setShowPlayerUpdateForm(false)}}>Player info</button>
                     </>
                 ) : (
                     <>
 
                         <button onClick={(event)=>{ event.preventDefault(); setShowPlayerUpdateForm(true)}}>Update Player Info</button>
-                        <button data-playerid={player._id} onClick={(event) => deletePlayer(event)}>Delete</button>
+                        <button onClick={(event) => deletePlayer(event)}>Delete</button>
                     </>
                 )}
 

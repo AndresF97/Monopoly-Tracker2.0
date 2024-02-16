@@ -9,7 +9,6 @@ import PlayerCard from "../components/PlayerCard"
 
 const GameHistory = () => {
     // TODO:
-    // MAKE SWITCH STATEMENT TO SHOW AN UPDATE FORM AND STATIC MESSAGE FOR EACH USER
     // TEST OUT UPDATE QUERY
     // MAKE SURE QUERY WORK WITH PROPERTIE
     // NOTE:
@@ -33,14 +32,6 @@ const GameHistory = () => {
     let [takenProperties, setTakenPropeties] = useState()
     let [playersLength, setPlayersLenth] = useState(0)
     let [avialableTokens, setAvialableTokens] = useState([])
-
-    // const updatePlayerFunc = (event)=>{
-    //     event.preventDefault()
-    //     console.log(event.target.parentNode.querySelector('.playerMoney').value)
-    //     // CREATE A VARIABLE TO STORE UPDATED MONEY 
-
-    //     // CREATE A VARIABLE TO STORE UPDATED POSITION
-    // }
 
     const onAddBtnClick = event => {
         playersLength = playersLength + 1
@@ -92,18 +83,6 @@ const GameHistory = () => {
         }
 
     }
-    // const deletePlayer = async (event)=>{
-    //     let playerId = event.target.getAttribute('data-playerid')
-    //     let gameId = currentGameId
-    //     try{
-    //         const {data} = await removeOnePlayerFromGame({
-    //             variables:{gameId,playerId}
-    //         })
-    //         window.location.reload()
-    //     }catch(err){
-    //         console.error(err)
-    //     }
-    // }
     const getAvailableProperties =  (game, currentProperties )=>{
         if(game && currentProperties){
         let playerProperties = game.map((player)=>{
@@ -176,29 +155,6 @@ const GameHistory = () => {
                         return (
                             <li key={player._id}>
                                 <PlayerCard player={player} currentGameId={currentGameId} takenProperties={takenProperties}/>
-                                {/* <form>
-                                    <p>Name: {player.name}</p>
-                                    <p>Token: {player.token}</p>
-                                    <label>Money</label>
-                                    <br></br>
-                                    <input
-                                    type="text"
-                                    placeholder={player.money}
-                                    className="playerMoney"
-                                    ></input>
-                                    <br></br>
-                                    <label>Position</label>
-                                    <br></br>
-                                    <input
-                                    type="text"
-                                    placeholder={player.position}
-                                    ></input>
-                                    <br></br>
-                                         <PropertiesCard playerProperties={player.playerPropreties} takenProperties={takenProperties}/>
-                                    <br></br>
-                                    <button data-playerid={player._id} onClick={(event) => {updatePlayerFunc(event)}}>Update</button>
-                                    <button data-playerid={player._id} onClick={(event)=> deletePlayer(event)}>Delete</button>
-                                </form> */}
                             </li>
                         )
                     })}

@@ -47,7 +47,6 @@ const PlayerForm =  ({currentGameId, tokenList})=>{
                 >
                 {tokenList?.map((token, index)=>{
                     return (
-                        // <h1>{token.tokenName}</h1>
                             <option
                             key={index}
                             value={token.tokenName}
