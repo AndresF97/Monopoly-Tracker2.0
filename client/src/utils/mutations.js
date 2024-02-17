@@ -52,27 +52,7 @@ mutation CreatePlayer($name: String!, $token: String!, $money: Int!, $position: 
   }
 `;
 
-export const ADD_PROPERTY_TO_PLAYTER = gql`
-mutation AddPropertyToPlayer($playerId: String!, $propertyId: String!) {
-    addPropertyToPlayer(playerId: $playerId, propertyId: $propertyId) {
-      _id
-      money
-      name
-      position
-      token
-      playerPropreties {
-        numHouses
-        Hotel
-        properties {
-          name
-          hex
-          _id
-        }
-      }
-  
-    }
-  }`;
-  // INPROGRESS
+// DONE
 
 export const UPDATE_PLAYER_INFO = gql`
   mutation UpdatePlayerInfo($name: String, $playerId: String!, $token: String, $money: Int, $position: String) {
@@ -130,3 +110,25 @@ mutation RemovePropertyFromPlayer($playerId: ID!, $propertyId: ID!) {
   }
 
 `;
+
+// INPROGRESS
+export const ADD_PROPERTY_TO_PLAYTER = gql`
+mutation AddPropertyToPlayer($playerId: String!, $propertyId: String!) {
+    addPropertyToPlayer(playerId: $playerId, propertyId: $propertyId) {
+      _id
+      money
+      name
+      position
+      token
+      playerPropreties {
+        numHouses
+        Hotel
+        properties {
+          name
+          hex
+          _id
+        }
+      }
+  
+    }
+  }`;

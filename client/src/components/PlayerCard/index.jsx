@@ -77,7 +77,7 @@ const PlayerCard = ({ player, currentGameId, takenProperties }) => {
                     </>
                 )}
 
-                <PropertiesCard playerProperties={player.playerPropreties} takenProperties={takenProperties} />
+                <PropertiesCard playerProperties={player.playerPropreties} takenProperties={takenProperties} playerId={currentPlayer._id}/>
                 <br></br>
                 {showPlayerUpdateForm ? (
                     <>
