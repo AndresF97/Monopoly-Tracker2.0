@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_PROPERTY_TO_PLAYTER } from "../../utils/mutations";
 const PropertiesCard = ({ playerProperties, takenProperties, playerId }) => {
+    // TODO:
+    // WORK ON THE REMOVE PROPERTY FROM PLAYER 
     const [addPropertyToPlayer, {error}] = useMutation(ADD_PROPERTY_TO_PLAYTER);
     const [propertyId,setSelectedPropertyId] =useState('')
     const [showProperties, setShowProperties] = useState(false)

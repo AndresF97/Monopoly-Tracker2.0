@@ -8,10 +8,7 @@ import PlayerCard from "../components/PlayerCard"
 
 const GameHistory = () => {
     // TODO:
-    // NOTE:
-    // MIGHT NEED TO CHANGE PROPERTIES TO UPDATE EACHONE
-    // MAKE SURE QUERY WORK WITH PROPERTIES
-    // CREATE AWAY TO DELETE/ADD EACH PROPERTY FROM USER MUTATION
+    // GO TO PROPERTY CARD COMPONENT 
     const { loading, data } = useQuery(ME, {
         fetchPolicy: "no-cache"
     })
