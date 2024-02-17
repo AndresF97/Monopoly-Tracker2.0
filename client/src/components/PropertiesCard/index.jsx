@@ -1,15 +1,20 @@
 import { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_PROPERTY_TO_PLAYTER } from "../../utils/mutations";
-const PropertiesCard = ({ playerProperties, takenProperties }) => {
+const PropertiesCard = ({ playerProperties, takenProperties, playerId }) => {
     const [addPropertyToPlayer, {error}] = useMutation(ADD_PROPERTY_TO_PLAYTER);
-    const [selectedPorpertyId,setSelectedPropertyId] =useState('')
+    const [propertyId,setSelectedPropertyId] =useState('')
     const [showProperties, setShowProperties] = useState(false)
-    const addPropertyToPlayerFunc = (event)=>{
+    const addPropertyToPlayerFunc = async (event)=>{
         event.preventDefault();
-        console.log('clicked')
-        // need playerId and propetyId
-        console.log(selectedPorpertyId)
+        try{
+            const {data} = await addPropertyToPlayer({
+                variables:{propertyId,playerId}
+            })
+            window.location.reload()
+        }catch(err){
+            console.error(err)
+        }
     }
 
     useEffect(()=>{
