@@ -92,7 +92,7 @@ mutation RemoveOnePlayerFromGame($gameId: ID!, $playerId: ID!) {
     }
   }
 `;
-// INPROGRESS
+
 export const REMOVE_PROPERTY_FROM_PLAYER = gql`
 mutation RemovePropertyFromPlayer($playerId: ID!, $propertyId: ID!) {
     removePropertyFromPlayer(playerId: $playerId, propertyId: $propertyId) {
@@ -111,7 +111,7 @@ mutation RemovePropertyFromPlayer($playerId: ID!, $propertyId: ID!) {
 
 `;
 
-
+// INPROGRESS
 export const ADD_PROPERTY_TO_PLAYTER = gql`
 mutation AddPropertyToPlayer($playerId: String!, $propertyId: String!) {
     addPropertyToPlayer(playerId: $playerId, propertyId: $propertyId) {

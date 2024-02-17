@@ -1,6 +1,14 @@
 import { useState } from "react";
+import { useMutation } from "@apollo/client";
+import { ADD_PROPERTY_TO_PLAYTER } from "../../utils/mutations";
 const PropertiesCard = ({ playerProperties, takenProperties }) => {
+    const [addPropertyToPlayer, {error}] = useMutation(ADD_PROPERTY_TO_PLAYTER);
     const [showProperties, setShowProperties] = useState(false)
+    const addPropertyToPlayerFunc = (event)=>{
+        event.preventDefault();
+        console.log('clicked')
+        // need playerId and propetyId
+    }
     return (
         <section>
             {showProperties ? (
@@ -29,6 +37,7 @@ const PropertiesCard = ({ playerProperties, takenProperties }) => {
                     </select>
                     <br></br>
                     <button onClick={(event) => { event.preventDefault(); setShowProperties(false) }}>Hide propreties</button>
+                    <button onClick={(event)=>{addPropertyToPlayerFunc(event)}}>Add propertie</button>
                 </>
             ) : (
                 <>
