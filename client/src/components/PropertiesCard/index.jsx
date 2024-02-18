@@ -5,6 +5,7 @@ const PropertiesCard = ({ playerProperties, takenProperties, playerId }) => {
     // TODO:
     // WORK ON THE REMOVE PROPERTY FROM PLAYER 
     const [addPropertyToPlayer, {error}] = useMutation(ADD_PROPERTY_TO_PLAYTER);
+    const [removePropertyFromPlayer, {err}] = useMutation(REMOVE_PROPERTY_FROM_PLAYER)
     const [propertyId,setSelectedPropertyId] =useState('')
     const [showProperties, setShowProperties] = useState(false)
     const addPropertyToPlayerFunc = async (event)=>{
@@ -18,11 +19,20 @@ const PropertiesCard = ({ playerProperties, takenProperties, playerId }) => {
             console.error(err)
         }
     }
-    const deletePropertyFunc = (event)=>{
+    const deletePropertyFunc = async (event)=>{
         console.log(event.target.getAttribute('data-propertyid'))
         let propertyId = event.target.getAttribute('data-propertyid');
         console.log('propertyId', propertyId)
         console.log('playerId', playerId)
+        try{
+            const {data} = await removePropertyFromPlayer({
+                variables:{propertyId, playerId}
+            })
+            console.log(data)
+            window.location.reload();
+        }catch(err){
+            console.error(err)
+        }
     }
 
     useEffect(()=>{
@@ -39,7 +49,7 @@ const PropertiesCard = ({ playerProperties, takenProperties, playerId }) => {
                     <ul>
                         {playerProperties?.map((item) => {
                             return (
-                                <li key={Math.floor(Math.random() * 100) + item.properties[0].name}>{item.properties[0].name} <button data-propertyid={item.properties[0]._id} onClick={(event)=>{event.preventDefault(); deletePropertyFunc(event)}}>Delete</button></li>
+                                <li key={Math.floor(Math.random() * 100) + item.properties[0].name}>{item.properties[0].name} <button data-propertyid={item._id} onClick={(event)=>{event.preventDefault(); deletePropertyFunc(event)}}>Delete</button></li>
                             )
                         })}
                     </ul>
