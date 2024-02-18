@@ -72,6 +72,7 @@ query Me {
           position
           playerPropreties{
             properties{
+              _id
               name
               hex
             }

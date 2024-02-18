@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
-import { ADD_PROPERTY_TO_PLAYTER } from "../../utils/mutations";
+import { ADD_PROPERTY_TO_PLAYTER, REMOVE_PROPERTY_FROM_PLAYER } from "../../utils/mutations";
 const PropertiesCard = ({ playerProperties, takenProperties, playerId }) => {
     // TODO:
     // WORK ON THE REMOVE PROPERTY FROM PLAYER 
@@ -18,10 +18,17 @@ const PropertiesCard = ({ playerProperties, takenProperties, playerId }) => {
             console.error(err)
         }
     }
+    const deletePropertyFunc = (event)=>{
+        console.log(event.target.getAttribute('data-propertyid'))
+        let propertyId = event.target.getAttribute('data-propertyid');
+        console.log('propertyId', propertyId)
+        console.log('playerId', playerId)
+    }
 
     useEffect(()=>{
         if(takenProperties){
             setSelectedPropertyId(takenProperties[0]?._id)
+            console.log(playerProperties[0])
         }
     },[takenProperties])
     return (
@@ -32,7 +39,7 @@ const PropertiesCard = ({ playerProperties, takenProperties, playerId }) => {
                     <ul>
                         {playerProperties?.map((item) => {
                             return (
-                                <li key={Math.floor(Math.random() * 100) + item.properties[0].name}>{item.properties[0].name}</li>
+                                <li key={Math.floor(Math.random() * 100) + item.properties[0].name}>{item.properties[0].name} <button data-propertyid={item.properties[0]._id} onClick={(event)=>{event.preventDefault(); deletePropertyFunc(event)}}>Delete</button></li>
                             )
                         })}
                     </ul>
