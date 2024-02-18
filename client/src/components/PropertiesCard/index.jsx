@@ -3,7 +3,8 @@ import { useMutation } from "@apollo/client";
 import { ADD_PROPERTY_TO_PLAYTER, REMOVE_PROPERTY_FROM_PLAYER } from "../../utils/mutations";
 const PropertiesCard = ({ playerProperties, takenProperties, playerId }) => {
     // TODO:
-    // WORK ON THE REMOVE PROPERTY FROM PLAYER 
+    // WORK adding images
+    // WORK getting the CSS started (tailwind)
     const [addPropertyToPlayer, {error}] = useMutation(ADD_PROPERTY_TO_PLAYTER);
     const [removePropertyFromPlayer, {err}] = useMutation(REMOVE_PROPERTY_FROM_PLAYER)
     const [propertyId,setSelectedPropertyId] =useState('')
@@ -20,10 +21,7 @@ const PropertiesCard = ({ playerProperties, takenProperties, playerId }) => {
         }
     }
     const deletePropertyFunc = async (event)=>{
-        console.log(event.target.getAttribute('data-propertyid'))
         let propertyId = event.target.getAttribute('data-propertyid');
-        console.log('propertyId', propertyId)
-        console.log('playerId', playerId)
         try{
             const {data} = await removePropertyFromPlayer({
                 variables:{propertyId, playerId}
