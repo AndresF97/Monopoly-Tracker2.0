@@ -71,7 +71,9 @@ query Me {
           money
           position
           playerPropreties{
+            _id
             properties{
+              _id
               name
               hex
             }
