@@ -35,12 +35,17 @@
         "tokenName":"Wheelbarrow",
         "tokenPath":""
     },
+    
     {
         "tokenName":"Top Hat",
         "tokenPath":""
     },
     {
         "tokenName":"Shoe",
+        "tokenPath":""
+    },
+    {
+        "tokenName":"Dog",
         "tokenPath":""
     }
 ]
