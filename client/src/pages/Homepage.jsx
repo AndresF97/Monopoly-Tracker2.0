@@ -10,6 +10,9 @@ const HomePage = () => {
     return (
         <>
         <h1>Home Page!</h1>
+        <h1 className="text-3xl font-bold underline">
+      Hello world!
+    </h1>
             {Auth.loggedIn() ? (
                 <>
                     <h1>You're logged in!</h1>
@@ -23,7 +26,8 @@ const HomePage = () => {
                             <button onClick={() => createGameState(false)}>Go Back!</button>
                         </>
                     ) : (
-                        <button onClick={() => createGameState(true)}>Create Game!</button>
+                        
+                        <button  className="rounded-full" onClick={() => createGameState(true)}>Create Game!</button>
                     )
 
                     }
