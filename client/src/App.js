@@ -25,7 +25,7 @@ const client = new ApolloClient({
 })
 function App() {
   return (
-    <ApolloProvider client={client} className="bg-slate-500">
+    <ApolloProvider client={client} >
       <Router>
       <>
       <Navbar/>
