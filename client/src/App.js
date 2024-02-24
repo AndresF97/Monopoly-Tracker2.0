@@ -27,7 +27,7 @@ function App() {
   return (
     <ApolloProvider client={client} >
       <Router>
-      <>
+      <section className='flex flex-col min-h-screen'>
       <Navbar/>
     <Routes>
       <Route path="/" element={<Homepage/>}/>
@@ -35,7 +35,7 @@ function App() {
       {/* must work on rendering all games for a specific user */}
     </Routes>
     <Footer/>
-    </>
+    </section>
     </Router>
     </ApolloProvider>
   );
