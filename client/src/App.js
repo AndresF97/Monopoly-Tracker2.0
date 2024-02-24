@@ -27,7 +27,7 @@ function App() {
   return (
     <ApolloProvider client={client} >
       <Router>
-      <>
+      <div className='h-screen max-h-screen'>
       <Navbar/>
     <Routes>
       <Route path="/" element={<Homepage/>}/>
@@ -35,7 +35,7 @@ function App() {
       {/* must work on rendering all games for a specific user */}
     </Routes>
     <Footer/>
-    </>
+    </div>
     </Router>
     </ApolloProvider>
   );
