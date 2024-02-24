@@ -9,7 +9,7 @@ const HomePage = () => {
     console.log(Auth.loggedIn())
     const [createGame, createGameState] = useState(false)
     return (
-        <section className="text-center m-5 flex justify-center items-center">
+        <section className="text-center m-5 flex justify-center items-center ">
             <br></br>
             {Auth.loggedIn() ? (
                 <>
@@ -24,7 +24,7 @@ const HomePage = () => {
                             <button onClick={() => createGameState(false)}>Go Back!</button>
                         </>
                     ) : (
-                        <section className="border-2 border-rose-500 w-50 h-50">
+                        <section className="border-2 border-gray-950 w-50 h-50 bg-green-300">
                             {/* <button className="px-4 py-2 font-bold bg-[#EC2027] rounded-full text-white" onClick={() => createGameState(true)}>Create Game!</button> */}
                             <br></br>
                             <div>
@@ -32,8 +32,8 @@ const HomePage = () => {
                                     className="relative overflow-hidden bg-cover bg-no-repeat"
                                     data-te-ripple-init
                                     data-te-ripple-color="light">
-                                    <div className="flex justify-center items-center">
-                                        <img className="mr-5 ml-5 w-50 h-30" src={MonopolyMan}></img>
+                                    <div className="flex justify-center items-center ">
+                                        <img className="mr-5 ml-5 w-50 h-30 border " src={MonopolyMan}></img>
                                     </div>
                                 </div>
                                 <div class="p-6">
