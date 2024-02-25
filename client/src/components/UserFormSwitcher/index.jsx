@@ -5,7 +5,7 @@ import { useState } from "react"
 const UserForms = () =>{
     const [formSwitch, formSwitchState] = useState(false)
     return (
-        <>
+        <section>
         {formSwitch ? (
             <>
                 <Signup/>
@@ -17,7 +17,7 @@ const UserForms = () =>{
                 <button onClick={()=> formSwitchState(true)}>Sign up</button>
             </>
         )}
-        </>
+        </section>
     )
 }
 

@@ -19,10 +19,11 @@ const HomePage = () => {
             ) : (
                 <>
                     {createGame ? (
-                        <>
+                        <section className="border-2 border-gray-950 h-60 w-80 bg-green-300 p-3">
                             <UserForms />
+                            <br></br>
                             <button onClick={() => createGameState(false)}>Go Back!</button>
-                        </>
+                        </section>
                     ) : (
                         <section className="border-2 border-gray-950 w-50 h-50 bg-green-300">
                             {/* <button className="px-4 py-2 font-bold bg-[#EC2027] rounded-full text-white" onClick={() => createGameState(true)}>Create Game!</button> */}
