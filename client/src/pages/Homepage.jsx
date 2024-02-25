@@ -19,7 +19,7 @@ const HomePage = () => {
             ) : (
                 <>
                     {createGame ? (
-                        <section className="border-2 border-gray-950 h-80 w-80 bg-green-300 p-3">
+                        <section className="border-2 border-gray-950 p-5 h-90 w-80 bg-green-300 p-3">
                             <UserForms />
                             <br></br>
                             <div className="inline-block w-30 flex justify-center bg-slate-300">
