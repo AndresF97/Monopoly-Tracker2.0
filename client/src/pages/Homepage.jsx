@@ -4,7 +4,7 @@ import { useState } from "react"
 import Auth from "../utils/auth"
 import MonopolyMan from "../assets/images/MTLogo.png"
 
-
+import MTcop from "../assets/images/MTcop.png"
 const HomePage = () => {
     console.log(Auth.loggedIn())
     const [createGame, createGameState] = useState(false)
@@ -19,10 +19,15 @@ const HomePage = () => {
             ) : (
                 <>
                     {createGame ? (
-                        <>
+                        <section className="border-2 border-gray-950 p-5 h-90 w-80 bg-green-300 p-3">
                             <UserForms />
-                            <button onClick={() => createGameState(false)}>Go Back!</button>
-                        </>
+                            <br></br>
+                            <div className="inline-block w-30 flex justify-center bg-slate-300">
+                                <img className="h-8 w-8" src={MTcop}/>
+                                <button onClick={() => createGameState(false)}>Go Back!</button>
+
+                            </div>
+                        </section>
                     ) : (
                         <section className="border-2 border-gray-950 w-50 h-50 bg-green-300">
                             {/* <button className="px-4 py-2 font-bold bg-[#EC2027] rounded-full text-white" onClick={() => createGameState(true)}>Create Game!</button> */}
