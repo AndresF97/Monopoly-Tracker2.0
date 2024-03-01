@@ -1,6 +1,6 @@
 
 import { useMutation } from "@apollo/client"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { LOGIN } from "../../utils/mutations"
 import Auth from '../../utils/auth'
 
@@ -24,21 +24,6 @@ const Login = () => {
             console.error(error)
         }
     }
-    useEffect(()=>{
-        let label = document.getElementById('password-label');
-        document.getElementById('password')
-            .addEventListener('input', event => {
-                let input = event.target;
-
-                if (event.target.value) {
-                    ['border-purple-600', 'border-b-2'].forEach(c => input.classList.add(c));
-                    ['text-xs', '-top-2.5', 'text-purple-600'].forEach(c => label.classList.add(c));
-                } else {
-                    ['border-purple-600', 'border-b-2'].forEach(c => input.classList.remove(c));
-                    ['text-xs', '-top-2.5', 'text-purple-600'].forEach(c => label.classList.remove(c));
-                }
-            })
-    },[false])
     return (
         <>
             <h2 className="text-xl mb-1">Login</h2>
@@ -83,21 +68,17 @@ const Login = () => {
                     </label>
 
                 </div>
+                
 
+                {/* <label>password</label>
+                <input
+                    type="password"
+                    name="password"
+                    value={userForm.password}
+                    onChange={handleInputChange}
+                    placeholder="password"
+                ></input> */}
 
-                <div className="relative">
-                    <input
-                        type="password"
-                        name="password"
-                        id="password"
-                        value={userForm.password}
-                        onChange={handleInputChange}
-                        // placeholder="password"
-                        className="peer border-b py-1 focus:outline-none w-full focus:border-purple-600 focus:border-b-2 transition-colors"
-
-                    ></input>
-                    <label htmlFor="password" id="password-label"className="absolute left-0 top-1 cursour-text peer-focus:text-xs peer-focus:-top-2.5 transition-all ">Password</label>
-                </div>
                 <div>
                     <button className="px-4 py-2 font-bold bg-[#EC2027] rounded text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-red-800 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] my-3" type="submit">Submit</button>
                 </div>
