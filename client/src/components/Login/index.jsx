@@ -90,7 +90,7 @@ const Login = () => {
                     ></input>
                     <label
                         htmlFor="password"
-                        className="absolute left-5 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-0 peer-focus:-top-3 peer-focus:text-gray-600 peer-focus:text-sm"
+                        className="absolute left-3 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-0 peer-focus:-top-4 peer-focus:text-gray-600 peer-focus:text-sm"
                     >Password</label>
                 </div>
 
