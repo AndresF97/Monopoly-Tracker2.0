@@ -68,8 +68,8 @@ const Login = () => {
                     </label>
 
                 </div>
-                
 
+                {/* CLEAN PASSWORD FORM*/}
                 {/* <label>password</label>
                 <input
                     type="password"
@@ -78,6 +78,21 @@ const Login = () => {
                     onChange={handleInputChange}
                     placeholder="password"
                 ></input> */}
+                <div className="relative">
+                    <input
+                        className="peer border-b-2 border-gray-300 text-gray-900 focus:outline-none placeholder-transparent focus:border-rose-600"
+                        type="password"
+                        name="password"
+                        id="password"
+                        value={userForm.password}
+                        onChange={handleInputChange}
+                        placeholder="Password"
+                    ></input>
+                    <label
+                        htmlFor="password"
+                        className="absolute left-5 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-0 peer-focus:-top-3 peer-focus:text-gray-600 peer-focus:text-sm"
+                    >Password</label>
+                </div>
 
                 <div>
                     <button className="px-4 py-2 font-bold bg-[#EC2027] rounded text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-red-800 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] my-3" type="submit">Submit</button>
