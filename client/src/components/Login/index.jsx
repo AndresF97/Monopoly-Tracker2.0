@@ -80,7 +80,7 @@ const Login = () => {
                 ></input> */}
                 <div className="relative">
                     <input
-                        className="peer border-b-2 border-gray-300 text-gray-900 focus:outline-none placeholder-transparent focus:border-rose-600"
+                        className="peer min-h-[auto] w-full bg-slate-50 rounded px-3 py-0.5 border-b-2 leading-[1.6] border-gray-300 text-gray-900 focus:outline-none placeholder-transparent focus:border-rose-600"
                         type="password"
                         name="password"
                         id="password"
