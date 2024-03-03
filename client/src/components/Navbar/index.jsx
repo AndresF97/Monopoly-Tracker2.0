@@ -4,29 +4,28 @@ import NavLogo from "../../assets/images/MTNavLogo.png"
 const Navbar = () => {
     return (
         <header>
+            {/* TODO */}
             {/* Might need to comeback here and do this */}
             <nav>
             <ul class="flex justify-between  bg-neutral-200 text-center text-white dark:bg-neutral-600">
-                <li className="inline-block mt-3 ml-3 text-white">
+                <li className="inline-block mt-3 ml-3 text-white mr-[10%]">
                     <Link to="/">Home</Link>
                 </li>
-                <li className="mr-5">
+                <li>
                     <Link to="/" ><img className="h-20 w-30"src={NavLogo}/></Link>
                 </li>
-                <li>
-                    
-                    
-                </li>
+                <li className="inline-block mt-3 text-white ml-[10%]">
                 {Auth.loggedIn() ? (
-                        <>
-                            <li className="inline-block py-2 px-4 text-gray-400 cursor-not-allowed"><Link to="/History">History</Link></li>
+                        <span>
+                            <Link className="py-2 px-4 text-gray-400"Link to="/History">History</Link>
                             {/* Log out functionality */}
-                            <li onClick={Auth.logOut} className="inline-block py-2 px-4 text-gray-400 cursor-not-allowed"><a>Log out</a></li>
-                        </>
+                            <Link onClick={Auth.logOut} className="py-2 px-4 text-gray-400">Log out</Link>
+                        </span>
                     ) : (
                         <>
                         </>
                     )}
+                </li>
             </ul>
 
             </nav>
