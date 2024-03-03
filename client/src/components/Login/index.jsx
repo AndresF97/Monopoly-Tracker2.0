@@ -28,6 +28,7 @@ const Login = () => {
         <>
             <h2 className="text-xl mb-1">Login</h2>
             <form onSubmit={handleFormSubmit}>
+                {/* CLEAN EMAIL FORM */}
                 {/* <label>username</label>
                 <input
                     type="text"
@@ -36,38 +37,22 @@ const Login = () => {
                     onChange={handleInputChange}
                     value={userForm.email}
                 ></input> */}
-                <div class="relative mb-3" data-te-input-wrapper-init>
-                    <input
-                        type="email"
-                        name="email"
-                        class="peer block min-h-[auto] w-full rounded border-0 bg-slate-50 px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-500 dark:placeholder:text-neutral-500 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
-                        id="exampleFormControlInputEmail"
-                        onChange={handleInputChange}
-                        value={userForm.email}
-                        placeholder="Email" />
-                    <label
-                        for="Email"
-                        class="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-500 dark:peer-focus:text-primary"
-                    >Email
-                    </label>
-                </div>
-                {/* <br></br> */}
-                <div class="relative mb-3" data-te-input-wrapper-init>
-                    <input
-                        type="password"
-                        name="password"
-                        value={userForm.password}
-                        onChange={handleInputChange}
-                        class="peer block min-h-[auto] w-full rounded border-0 bg-slate-50 px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-500 dark:placeholder:text-neutral-500 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
-                        id="exampleFormControlInputPassword"
-                    />
-                    <label
-                        for="exampleFormControlInputPassword"
-                        class="pointer-events-none peer-placeholder-shown:leading-[3.75] absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-500 dark:peer-focus:text-primary"
-                    >Password
-                    </label>
-
-                </div>
+                <div className="relative mb-3">
+                <input
+                    className="peer min-h-[auto] w-full bg-slate-50 rounded px-3 py-0.5 border-b-2 leading-[1.6] border-gray-300 text-gray-900 focus:outline-none placeholder-transparent focus:border-rose-600"
+                    type="text"
+                    name="email"
+                    placeholder="Email"
+                    onChange={handleInputChange}
+                    value={userForm.email}
+                    id="email"
+                ></input>
+                <label
+                htmlFor="email"
+                className="absolute left-3 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-0 peer-focus:-top-4 peer-focus:text-gray-600 peer-focus:text-sm"
+                >Email</label>
+                    
+                </div>         
 
                 {/* CLEAN PASSWORD FORM*/}
                 {/* <label>password</label>
