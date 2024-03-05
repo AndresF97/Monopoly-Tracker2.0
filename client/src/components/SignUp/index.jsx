@@ -24,7 +24,7 @@ const Signup = () => {
     }
     return (
         <>
-            <h2 className="text-xl mb-1">Sign Up</h2>
+            <h2 className="text-xl mb-3 underline underline-offset-4">Sign Up</h2>
             <form onSubmit={handleFormSubmit}>
                 {/* CLEAN EMAIL FORM */}
                 {/* <label>email</label>
