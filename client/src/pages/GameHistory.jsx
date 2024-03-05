@@ -5,6 +5,8 @@ import { useQuery, useMutation } from "@apollo/client"
 import PlayerForm from "../components/PlayerForm"
 import TokenList from "../assets/tokenList.json"
 import PlayerCard from "../components/PlayerCard"
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const GameHistory = () => {
     // TODO:
@@ -115,7 +117,7 @@ const GameHistory = () => {
             {(currentGameName === '') ? (
                 <section className="text-center m-5 flex justify-center">
                     <div className="border-2 border-gray-950 p-5 h-90 w-80 bg-green-300 p-3 my-[12%]">
-                        <h1 className="text-xl">Game History</h1>
+                        <h1 className="text-xl mb-3 underline underline-offset-4">Game History</h1>
                         <>
                             {loading ? (
                                 <h1>loading</h1>
@@ -125,14 +127,16 @@ const GameHistory = () => {
                                         {gameList?.map((game) => {
                                             // add link to create a new page for adding/updating player
                                             return (
-                                                <li  className="flex -mx-2" key={game._id} onClick={(event) => { stateCurrentGameInfo(event) }}>
+                                                <li  className="flex -mx-2 px-5" key={game._id} onClick={(event) => { stateCurrentGameInfo(event) }}>
                                                     <h2 className="w-1/2" data-id={game._id}>
-                                                        <button>
+                                                        <button className="text-white rounded bg-blue-600 border-2 border-white w-full px-0.5 py-0.5 hover:border border-black">
                                                             {game.name}
                                                         </button>
                                                     </h2>
                                                     {/* have to add functionality to delete a a game */}
-                                                    <button className="w-1/2"data-id={game._id} onClick={(event) => { deleteGameFunc(event) }}>Delete</button>
+                                                    <button className="w-1/2"data-id={game._id} onClick={(event) => { deleteGameFunc(event) }}>
+                                                        <FontAwesomeIcon className="text-rose-600 hover:text-rose-800" icon={faTrash} />
+                                                    </button>
                                                 </li>
                                             )
 
