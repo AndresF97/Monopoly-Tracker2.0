@@ -9,13 +9,13 @@ const HomePage = () => {
     console.log(Auth.loggedIn())
     const [createGame, createGameState] = useState(false)
     return (
-        <section className="text-center m-5 flex justify-center items-center ">
+        <main className="text-center m-5 flex justify-center items-center ">
             <br></br>
             {Auth.loggedIn() ? (
-                <>
+                <section className="border-2 border-gray-950 p-5 h-90 w-80 bg-green-300 p-3 my-[8%]">
                     <h1>You're logged in!</h1>
                     <GameForm />
-                </>
+                </section>
             ) : (
                 <>
                     {createGame ? (
@@ -58,7 +58,7 @@ const HomePage = () => {
             )
             }
 
-        </ section >
+        </ main >
     )
 }
 
