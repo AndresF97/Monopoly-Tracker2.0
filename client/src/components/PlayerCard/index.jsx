@@ -42,12 +42,14 @@ const PlayerCard = ({ player, currentGameId, takenProperties }) => {
     }
     return (
         <>
-            <form>
-                <p>Name: {currentPlayer.name}</p>
-                <p>Token: {currentPlayer.token}</p>
+            <form className='text-center'>
+                <div className='flex justify-center'>
+                    <img className='w-20 h-20' src={require(`../../assets/images/${currentPlayer.token}.png`)} alt="" />
+                </div>
+                <p className='text-center text-sm'>{currentPlayer.name}</p>
 
                 {showPlayerUpdateForm ? (
-                    <>
+                    <section className='p-5'>
                         <label>Money</label>
                         <br></br>
                         <input
@@ -68,13 +70,13 @@ const PlayerCard = ({ player, currentGameId, takenProperties }) => {
                             onChange={handleInputChange}
                         ></input>
                         <br></br>
-                    </>
+                    </section>
 
                 ) : (
-                    <>
+                    <section className='px-5 mt-1'>
                         <p>Money:{currentPlayer.money}</p>
                         <p>Position:{currentPlayer.position}</p>
-                    </>
+                    </section>
                 )}
 
                 <PropertiesCard playerProperties={player.playerPropreties} takenProperties={takenProperties} playerId={currentPlayer._id}/>
