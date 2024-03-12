@@ -29,14 +29,19 @@ const GameHistory = () => {
     let [avialableTokens, setAvialableTokens] = useState([])
 
     const onAddBtnClick = event => {
-        playersLength = playersLength + 1
-        setPlayersLenth(playersLength)
-        console.log(createPlayeForm)
+        // playersLength = playersLength + 1
+        // setPlayersLenth(playersLength)
+        // console.log(createPlayeForm)
         if (createPlayeForm.length > 5 || playersLength > 5) {
             alert("Thats to many player forms")
             return
+        }else{
+            playersLength = playersLength + 1
+            setPlayersLenth(playersLength)
+            console.log(createPlayeForm)
+            setCreatePlayerForm(createPlayeForm.concat(<PlayerForm tokenList={avialableTokens} key={Math.floor(Math.random() * 100)} currentGameId={currentGameId}></PlayerForm>));
         }
-        setCreatePlayerForm(createPlayeForm.concat(<PlayerForm tokenList={avialableTokens} key={Math.floor(Math.random() * 100)} currentGameId={currentGameId}></PlayerForm>));
+        // setCreatePlayerForm(createPlayeForm.concat(<PlayerForm tokenList={avialableTokens} key={Math.floor(Math.random() * 100)} currentGameId={currentGameId}></PlayerForm>));
     };
 
     const stateCurrentGameInfo = (event) => {
@@ -68,9 +73,10 @@ const GameHistory = () => {
     }
     const removePlayerForm = () => {
         // if(createPlayeForm.length){
-        playersLength = playersLength - 1
-        setPlayersLenth(playersLength)
-        setCreatePlayerForm(createPlayeForm.splice(-1))
+        // playersLength = playersLength - 1
+        setPlayersLenth(playersLength - 1)
+        console.log(playersLength)
+        setCreatePlayerForm(createPlayeForm.slice(0, -1))
         // }
         if (createPlayeForm < 1) {
 
@@ -127,14 +133,14 @@ const GameHistory = () => {
                                         {gameList?.map((game) => {
                                             // add link to create a new page for adding/updating player
                                             return (
-                                                <li  className="flex -mx-2 px-5" key={game._id} onClick={(event) => { stateCurrentGameInfo(event) }}>
+                                                <li className="flex -mx-2 px-5" key={game._id} onClick={(event) => { stateCurrentGameInfo(event) }}>
                                                     <h2 className="w-1/2" data-id={game._id}>
                                                         <button className="text-white rounded bg-blue-600 border-2 border-white w-full px-0.5 py-0.5 hover:border border-black">
                                                             {game.name}
                                                         </button>
                                                     </h2>
                                                     {/* have to add functionality to delete a a game */}
-                                                    <button className="w-1/2"data-id={game._id} onClick={(event) => { deleteGameFunc(event) }}>
+                                                    <button className="w-1/2" data-id={game._id} onClick={(event) => { deleteGameFunc(event) }}>
                                                         <FontAwesomeIcon className="text-rose-600 hover:text-rose-800" icon={faTrash} />
                                                     </button>
                                                 </li>
@@ -149,15 +155,18 @@ const GameHistory = () => {
                     </div>
                 </section>
             ) : (
-                <section>
-                    <h4>Game your updating: {currentGameName}</h4>
+                <section >
+                    <h4 className="text-center text-lg">
+                        Game your updating
+                        <br />
+                        {currentGameName}</h4>
                     <div>
-                        <h5>List of saved Players:</h5>
-                        <ul>
+                        <h5 className="text-center text-sm">List of saved Players</h5>
+                        <ul className="grid grid-flow-col auto-cols-max">
 
                             {selectedGame[0].savedPlayers?.map((player) => {
                                 return (
-                                    <li key={player._id}>
+                                    <li className="m-5" key={player._id}>
                                         <PlayerCard player={player} currentGameId={currentGameId} takenProperties={takenProperties} />
                                     </li>
                                 )
@@ -165,20 +174,22 @@ const GameHistory = () => {
                         </ul>
                     </div>
 
-                    <div>
+                    <div className="grid grid-flow-col auto-cols-max mx-5 mb-5">
                         {createPlayeForm}
+                        <div className="m-5 flex justify-center flex-col">
+                            <button onClick={onAddBtnClick}>
+                                Add Player
+                            </button>
+                            {(createPlayeForm.length > 0) ? (
+                                <button onClick={removePlayerForm}>Remove Form</button>
+                            ) : (
+                                <></>
+                            )}
+                            <button onClick={() => { window.location.reload() }}>
+                                Go Back
+                            </button>
+                        </div>
                     </div>
-                    <button onClick={onAddBtnClick}>
-                        Add Player
-                    </button>
-                    {(createPlayeForm.length > 0) ? (
-                        <button onClick={removePlayerForm}>Remove Form</button>
-                    ) : (
-                        <></>
-                    )}
-                    <button onClick={() => { window.location.reload() }}>
-                        Go Back
-                    </button>
                 </section>
             )}
 
