@@ -53,9 +53,10 @@ const PropertiesCard = ({ playerProperties, takenProperties, playerId }) => {
                             )
                         })}
                     </ul>
-                    <label>New Property for user </label>
+                    <label>Add Property </label>
                     <br></br>
                     <select onChange={ (event)=>{setSelectedPropertyId(event.target.value)}}>
+                    <option disabled selected value> Select Property </option>
                         {takenProperties?.map((propertie) => {
                             return (
                                 <option
@@ -68,7 +69,7 @@ const PropertiesCard = ({ playerProperties, takenProperties, playerId }) => {
                         })}
                     </select>
                     <br></br>
-                    <button className="btn border-2 border-black bg-lime-200 m-2 hover:bg-lime-300"onClick={(event)=>{addPropertyToPlayerFunc(event)}}>Add propertie</button>
+                    <button className="btn border-2 border-black bg-lime-200 m-2 hover:bg-lime-300"onClick={(event)=>{addPropertyToPlayerFunc(event)}}>Add property</button>
                     <button className="btn bg-sky-400 text-white border-2 border-black hover:bg-sky-500 mb-2" onClick={(event) => { event.preventDefault(); setShowProperties(false) }}>Hide propreties</button>
                 </div>
             ) : (
