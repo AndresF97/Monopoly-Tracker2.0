@@ -53,7 +53,7 @@ const PlayerCard = ({ player, currentGameId, takenProperties }) => {
                 <p className='text-center text-sm underline underline-offset-4'>{currentPlayer.name}</p>
 
                 {showPlayerUpdateForm ? (
-                    <section className='p-5 bg-white'>
+                    <section className=''>
                         <label>Money</label>
                         <br></br>
                         <input
@@ -87,8 +87,8 @@ const PlayerCard = ({ player, currentGameId, takenProperties }) => {
                 <br></br>
                 {showPlayerUpdateForm ? (
                     <>
-                        <button onClick={(event) => { updatePlayerFunc(event) }}>Update</button>
-                        <button onClick={(event)=>{ event.preventDefault(); setShowPlayerUpdateForm(false)}}>Player Info</button>
+                        <button className="btn bg-purple-600 text-white border-2 border-black hover:bg-purple-700 mr-2" onClick={(event) => { updatePlayerFunc(event) }}>Update</button>
+                        <button className="btn bg-yellow-300 text-white border-2 border-black hover:bg-yellow-400" onClick={(event)=>{ event.preventDefault(); setShowPlayerUpdateForm(false)}}>Player Info</button>
                     </>
                 ) : (
                     <>
