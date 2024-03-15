@@ -25,8 +25,8 @@ const PlayerForm =  ({currentGameId, tokenList})=>{
         setPlayerForm({...playerForm, [name]:value})
     }
     return (
-        <section className="mx-2 ">
-            <h3>Player Form</h3 >
+        <section className="mx-2 border-2 border-black p-5 h-90 w-80 bg-green-300 p-3 my-[8%] text-center">
+            <h3 className="underline underline-offset-4"> Add a Player</h3 >
             <form onSubmit={(event)=>{playerSubmitForm(event)}}>
                 <label>Name of Player:</label>
                 <br></br>
@@ -77,7 +77,7 @@ const PlayerForm =  ({currentGameId, tokenList})=>{
                 onChange={handleInputChange}
                 ></input>
                 <br></br>
-                <button type="submit" >Submit</button>
+                <button className="btn bg-sky-400 text-white border-2 border-black hover:bg-sky-500 m-2" type="submit" >Submit</button>
             </form>
         </section>
         

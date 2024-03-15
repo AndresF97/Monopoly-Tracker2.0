@@ -5,6 +5,7 @@ import { useQuery, useMutation } from "@apollo/client"
 import PlayerForm from "../components/PlayerForm"
 import TokenList from "../assets/tokenList.json"
 import PlayerCard from "../components/PlayerCard"
+
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -176,16 +177,16 @@ const GameHistory = () => {
 
                     <div className="grid grid-flow-col auto-cols-max mx-5 mb-5">
                         {createPlayeForm}
-                        <div className="m-5 flex justify-center flex-col">
-                            <button onClick={onAddBtnClick}>
+                        <div className="m-5 flex justify-center flex-col border-2 border-black p-5  w-80 bg-green-300 ">
+                            <button  className="btn border-2 border-black bg-yellow-300 text-white hover:bg-yellow-400" onClick={onAddBtnClick}>
                                 Add Player
                             </button>
                             {(createPlayeForm.length > 0) ? (
-                                <button onClick={removePlayerForm}>Remove Form</button>
+                                <button className="btn border-2 border-black bg-rose-700 hover:bg-rose-800 mt-2 text-white"onClick={removePlayerForm}>Remove Form</button>
                             ) : (
                                 <></>
                             )}
-                            <button onClick={() => { window.location.reload() }}>
+                            <button className="border-2 border-black btn bg-slate-300 text-white hover:bg-slate-400 mt-2"onClick={() => { window.location.reload() }}>
                                 Go Back
                             </button>
                         </div>

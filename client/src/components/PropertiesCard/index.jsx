@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_PROPERTY_TO_PLAYTER, REMOVE_PROPERTY_FROM_PLAYER } from "../../utils/mutations";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const PropertiesCard = ({ playerProperties, takenProperties, playerId }) => {
     // TODO:
     // WORK adding images
@@ -40,20 +42,21 @@ const PropertiesCard = ({ playerProperties, takenProperties, playerId }) => {
         }
     },[takenProperties])
     return (
-        <section>
+        <section >
             {showProperties ? (
-                <>
-                    <label>Player property</label>
+                <div className="bg-slate-100 rounded-md m-2">
+                    <label>Properties:</label>
                     <ul>
                         {playerProperties?.map((item) => {
                             return (
-                                <li key={Math.floor(Math.random() * 100) + item.properties[0].name}>{item.properties[0].name} <button data-propertyid={item._id} onClick={(event)=>{event.preventDefault(); deletePropertyFunc(event)}}>Delete</button></li>
+                                <li key={Math.floor(Math.random() * 100) + item.properties[0].name}>{item.properties[0].name} <button data-propertyid={item._id} onClick={(event)=>{event.preventDefault(); deletePropertyFunc(event)}}><FontAwesomeIcon className="text-rose-600 hover:text-rose-800" icon={faTrash} /></button></li>
                             )
                         })}
                     </ul>
-                    <label>New Property for user </label>
+                    <label>Add Property </label>
                     <br></br>
                     <select onChange={ (event)=>{setSelectedPropertyId(event.target.value)}}>
+                    <option disabled selected value> Select Property </option>
                         {takenProperties?.map((propertie) => {
                             return (
                                 <option
@@ -66,13 +69,13 @@ const PropertiesCard = ({ playerProperties, takenProperties, playerId }) => {
                         })}
                     </select>
                     <br></br>
-                    <button onClick={(event) => { event.preventDefault(); setShowProperties(false) }}>Hide propreties</button>
-                    <button onClick={(event)=>{addPropertyToPlayerFunc(event)}}>Add propertie</button>
-                </>
+                    <button className="btn border-2 border-black bg-lime-200 m-2 hover:bg-lime-300"onClick={(event)=>{addPropertyToPlayerFunc(event)}}>Add property</button>
+                    <button className="btn bg-sky-400 text-white border-2 border-black hover:bg-sky-500 mb-2" onClick={(event) => { event.preventDefault(); setShowProperties(false) }}>Hide propreties</button>
+                </div>
             ) : (
                 <>
                     <br></br>
-                    <button onClick={(event) => { event.preventDefault(); setShowProperties(true) }}>Show propreties</button>
+                    <button className="btn bg-sky-400 text-white border-2 border-black hover:bg-sky-500" onClick={(event) => { event.preventDefault(); setShowProperties(true) }}>Show propreties</button>
                 </>
             )}
         </section>

@@ -4,6 +4,10 @@ import { useMutation } from '@apollo/client'
 import { REMOVE_ONE_PLAYER_FROM_GAME, UPDATE_PLAYER_INFO } from "../../utils/mutations"
 
 const PlayerCard = ({ player, currentGameId, takenProperties }) => {
+    // TODO:
+    // - FINISH STYLING FOR EACH CARD
+    // - CHANGE THE FORMATING FOR THE BUTTON IN THE CARDS
+    // - CHECK ON THE SHOW PROPERTIES FUNCTIONALITY
     // create current Player State to use in the update
     const [currentPlayer, setCurrentPlayer] = useState({_id: player._id,name: player.name,token:player.token,money:player.money,position:player.position})
     const [removeOnePlayerFromGame, { error }] = useMutation(REMOVE_ONE_PLAYER_FROM_GAME)
@@ -41,15 +45,15 @@ const PlayerCard = ({ player, currentGameId, takenProperties }) => {
         setCurrentPlayer({...currentPlayer, [name]:value})
     }
     return (
-        <>
-            <form className='text-center'>
-                <div className='flex justify-center'>
-                    <img className='w-20 h-20' src={require(`../../assets/images/${currentPlayer.token}.png`)} alt="" />
+        <section className="border-2 border-black p-5 h-90 w-80 bg-green-300 p-3 my-[8%]">
+            <form className='text-center bg-rose-90'>
+                <div className='flex justify-center '>
+                    <img className='w-20 h-20 bg-white rounded-full' src={require(`../../assets/images/${currentPlayer.token}.png`)} alt="" />
                 </div>
-                <p className='text-center text-sm'>{currentPlayer.name}</p>
+                <p className='text-center text-sm underline underline-offset-4'>{currentPlayer.name}</p>
 
                 {showPlayerUpdateForm ? (
-                    <section className='p-5'>
+                    <section className=''>
                         <label>Money</label>
                         <br></br>
                         <input
@@ -73,7 +77,7 @@ const PlayerCard = ({ player, currentGameId, takenProperties }) => {
                     </section>
 
                 ) : (
-                    <section className='px-5 mt-1'>
+                    <section className='px-5 my-1 bg-slate-100 mx-1 rounded-md'>
                         <p>Money:{currentPlayer.money}</p>
                         <p>Position:{currentPlayer.position}</p>
                     </section>
@@ -83,19 +87,19 @@ const PlayerCard = ({ player, currentGameId, takenProperties }) => {
                 <br></br>
                 {showPlayerUpdateForm ? (
                     <>
-                        <button onClick={(event) => { updatePlayerFunc(event) }}>Update</button>
-                        <button onClick={(event)=>{ event.preventDefault(); setShowPlayerUpdateForm(false)}}>Player info</button>
+                        <button className="btn bg-purple-600 text-white border-2 border-black hover:bg-purple-700 mr-2" onClick={(event) => { updatePlayerFunc(event) }}>Update</button>
+                        <button className="btn bg-yellow-300 text-white border-2 border-black hover:bg-yellow-400" onClick={(event)=>{ event.preventDefault(); setShowPlayerUpdateForm(false)}}>Player Info</button>
                     </>
                 ) : (
                     <>
 
-                        <button onClick={(event)=>{ event.preventDefault(); setShowPlayerUpdateForm(true)}}>Update Player Info</button>
-                        <button onClick={(event) => deletePlayer(event)}>Delete</button>
+                        <button className="btn bg-purple-600 text-white border-2 border-black hover:bg-purple-700 mr-2" onClick={(event)=>{ event.preventDefault(); setShowPlayerUpdateForm(true)}}>Update</button>
+                        <button className="btn bg-rose-600 text-white border-2 border-black hover:bg-rose-700" onClick={(event) => deletePlayer(event)}>Delete</button>
                     </>
                 )}
 
             </form>
-        </>
+        </section>
     )
 }
 
