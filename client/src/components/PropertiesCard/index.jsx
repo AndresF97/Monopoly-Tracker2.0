@@ -4,9 +4,6 @@ import { ADD_PROPERTY_TO_PLAYTER, REMOVE_PROPERTY_FROM_PLAYER } from "../../util
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const PropertiesCard = ({ playerProperties, takenProperties, playerId }) => {
-    // TODO:
-    // WORK adding images
-    // WORK getting the CSS started (tailwind)
     const [addPropertyToPlayer, {error}] = useMutation(ADD_PROPERTY_TO_PLAYTER);
     const [removePropertyFromPlayer, {err}] = useMutation(REMOVE_PROPERTY_FROM_PLAYER)
     const [propertyId,setSelectedPropertyId] =useState('')
