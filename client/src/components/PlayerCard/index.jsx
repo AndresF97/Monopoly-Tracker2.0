@@ -42,7 +42,7 @@ const PlayerCard = ({ player, currentGameId, takenProperties }) => {
         setCurrentPlayer({...currentPlayer, [name]:value})
     }
     return (
-        <section className="border-2 border-black p-5 h-90 w-80 bg-green-300 p-3 my-[8%]">
+        <section className="border-2 border-black p-5 h-90 w-80 bg-green-300 p-3 my-[8%] ">
             <form className='text-center bg-rose-90'>
                 <div className='flex justify-center '>
                     <img className='w-20 h-20 bg-white rounded-full' src={require(`../../assets/images/${currentPlayer.token}.png`)} alt="" />

@@ -163,11 +163,11 @@ const GameHistory = () => {
                         <h5 className="text-center text-sm">List of saved Players</h5>
                         <ul 
                         // className="grid grid-flow-col auto-cols-max"
-                        className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+                        className="grid grid-cols-1 gap-4 md:grid-cols-1 lg:grid-cols-4">
 
                             {selectedGame[0].savedPlayers?.map((player) => {
                                 return (
-                                    <li className="m-5" key={player._id}>
+                                    <li className="mx-[8%] md:m-5 lg:m-5 flex justify-center align-center" key={player._id}>
                                         <PlayerCard player={player} currentGameId={currentGameId} takenProperties={takenProperties} />
                                     </li>
                                 )
@@ -177,10 +177,10 @@ const GameHistory = () => {
 
                     <div 
                     // className="grid grid-flow-col auto-cols-max mx-5 mb-5"
-                    className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4"
+                    className="grid grid-cols-1 gap-4 place-items-center md:grid-cols-2 lg:grid-cols-4"
                     >
                         {createPlayeForm}
-                        <div className="m-5 flex justify-center flex-col border-2 border-black p-5  w-80 bg-green-300 ">
+                        <div className="md:m-5 lg:m-5 flex justify-center flex-col border-2 border-black p-5  w-80 bg-green-300 ">
                             <button  className="btn border-2 border-black bg-yellow-300 text-white hover:bg-yellow-400" onClick={onAddBtnClick}>
                                 Add Player
                             </button>
