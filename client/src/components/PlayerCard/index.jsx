@@ -5,10 +5,7 @@ import { REMOVE_ONE_PLAYER_FROM_GAME, UPDATE_PLAYER_INFO } from "../../utils/mut
 
 const PlayerCard = ({ player, currentGameId, takenProperties }) => {
     // TODO:
-    // - FINISH STYLING FOR EACH CARD
-    // - CHANGE THE FORMATING FOR THE BUTTON IN THE CARDS
-    // - CHECK ON THE SHOW PROPERTIES FUNCTIONALITY
-    // create current Player State to use in the update
+    // - UPDATE GRID IS NOT RESPONSIVE
     const [currentPlayer, setCurrentPlayer] = useState({_id: player._id,name: player.name,token:player.token,money:player.money,position:player.position})
     const [removeOnePlayerFromGame, { error }] = useMutation(REMOVE_ONE_PLAYER_FROM_GAME)
     const [updatePlayerInfo, {err}] = useMutation(UPDATE_PLAYER_INFO)
@@ -45,7 +42,7 @@ const PlayerCard = ({ player, currentGameId, takenProperties }) => {
         setCurrentPlayer({...currentPlayer, [name]:value})
     }
     return (
-        <section className="border-2 border-black p-5 h-90 w-80 bg-green-300 p-3 my-[8%]">
+        <section className="border-2 border-black p-5 h-90 w-80 bg-green-300 p-3 my-[8%] ">
             <form className='text-center bg-rose-90'>
                 <div className='flex justify-center '>
                     <img className='w-20 h-20 bg-white rounded-full' src={require(`../../assets/images/${currentPlayer.token}.png`)} alt="" />
