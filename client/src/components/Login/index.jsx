@@ -1,10 +1,10 @@
 
 import { useMutation } from "@apollo/client"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { LOGIN } from "../../utils/mutations"
 import Auth from '../../utils/auth'
 
-const Login = () => {
+const Login = ({ setErrorMessage, setShowErr}) => {
     const [userForm, userFormState] = useState({ email: '', password: '' })
     const [login, { error }] = useMutation(LOGIN)
     const handleInputChange = (event) => {
@@ -13,7 +13,6 @@ const Login = () => {
     }
     const handleFormSubmit = async (event) => {
         event.preventDefault()
-        console.log(userForm)
         try {
             const { data } = await login({
                 variables: { ...userForm }
@@ -21,7 +20,8 @@ const Login = () => {
             console.log(data)
             Auth.logIn(data.login.token)
         } catch (error) {
-            console.error(error)
+            setErrorMessage("User not found")
+            setShowErr(true)
         }
     }
     return (
