@@ -36,8 +36,11 @@ const HomePage = () => {
                 <br></br>
                 {Auth.loggedIn() ? (
                     <section className="border-2 border-gray-950 p-5 h-90 w-80 bg-green-300 p-3 my-[8%]">
-                        <h1>You're logged in!</h1>
-                        <GameForm />
+                        <h1 className="text-xl">Create a Game</h1>
+                        <GameForm
+                        setErrorMessage={setErrorMessage} 
+                        setShowErr={setShowErr}   
+                        />
                     </section>
                 ) : (
                     <>
