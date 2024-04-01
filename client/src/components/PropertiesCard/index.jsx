@@ -50,7 +50,6 @@ const PropertiesCard = ({ playerProperties, takenProperties, playerId }) => {
                             )
                         })}
                     </ul>
-                    <label>Add Property </label>
                     <br></br>
                     <select onChange={ (event)=>{setSelectedPropertyId(event.target.value)}}>
                     <option disabled selected value> Select Property </option>

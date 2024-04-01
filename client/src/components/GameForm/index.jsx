@@ -2,7 +2,7 @@ import {useState} from "react"
 import { CREATE_GAME } from "../../utils/mutations"
 import { useMutation } from "@apollo/client"
 
-const GameForm = () =>{
+const GameForm = ({ setErrorMessage, setShowErr}) =>{
     // TODO:
     // CREATE ALERT TO SHOW LOG IN
     const [name, nameState] = useState('')
@@ -15,6 +15,7 @@ const GameForm = () =>{
         event.preventDefault();
         try{
             console.log(name)
+            if (name.length < 5 || name.length >12) throw new TypeError("your name is to long")
             const {data} = await createGame({
                 variables:{
                     name: name
@@ -27,11 +28,12 @@ const GameForm = () =>{
         }catch(err){
             // Must create alert for issues
             console.error(err)
+            setErrorMessage("Could not create Game")
+            setShowErr(true)
         }
     }
     return (
         <>
-        <h3 className="text-xl mb-1">Game Form</h3>
         <form onSubmit={gameFormSubmit}>
             <label className="text-l">Name of Game</label>
             <input 
@@ -39,6 +41,8 @@ const GameForm = () =>{
             name="name"
             value={name}
             onChange={handleInputChange}
+            minlength={"5"}
+            maxLength={"12"}
             className="min-h-[auto] w-full g-slate-50 rounded px-3 py-0.5 border-b-2 focus:outline-none focus:border-rose-600"
             ></input>
             <button 
