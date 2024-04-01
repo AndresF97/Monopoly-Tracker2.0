@@ -2,7 +2,7 @@ import { useMutation } from "@apollo/client";
 import { useState } from "react";
 import { ADD_USER } from "../../utils/mutations"
 import Auth from "../../utils/auth"
-const Signup = () => {
+const Signup = ({ setErrorMessage, setShowErr}) => {
     const [userForm, userFormState] = useState({ username: '', email: '', password: '' })
     const [AddUser, { error }] = useMutation(ADD_USER);
     const handleInputChange = (event) => {
@@ -19,6 +19,8 @@ const Signup = () => {
             Auth.logIn(data.addUser.token)
         } catch (error) {
             console.error(error)
+            setErrorMessage("Something went wrong please check your password/email")
+            setShowErr(true)
         }
 
     }
